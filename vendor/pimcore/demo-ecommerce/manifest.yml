@@ -1,0 +1,19 @@
+name: Ecommerce Demo
+files:
+    add:
+        - app/AppKernel.php
+        - app/config/local/*
+        - app/config/parameters.yml
+        - app/config/pimcore/*
+        - app/config/pimcore/outputdataconfig/*
+        - app/config/pimcore/advancedobjectsearch/*
+        - app/Resources/views
+        - src/AppBundle
+        - var/classes
+        - var/config/*
+        - web/static
+        - web/var/assets
+db:
+    data_files:
+        - dump/data.sql
+

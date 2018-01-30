@@ -1,0 +1,52 @@
+@import 'admin-lte';
+
+.overview-data-table {
+    td,
+    th {
+        padding: 0 30px 0 0;
+
+        &:last-of-type {
+            padding-right: 0;
+        }
+    }
+
+    th {
+        color: #999;
+        font-size: 12px;
+    }
+}
+
+#searchBar {
+    .help-block {
+        h4 {
+            font-size: 16px;
+            margin: 15px 0 5px 0;
+        }
+
+        margin-bottom: 0;
+
+        &.help-block-toggle {
+            margin-top: 10px;
+        }
+
+        dl {
+            margin-bottom: 0;
+
+            dd {
+                margin-bottom: 3px;
+            }
+        }
+    }
+
+    #searchBarExamples {
+        code {
+            margin-right: 3px;
+            padding: 4px 8px;
+        }
+    }
+}
+
+.duplicates-item {
+    border-bottom: 20px solid #ecf0f5;
+    background-color: #fff;
+}
