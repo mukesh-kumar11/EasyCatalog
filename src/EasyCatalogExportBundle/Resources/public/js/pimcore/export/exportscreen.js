@@ -94,7 +94,7 @@ pimcore.plugin.exportscreen = Class.create(pimcore.object.abstract, {
             layout: "border",
             items: [
                 this.getTabPanel(),
-                //this.getLayoutToolbar(),
+                this.getLayoutToolbar(),
             ],
             iconCls: "pimcore_icon_folder",
             object: this
@@ -165,27 +165,27 @@ pimcore.plugin.exportscreen = Class.create(pimcore.object.abstract, {
                 handler: this.save.bind(this)
             }); 
 
-            this.toolbarButtons.remove = new Ext.Button({
-                tooltip: t('delete_folder'),
-                iconCls: "pimcore_icon_delete",
-                scale: "medium",
-                handler: this.remove.bind(this)
-            });
-
-            this.toolbarButtons.rename = new Ext.Button({
-                tooltip: t('rename'),
-                iconCls: "pimcore_icon_key pimcore_icon_overlay_go",
-                scale: "medium",
-                handler: function () {
-                    var options = {
-                        elementType: "object",
-                        elementSubType: this.data.general.o_type,
-                        id: this.id,
-                        default: this.data.general.o_key
-                    }
-                    pimcore.elementservice.editElementKey(options);
-                }.bind(this)
-            });
+//            this.toolbarButtons.remove = new Ext.Button({
+//                tooltip: t('delete_folder'),
+//                iconCls: "pimcore_icon_delete",
+//                scale: "medium",
+//                handler: this.remove.bind(this)
+//            });
+//
+//            this.toolbarButtons.rename = new Ext.Button({
+//                tooltip: t('rename'),
+//                iconCls: "pimcore_icon_key pimcore_icon_overlay_go",
+//                scale: "medium",
+//                handler: function () {
+//                    var options = {
+//                        elementType: "object",
+//                        elementSubType: this.data.general.o_type,
+//                        id: this.id,
+//                        default: this.data.general.o_key
+//                    }
+//                    pimcore.elementservice.editElementKey(options);
+//                }.bind(this)
+//            });
 			
             var buttons = [];
 
@@ -193,49 +193,49 @@ pimcore.plugin.exportscreen = Class.create(pimcore.object.abstract, {
                 buttons.push(this.toolbarButtons.publish);
             }
 
-            buttons.push("-");
+            //buttons.push("-");
 
-            if(this.isAllowed("delete") && !this.data.general.o_locked && this.data.general.o_id != 1) {
-                buttons.push(this.toolbarButtons.remove);
-            }
-            if(this.isAllowed("rename") && !this.data.general.o_locked && this.data.general.o_id != 1) {
-                buttons.push(this.toolbarButtons.rename);
-            }
-            
-
-             buttons.push({
-                tooltip: t('reload'),
-                iconCls: "pimcore_icon_reload",
-                scale: "medium",
-                handler: this.reload.bind(this)
-            });
-
-            if (pimcore.elementservice.showLocateInTreeButton("object")) {
-                buttons.push({
-                    tooltip: t('show_in_tree'),
-                    iconCls: "pimcore_icon_show_in_tree",
-                    scale: "medium",
-                    handler: this.selectInTree.bind(this, "folder")
-                });
-            }
-
-            buttons.push({
-                tooltip: t("show_metainfo"),
-                iconCls: "pimcore_icon_info",
-                scale: "medium",
-                handler: this.showMetaInfo.bind(this)
-            });
-
-            buttons.push("-");
-            buttons.push({
-                xtype: 'tbtext',
-                text: this.data.general.o_id,
-                scale: "medium"
-            });
+//            if(this.isAllowed("delete") && !this.data.general.o_locked && this.data.general.o_id != 1) {
+//                buttons.push(this.toolbarButtons.remove);
+//            }
+//            if(this.isAllowed("rename") && !this.data.general.o_locked && this.data.general.o_id != 1) {
+//                buttons.push(this.toolbarButtons.rename);
+//            }
+//            
+//
+//             buttons.push({
+//                tooltip: t('reload'),
+//                iconCls: "pimcore_icon_reload",
+//                scale: "medium",
+//                handler: this.reload.bind(this)
+//            });
+//
+//            if (pimcore.elementservice.showLocateInTreeButton("object")) {
+//                buttons.push({
+//                    tooltip: t('show_in_tree'),
+//                    iconCls: "pimcore_icon_show_in_tree",
+//                    scale: "medium",
+//                    handler: this.selectInTree.bind(this, "folder")
+//                });
+//            }
+//
+//            buttons.push({
+//                tooltip: t("show_metainfo"),
+//                iconCls: "pimcore_icon_info",
+//                scale: "medium",
+//                handler: this.showMetaInfo.bind(this)
+//            });
+//
+//            buttons.push("-");
+//            buttons.push({
+//                xtype: 'tbtext',
+//                text: this.data.general.o_id,
+//                scale: "medium"
+//            });
 			
             this.toolbar = new Ext.Toolbar({
                 id: "object_toolbar_" + this.id,
-                region: "north",
+                region: "south",
                 border: false,
                 cls: "main-toolbar",
                 items: buttons,
