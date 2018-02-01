@@ -24,8 +24,8 @@ pimcore.plugin.exportscreen = Class.create(pimcore.object.abstract, {
 
         var user = pimcore.globalmanager.get("user");
 
-        this.search = new pimcore.object.search(this, "folder");
-
+        this.search = new pimcore.plugin.exportsearch(this, "folder");
+        
         if (this.isAllowed("properties")) {
             this.properties = new pimcore.element.properties(this, "object");
         }
@@ -94,7 +94,7 @@ pimcore.plugin.exportscreen = Class.create(pimcore.object.abstract, {
             layout: "border",
             items: [
                 this.getTabPanel(),
-                //this.getLayoutToolbar(),
+                this.getLayoutToolbar(),
             ],
             iconCls: "pimcore_icon_folder",
             object: this
@@ -164,8 +164,9 @@ pimcore.plugin.exportscreen = Class.create(pimcore.object.abstract, {
                 scale: "medium",
                 handler: this.save.bind(this)
             }); 
+         
 
-            this.toolbarButtons.remove = new Ext.Button({
+           /* this.toolbarButtons.remove = new Ext.Button({
                 tooltip: t('delete_folder'),
                 iconCls: "pimcore_icon_delete",
                 scale: "medium",
@@ -186,24 +187,26 @@ pimcore.plugin.exportscreen = Class.create(pimcore.object.abstract, {
                     pimcore.elementservice.editElementKey(options);
                 }.bind(this)
             });
-			
+		*/	
+               
             var buttons = [];
 
             if (this.isAllowed("publish")) {
                 buttons.push(this.toolbarButtons.publish);
             }
 
-            buttons.push("-");
+//            buttons.push("-");
 
-            if(this.isAllowed("delete") && !this.data.general.o_locked && this.data.general.o_id != 1) {
+           /* if(this.isAllowed("delete") && !this.data.general.o_locked && this.data.general.o_id != 1) {
                 buttons.push(this.toolbarButtons.remove);
             }
             if(this.isAllowed("rename") && !this.data.general.o_locked && this.data.general.o_id != 1) {
                 buttons.push(this.toolbarButtons.rename);
-            }
-            
+            }*/
 
-             buttons.push({
+//Code commented for remove reload,showLocationTree button aand show meta info button            
+
+           /* buttons.push({
                 tooltip: t('reload'),
                 iconCls: "pimcore_icon_reload",
                 scale: "medium",
@@ -232,10 +235,10 @@ pimcore.plugin.exportscreen = Class.create(pimcore.object.abstract, {
                 text: this.data.general.o_id,
                 scale: "medium"
             });
-			
+            */
             this.toolbar = new Ext.Toolbar({
                 id: "object_toolbar_" + this.id,
-                region: "north",
+                region: "south",
                 border: false,
                 cls: "main-toolbar",
                 items: buttons,
@@ -252,6 +255,7 @@ pimcore.plugin.exportscreen = Class.create(pimcore.object.abstract, {
         var user = pimcore.globalmanager.get("user");
 
         var search = this.search.getLayout();
+        console.log(search);
         if (search) {
             items.push(search);
         }
@@ -318,7 +322,7 @@ pimcore.plugin.exportscreen = Class.create(pimcore.object.abstract, {
         if(this.tab.disabled || this.tab.isMasked()) {
             return;
         }
-
+        console.log(this.search);
         this.tab.mask();
 
         Ext.Ajax.request({
