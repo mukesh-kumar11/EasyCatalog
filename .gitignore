@@ -1,1 +1,15 @@
 
+3rd-party-licenses.md
+composer.lock
+doc/
+gpl-3.0.txt
+nbproject/
+var/cache/
+var/logs/
+var/recyclebin/
+var/sessions/
+var/versions/object/
+web/var/tmp/
+var/tmp/
+.gitignore
+vendor/
