@@ -24,8 +24,8 @@ pimcore.plugin.exportscreen = Class.create(pimcore.object.abstract, {
 
         var user = pimcore.globalmanager.get("user");
 
-        this.search = new pimcore.object.search(this, "folder");
-
+        this.search = new pimcore.plugin.exportsearch(this, "folder");
+        
         if (this.isAllowed("properties")) {
             this.properties = new pimcore.element.properties(this, "object");
         }
@@ -164,75 +164,14 @@ pimcore.plugin.exportscreen = Class.create(pimcore.object.abstract, {
                 scale: "medium",
                 handler: this.save.bind(this)
             }); 
+         
 
-//            this.toolbarButtons.remove = new Ext.Button({
-//                tooltip: t('delete_folder'),
-//                iconCls: "pimcore_icon_delete",
-//                scale: "medium",
-//                handler: this.remove.bind(this)
-//            });
-//
-//            this.toolbarButtons.rename = new Ext.Button({
-//                tooltip: t('rename'),
-//                iconCls: "pimcore_icon_key pimcore_icon_overlay_go",
-//                scale: "medium",
-//                handler: function () {
-//                    var options = {
-//                        elementType: "object",
-//                        elementSubType: this.data.general.o_type,
-//                        id: this.id,
-//                        default: this.data.general.o_key
-//                    }
-//                    pimcore.elementservice.editElementKey(options);
-//                }.bind(this)
-//            });
-			
             var buttons = [];
 
             if (this.isAllowed("publish")) {
                 buttons.push(this.toolbarButtons.publish);
             }
 
-            //buttons.push("-");
-
-//            if(this.isAllowed("delete") && !this.data.general.o_locked && this.data.general.o_id != 1) {
-//                buttons.push(this.toolbarButtons.remove);
-//            }
-//            if(this.isAllowed("rename") && !this.data.general.o_locked && this.data.general.o_id != 1) {
-//                buttons.push(this.toolbarButtons.rename);
-//            }
-//            
-//
-//             buttons.push({
-//                tooltip: t('reload'),
-//                iconCls: "pimcore_icon_reload",
-//                scale: "medium",
-//                handler: this.reload.bind(this)
-//            });
-//
-//            if (pimcore.elementservice.showLocateInTreeButton("object")) {
-//                buttons.push({
-//                    tooltip: t('show_in_tree'),
-//                    iconCls: "pimcore_icon_show_in_tree",
-//                    scale: "medium",
-//                    handler: this.selectInTree.bind(this, "folder")
-//                });
-//            }
-//
-//            buttons.push({
-//                tooltip: t("show_metainfo"),
-//                iconCls: "pimcore_icon_info",
-//                scale: "medium",
-//                handler: this.showMetaInfo.bind(this)
-//            });
-//
-//            buttons.push("-");
-//            buttons.push({
-//                xtype: 'tbtext',
-//                text: this.data.general.o_id,
-//                scale: "medium"
-//            });
-			
             this.toolbar = new Ext.Toolbar({
                 id: "object_toolbar_" + this.id,
                 region: "south",
@@ -252,6 +191,7 @@ pimcore.plugin.exportscreen = Class.create(pimcore.object.abstract, {
         var user = pimcore.globalmanager.get("user");
 
         var search = this.search.getLayout();
+        console.log(search);
         if (search) {
             items.push(search);
         }
@@ -318,13 +258,19 @@ pimcore.plugin.exportscreen = Class.create(pimcore.object.abstract, {
         if(this.tab.disabled || this.tab.isMasked()) {
             return;
         }
-
+     
+        var data = {
+                    'fields': this.search.fieldObject,
+                    'class_id' : this.search.classId,
+                    'filters' : this.search.store.filters.items
+                    };
+                    
         this.tab.mask();
 
         Ext.Ajax.request({
-            url: '/admin/object/save-folder?task=' + task,
+            url: '/easy_catalog_export',
             method: "post",
-            params: this.getSaveData(),
+            params: data,
             success: function (response) {
                 try{
                     var rdata = Ext.decode(response.responseText);
