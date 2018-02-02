@@ -1,0 +1,20 @@
+{
+  "name": "pimcore/advanced-object-search",
+  "license": "GPL-3.0+",
+  "type": "pimcore-bundle",
+  "autoload": {
+    "psr-4": {
+      "AdvancedObjectSearchBundle\\": "src/"
+    }
+  },
+  "require": {
+    "ongr/elasticsearch-dsl": "~5"
+  },
+  "extra": {
+    "pimcore": {
+      "bundles": [
+        "AdvancedObjectSearchBundle\\AdvancedObjectSearchBundle"
+      ]
+    }
+  }
+}
