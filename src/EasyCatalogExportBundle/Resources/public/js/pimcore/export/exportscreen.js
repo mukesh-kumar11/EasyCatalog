@@ -476,6 +476,10 @@ pimcore.plugin.exportscreen = Class.create(pimcore.object.abstract, {
 					var tab = Ext.getCmp("object_1");
 					tab.add(this.getTabPanel());
 					tab.add(this.getLayoutToolbar());
+					
+					
+					
+					
 				} else {
 					pimcore.helpers.showNotification('Error',
 							'Error while getting info.',
@@ -587,7 +591,7 @@ pimcore.plugin.exportscreen = Class.create(pimcore.object.abstract, {
 
             this.toolbar = new Ext.Toolbar({
                 id: "object_toolbar_" + this.id,
-                region: "south",
+                region: "north",
                 border: false,
                 cls: "main-toolbar",
                 items: buttons,
@@ -604,25 +608,10 @@ pimcore.plugin.exportscreen = Class.create(pimcore.object.abstract, {
         var user = pimcore.globalmanager.get("user");
 
         var search = this.search.getLayout();
-        console.log(search);
         if (search) {
             items.push(search);
         }
-        /*if (this.isAllowed("properties")) {
-            //items.push(this.properties.getLayout());
-        }
-        //items.push(this.dependencies.getLayout());
-
-        if (user.isAllowed("notes_events")) {
-            //items.push(this.notes.getLayout());
-        }
-        */
-//        if (user.isAllowed("tags_assignment")) {
-//            items.push(this.tagAssignment.getLayout());
-//        }
-		
-		
-		
+  	
         this.tabbar = new Ext.TabPanel({
             tabPosition: "top",
             region:'center',
