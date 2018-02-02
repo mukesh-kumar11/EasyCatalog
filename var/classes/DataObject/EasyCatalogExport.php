@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2018-02-02T07:18:20+01:00
+* Generated at: 2018-02-02T08:56:58+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (16)
@@ -9,7 +9,7 @@
 
 
 Fields Summary: 
-- ClassId [input]
+- ExportClassId [input]
 - Filters [textarea]
 - ColumnConfig [input]
 - XmlUrl [input]
@@ -21,7 +21,7 @@ namespace Pimcore\Model\DataObject;
 
 
 /**
-* @method static \Pimcore\Model\DataObject\EasyCatalogExport\Listing getByClassId ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\EasyCatalogExport\Listing getByExportClassId ($value, $limit = 0) 
 * @method static \Pimcore\Model\DataObject\EasyCatalogExport\Listing getByFilters ($value, $limit = 0) 
 * @method static \Pimcore\Model\DataObject\EasyCatalogExport\Listing getByColumnConfig ($value, $limit = 0) 
 * @method static \Pimcore\Model\DataObject\EasyCatalogExport\Listing getByXmlUrl ($value, $limit = 0) 
@@ -32,7 +32,7 @@ class EasyCatalogExport extends Concrete {
 
 public $o_classId = 43;
 public $o_className = "EasyCatalogExport";
-public $ClassId;
+public $ExportClassId;
 public $Filters;
 public $ColumnConfig;
 public $XmlUrl;
@@ -50,25 +50,25 @@ public static function create($values = array()) {
 }
 
 /**
-* Get ClassId - Class Id
+* Get ExportClassId - Export Class Id
 * @return string
 */
-public function getClassId () {
-	$preValue = $this->preGetValue("ClassId"); 
+public function getExportClassId () {
+	$preValue = $this->preGetValue("ExportClassId"); 
 	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
-	$data = $this->ClassId;
+	$data = $this->ExportClassId;
 	return $data;
 }
 
 /**
-* Set ClassId - Class Id
-* @param string $ClassId
+* Set ExportClassId - Export Class Id
+* @param string $ExportClassId
 * @return \Pimcore\Model\DataObject\EasyCatalogExport
 */
-public function setClassId ($ClassId) {
-	$this->ClassId = $ClassId;
+public function setExportClassId ($ExportClassId) {
+	$this->ExportClassId = $ExportClassId;
 	return $this;
 }
 
