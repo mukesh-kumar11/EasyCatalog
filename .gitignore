@@ -12,4 +12,4 @@ var/versions/object/
 web/var/tmp/
 var/tmp/
 .gitignore
-vendor/
+vendor/vrana/jush
