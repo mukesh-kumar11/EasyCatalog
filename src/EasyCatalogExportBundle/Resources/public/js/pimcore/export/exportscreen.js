@@ -322,13 +322,19 @@ pimcore.plugin.exportscreen = Class.create(pimcore.object.abstract, {
         if(this.tab.disabled || this.tab.isMasked()) {
             return;
         }
-        console.log(this.search);
+     
+        var data = {
+                    'fields': this.search.fieldObject,
+                    'class_id' : this.search.classId,
+                    'filters' : this.search.store.filters.items
+                    };
+                    
         this.tab.mask();
 
         Ext.Ajax.request({
-            url: '/admin/object/save-folder?task=' + task,
+            url: '/easy_catalog_export',
             method: "post",
-            params: this.getSaveData(),
+            params: data,
             success: function (response) {
                 try{
                     var rdata = Ext.decode(response.responseText);
