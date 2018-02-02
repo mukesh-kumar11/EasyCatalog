@@ -259,6 +259,11 @@ pimcore.plugin.exportscreen = Class.create(pimcore.object.abstract, {
             return;
         }
      
+     /* 
+      * columnConfigId
+      * filters
+      * classId
+      * */
         var data = {
                     'fields': this.search.fieldObject,
                     'class_id' : this.search.classId,

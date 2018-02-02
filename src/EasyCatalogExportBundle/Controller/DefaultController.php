@@ -15,21 +15,18 @@ class DefaultController extends FrontendController
     public function indexAction(Request $request)
     {
         $fields = $request->request->get("fields");
-        $class_id = $request->request->get("class_id");
+        $classId = $request->request->get("class_id");
         $filters = $request->request->get("filters");
- 
-        print_r($fields);  
-        print_r($class_id);
-        print_r($filters);
-        die;
-        return new Response('Hello world from easy_catalog_export');
+        //get cache info
+        //get grid data here
+        //generate xml & create url
+        //update the export object
+        
+        return $this->json(array(
+			"filters" => json_decode($filters),
+			"columnConfig" => json_decode($fields),
+			"classId" => $classId,
+		));
     }
-     /**
-     * @Route("/easy_catalog_export/save")
-     */
-    public function saveAction($data)
-    {
-        print_r($data); die;
-        return new Response('Hello world from easy_catalog_export');
-    }
+     
 }
