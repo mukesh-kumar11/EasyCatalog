@@ -450,7 +450,7 @@ pimcore.plugin.exportscreen = Class.create(pimcore.object.abstract, {
 		},
 	
 	// Opens Export configuration
-	openConfig: function (id) {
+	openConfig: function (id) {	
 		var existingPanel = Ext.getCmp("export_" + id);
 		//var existingPanel = Ext.getCmp("object_1");
 		// Activates already existing panel
@@ -464,7 +464,6 @@ pimcore.plugin.exportscreen = Class.create(pimcore.object.abstract, {
 		comp.collapse();
 		// closing left tree panel -- ends
 
-
 		Ext.Ajax.request({
 			url: "/admin/EasyCatalogExport/export/get-export-detail",
 			params: {
@@ -474,12 +473,9 @@ pimcore.plugin.exportscreen = Class.create(pimcore.object.abstract, {
 				var data = Ext.decode(response.responseText);
 				if (data.success) {
 					var tab = Ext.getCmp("object_1");
-					tab.add(this.getTabPanel());
+					tab.add(this.getTabPanel(data.selectedClass));
 					tab.add(this.getLayoutToolbar());
-					
-					
-					
-					
+					this.search.classSelector.lastValue = data.selectedClass;
 				} else {
 					pimcore.helpers.showNotification('Error',
 							'Error while getting info.',
@@ -602,12 +598,12 @@ pimcore.plugin.exportscreen = Class.create(pimcore.object.abstract, {
         return this.toolbar;
     },
 
-    getTabPanel: function () {
+    getTabPanel: function (selectedClass) {
 
         var items = [];
         var user = pimcore.globalmanager.get("user");
-
-        var search = this.search.getLayout();
+		
+        var search = this.search.getLayout(selectedClass);
         if (search) {
             items.push(search);
         }

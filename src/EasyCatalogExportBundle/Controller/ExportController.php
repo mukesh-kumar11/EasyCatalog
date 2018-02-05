@@ -175,6 +175,7 @@ class ExportController extends FrontendController
     public function getExportDetailAction(Request $request) {
         try {
             $id = $request->query->get('id');
+            $exportObj = \Pimcore\Model\DataObject\EasyCatalogExport::getById($id);
             /*$exportObj = \Pimcore\Model\DataObject::getById($id);
 
             $mapping = $exportObj->getMapping();
@@ -185,6 +186,7 @@ class ExportController extends FrontendController
 
             return $this->json([
                         "success" => true,
+                        "selectedClass" => $exportObj->getExportClassId(),
                        /* 'filter' => unserialize($exportObj->getFilterConditions()),
                         'mapping' => (int) $mappingId,
                         'id' => $id,

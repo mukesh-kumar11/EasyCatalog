@@ -28,7 +28,7 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
         this.noBatchColumns = [];
     },
 
-    getLayout: function () {
+    getLayout: function (selectedClass) {
 
         if (this.layout == null) {
 
@@ -57,8 +57,11 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
                         {name: 'translatedText', type: 'string'}
                     ]
                 });
-
-
+                
+				if(selectedClass){
+					this.object.data["selectedClass"] = selectedClass;
+				}
+	
                 this.classSelector = new Ext.form.ComboBox({
                     name: "selectClass",
                     listWidth: 'auto',
