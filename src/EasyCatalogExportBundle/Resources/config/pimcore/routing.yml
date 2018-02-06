@@ -1,5 +1,9 @@
 easy_catalog_export:
     resource: "@EasyCatalogExportBundle/Controller/"
     type:     annotation
-    prefix:   /
+    prefix:   /admin/EasyCatalogExport
+
+    
+    
+
 

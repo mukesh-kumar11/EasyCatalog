@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2018-02-02T07:18:20+01:00
+* Generated at: 2018-02-02T08:56:58+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (16)
@@ -9,7 +9,7 @@
 
 
 Fields Summary: 
-- ClassId [input]
+- ExportClassId [input]
 - Filters [textarea]
 - ColumnConfig [input]
 - XmlUrl [input]
@@ -21,7 +21,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'EasyCatalogExport',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1517552299,
+   'modificationDate' => 1517558218,
    'userOwner' => 16,
    'userModification' => 16,
    'parentClass' => '',
@@ -58,7 +58,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'title' => NULL,
          'width' => NULL,
          'height' => NULL,
-         'collapsible' => NULL,
+         'collapsible' => false,
          'collapsed' => NULL,
          'bodyStyle' => NULL,
          'datatype' => 'layout',
@@ -75,13 +75,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'phpdocType' => 'string',
              'regex' => '',
              'unique' => false,
-             'name' => 'ClassId',
-             'title' => 'Class Id',
+             'name' => 'ExportClassId',
+             'title' => 'Export Class Id',
              'tooltip' => '',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => NULL,
+             'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
@@ -104,7 +104,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => NULL,
+             'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
@@ -129,7 +129,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => NULL,
+             'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
@@ -154,7 +154,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => NULL,
+             'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
@@ -176,7 +176,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => NULL,
+             'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
@@ -186,7 +186,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'visibleSearch' => false,
           )),
         ),
-         'locked' => NULL,
+         'locked' => false,
       )),
     ),
      'locked' => NULL,
