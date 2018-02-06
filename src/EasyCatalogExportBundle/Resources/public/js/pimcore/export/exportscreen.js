@@ -259,15 +259,17 @@ pimcore.plugin.exportscreen = Class.create(pimcore.object.abstract, {
             return;
         }
      
+     console.log(this.search);
      /* 
       * columnConfigId
       * filters
       * classId
       * */
         var data = {
-                    'fields': this.search.fieldObject,
+                    'columns': this.search.fieldObject,
                     'class_id' : this.search.classId,
-                    'filters' : this.search.store.filters.items
+                    'filters' : this.search.store.filters.items,
+                    'columnConfig': this.search.settings.gridConfigName,
                     };
                     
         this.tab.mask();

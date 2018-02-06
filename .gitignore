@@ -1,1 +1,5 @@
-
+nbproject/
+var/cache/
+var/logs/
+var/sessions/
+var/versions/object

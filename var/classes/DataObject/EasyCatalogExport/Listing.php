@@ -10,7 +10,7 @@ use Pimcore\Model\DataObject;
 
 class Listing extends DataObject\Listing\Concrete {
 
-public $classId = 43;
+public $classId = 44;
 public $className = "EasyCatalogExport";
 
 
