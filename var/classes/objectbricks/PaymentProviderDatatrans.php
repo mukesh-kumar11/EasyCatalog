@@ -1,8 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2017-06-23T13:19:41+02:00
-* IP: 192.168.11.87
+* Generated at: 2018-02-21T12:12:48+01:00
 
 
 Fields Summary: 
@@ -73,6 +72,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'columnLength' => 255,
              'phpdocType' => 'string',
              'regex' => '',
+             'unique' => NULL,
              'name' => 'auth_aliasCC',
              'title' => 'aliasCC',
              'tooltip' => '',
@@ -97,6 +97,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'columnLength' => 255,
              'phpdocType' => 'string',
              'regex' => '',
+             'unique' => NULL,
              'name' => 'auth_expm',
              'title' => 'expm',
              'tooltip' => '',
@@ -121,6 +122,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'columnLength' => 255,
              'phpdocType' => 'string',
              'regex' => '',
+             'unique' => NULL,
              'name' => 'auth_expy',
              'title' => 'expy',
              'tooltip' => '',
@@ -145,6 +147,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'columnLength' => 255,
              'phpdocType' => 'string',
              'regex' => '',
+             'unique' => NULL,
              'name' => 'auth_reqtype',
              'title' => 'reqtype',
              'tooltip' => '',
@@ -169,6 +172,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'columnLength' => 255,
              'phpdocType' => 'string',
              'regex' => '',
+             'unique' => NULL,
              'name' => 'auth_uppTransactionId',
              'title' => 'uppTransactionId',
              'tooltip' => '',
@@ -193,6 +197,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'columnLength' => 255,
              'phpdocType' => 'string',
              'regex' => '',
+             'unique' => NULL,
              'name' => 'auth_amount',
              'title' => 'amount',
              'tooltip' => '',
@@ -217,6 +222,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'columnLength' => 255,
              'phpdocType' => 'string',
              'regex' => '',
+             'unique' => NULL,
              'name' => 'auth_currency',
              'title' => 'currency',
              'tooltip' => '',
@@ -241,6 +247,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'columnLength' => 255,
              'phpdocType' => 'string',
              'regex' => '',
+             'unique' => NULL,
              'name' => 'auth_refno',
              'title' => 'refno',
              'tooltip' => '',

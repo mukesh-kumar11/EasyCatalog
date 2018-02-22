@@ -1,11 +1,10 @@
-<?php
+<?php 
 
-/**
-* Generated at: 2017-06-23T13:19:43+02:00
-* IP: 192.168.11.87
+/** 
+* Generated at: 2018-02-21T12:13:27+01:00
 
 
-Fields Summary:
+Fields Summary: 
  - outsideMaterial [input]
  - insideMaterial [input]
  - floorMaterial [input]
@@ -15,7 +14,7 @@ Fields Summary:
  - tentPegs [input]
  - weight [numeric]
  - isMainSeamTaped [checkbox]
-*/
+*/ 
 
 namespace Pimcore\Model\DataObject\Objectbrick\Data;
 
@@ -124,7 +123,7 @@ public function setWaterproofRain ($waterproofRain) {
 }
 
 /**
-* Set waterproofGround - <img style="height:40px; float:left; margin:-10px 10px 0 0" src="/static/backend/img/bricks/tent-specs/ground-water.jpg"/> Waterproof Ground
+* Set waterproofGround - <img style="height:40px; float:left; margin:-10px 10px 0 0" src="/static/backend/img/bricks/tent-specs/ground-water.jpg"/> Waterproof Ground 
 * @return string
 */
 public function getWaterproofGround () {
@@ -136,7 +135,7 @@ public function getWaterproofGround () {
 }
 
 /**
-* Set waterproofGround - <img style="height:40px; float:left; margin:-10px 10px 0 0" src="/static/backend/img/bricks/tent-specs/ground-water.jpg"/> Waterproof Ground
+* Set waterproofGround - <img style="height:40px; float:left; margin:-10px 10px 0 0" src="/static/backend/img/bricks/tent-specs/ground-water.jpg"/> Waterproof Ground 
 * @param string $waterproofGround
 * @return \Pimcore\Model\DataObject\TentSpecifications
 */

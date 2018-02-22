@@ -1,11 +1,13 @@
-<?php
+<?php 
 
-/** Generated at 2016-04-07T19:58:48+02:00 */
+/** 
+* Generated at: 2018-02-21T12:13:31+01:00
 
-/**
-* IP:          10.242.2.6
-*/
 
+Fields Summary: 
+ - ruleId [numeric]
+ - name [input]
+*/ 
 
 namespace Pimcore\Model\DataObject\Fieldcollection\Data;
 

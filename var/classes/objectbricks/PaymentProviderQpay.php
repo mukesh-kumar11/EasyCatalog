@@ -1,8 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2017-06-23T13:19:42+02:00
-* IP: 192.168.11.87
+* Generated at: 2018-02-21T12:12:52+01:00
 
 
 Fields Summary: 
@@ -69,6 +68,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'columnLength' => 255,
              'phpdocType' => 'string',
              'regex' => '',
+             'unique' => NULL,
              'name' => 'auth_orderNumber',
              'title' => 'OrderNumber',
              'tooltip' => '',
@@ -93,6 +93,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'columnLength' => 255,
              'phpdocType' => 'string',
              'regex' => '',
+             'unique' => NULL,
              'name' => 'auth_language',
              'title' => 'Language',
              'tooltip' => '',
@@ -117,6 +118,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'columnLength' => 255,
              'phpdocType' => 'string',
              'regex' => '',
+             'unique' => NULL,
              'name' => 'auth_amount',
              'title' => 'Amount',
              'tooltip' => '',
@@ -141,6 +143,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'columnLength' => 255,
              'phpdocType' => 'string',
              'regex' => '',
+             'unique' => NULL,
              'name' => 'auth_currency',
              'title' => 'Currency',
              'tooltip' => '',

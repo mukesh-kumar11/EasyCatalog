@@ -1,21 +1,30 @@
-<?php
+<?php 
 
-/** Generated at 2016-05-03T20:44:31+02:00 */
-
-/**
+/** 
+* Generated at: 2018-02-21T12:12:39+01:00
 * Inheritance: no
-* Variants   : no
-* Changed by : admin (2)
-* IP:          10.242.2.6
-*/
+* Variants: no
 
+
+Fields Summary: 
+- localizedfields [localizedfields]
+-- icon [image]
+-- name [input]
+-- seoname [input]
+-- description [wysiwyg]
+-- link [link]
+-- images [multihref]
+-- documents [multihref]
+-- videos [multihref]
+-- downloads [multihref]
+*/ 
 
 namespace Pimcore\Model\DataObject;
 
 
 
 /**
-* @method static \Pimcore\Model\DataObject\ProductAttribute\Listing getByLocalizedfields ($field, $value, $locale = null, $limit = 0)
+* @method \Pimcore\Model\DataObject\ProductAttribute\Listing getByLocalizedfields ($field, $value, $locale = null, $limit = 0) 
 */
 
 class ProductAttribute extends Concrete {
@@ -40,8 +49,8 @@ public static function create($values = array()) {
 * @return \Pimcore\Model\DataObject\Localizedfield
 */
 public function getLocalizedfields () {
-	$preValue = $this->preGetValue("localizedfields");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("localizedfields"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->getClass()->getFieldDefinition("localizedfields")->preGetData($this);
@@ -54,8 +63,8 @@ public function getLocalizedfields () {
 */
 public function getIcon ($language = null) {
 	$data = $this->getLocalizedfields()->getLocalizedValue("icon", $language);
-	$preValue = $this->preGetValue("icon");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("icon"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	 return $data;
@@ -67,8 +76,8 @@ public function getIcon ($language = null) {
 */
 public function getName ($language = null) {
 	$data = $this->getLocalizedfields()->getLocalizedValue("name", $language);
-	$preValue = $this->preGetValue("name");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("name"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	 return $data;
@@ -80,8 +89,8 @@ public function getName ($language = null) {
 */
 public function getSeoname ($language = null) {
 	$data = $this->getLocalizedfields()->getLocalizedValue("seoname", $language);
-	$preValue = $this->preGetValue("seoname");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("seoname"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	 return $data;
@@ -93,8 +102,8 @@ public function getSeoname ($language = null) {
 */
 public function getDescription ($language = null) {
 	$data = $this->getLocalizedfields()->getLocalizedValue("description", $language);
-	$preValue = $this->preGetValue("description");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("description"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	 return $data;
@@ -106,8 +115,8 @@ public function getDescription ($language = null) {
 */
 public function getLink ($language = null) {
 	$data = $this->getLocalizedfields()->getLocalizedValue("link", $language);
-	$preValue = $this->preGetValue("link");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("link"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	 return $data;
@@ -119,8 +128,8 @@ public function getLink ($language = null) {
 */
 public function getImages ($language = null) {
 	$data = $this->getLocalizedfields()->getLocalizedValue("images", $language);
-	$preValue = $this->preGetValue("images");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("images"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	 return $data;
@@ -128,12 +137,12 @@ public function getImages ($language = null) {
 
 /**
 * Get documents - Documents
-* @return
+* @return \Pimcore\Model\Document\Page[] | \Pimcore\Model\Document\Snippet[] | \Pimcore\Model\Document[]
 */
 public function getDocuments ($language = null) {
 	$data = $this->getLocalizedfields()->getLocalizedValue("documents", $language);
-	$preValue = $this->preGetValue("documents");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("documents"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	 return $data;
@@ -145,8 +154,8 @@ public function getDocuments ($language = null) {
 */
 public function getVideos ($language = null) {
 	$data = $this->getLocalizedfields()->getLocalizedValue("videos", $language);
-	$preValue = $this->preGetValue("videos");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("videos"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	 return $data;
@@ -158,8 +167,8 @@ public function getVideos ($language = null) {
 */
 public function getDownloads ($language = null) {
 	$data = $this->getLocalizedfields()->getLocalizedValue("downloads", $language);
-	$preValue = $this->preGetValue("downloads");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("downloads"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	 return $data;
@@ -237,7 +246,7 @@ public function setImages ($images, $language = null) {
 
 /**
 * Set documents - Documents
-* @param  $documents
+* @param \Pimcore\Model\Document\Page[] | \Pimcore\Model\Document\Snippet[] | \Pimcore\Model\Document[] $documents
 * @return \Pimcore\Model\DataObject\ProductAttribute
 */
 public function setDocuments ($documents, $language = null) {
@@ -268,7 +277,8 @@ public function setDownloads ($downloads, $language = null) {
 protected static $_relationFields = array (
 );
 
-public $lazyLoadedFields = NULL;
+public $lazyLoadedFields = array (
+);
 
 }
 

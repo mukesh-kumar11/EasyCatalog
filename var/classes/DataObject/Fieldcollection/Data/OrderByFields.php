@@ -1,14 +1,13 @@
-<?php
+<?php 
 
-/**
-* Generated at: 2017-03-15T12:20:58+01:00
-* IP: 192.168.11.5
+/** 
+* Generated at: 2018-02-21T12:13:31+01:00
 
 
-Fields Summary:
+Fields Summary: 
  - field [indexFieldSelectionCombo]
  - direction [select]
-*/
+*/ 
 
 namespace Pimcore\Model\DataObject\Fieldcollection\Data;
 

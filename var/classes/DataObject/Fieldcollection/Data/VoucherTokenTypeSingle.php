@@ -1,11 +1,14 @@
-<?php
+<?php 
 
-/** Generated at 2016-04-07T20:04:00+02:00 */
+/** 
+* Generated at: 2018-02-21T12:13:31+01:00
 
-/**
-* IP:          10.242.2.6
-*/
 
+Fields Summary: 
+ - token [input]
+ - usages [numeric]
+ - onlyTokenPerCart [checkbox]
+*/ 
 
 namespace Pimcore\Model\DataObject\Fieldcollection\Data;
 
@@ -40,7 +43,7 @@ public function setToken ($token) {
 
 /**
 * Get usages - Usage count
-* @return float
+* @return string
 */
 public function getUsages () {
 	$data = $this->usages;
@@ -49,7 +52,7 @@ public function getUsages () {
 
 /**
 * Set usages - Usage count
-* @param float $usages
+* @param string $usages
 * @return \Pimcore\Model\DataObject\VoucherTokenTypeSingle
 */
 public function setUsages ($usages) {

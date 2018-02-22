@@ -1,16 +1,15 @@
-<?php
+<?php 
 
-/**
-* Generated at: 2017-07-17T15:06:06+02:00
-* IP: 192.168.11.5
+/** 
+* Generated at: 2018-02-21T12:13:31+01:00
 
 
-Fields Summary:
+Fields Summary: 
  - label [input]
  - field [indexFieldSelection]
  - scriptPath [input]
  - availableRelations [multihref]
-*/
+*/ 
 
 namespace Pimcore\Model\DataObject\Fieldcollection\Data;
 

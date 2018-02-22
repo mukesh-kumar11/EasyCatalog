@@ -1,8 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2017-06-23T13:19:42+02:00
-* IP: 192.168.11.87
+* Generated at: 2018-02-21T12:12:55+01:00
 
 
 Fields Summary: 
@@ -173,6 +172,7 @@ return Pimcore\Model\DataObject\Objectbrick\Definition::__set_state(array(
              'optionsProviderData' => NULL,
              'queryColumnType' => 'varchar(255)',
              'columnType' => 'varchar(255)',
+             'columnLength' => 190,
              'phpdocType' => 'string',
              'name' => 'zips',
              'title' => 'Zips',

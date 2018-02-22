@@ -1,11 +1,9 @@
 <?php 
 
 /** 
-* Generated at: 2017-11-17T07:23:20+01:00
+* Generated at: 2018-02-21T12:12:48+01:00
 * Inheritance: no
 * Variants: no
-* Changed by: admin (1)
-* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -20,7 +18,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'SsoIdentity',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1510899800,
+   'modificationDate' => 1519211568,
    'userOwner' => 0,
    'userModification' => 1,
    'parentClass' => '\\CustomerManagementFrameworkBundle\\Model\\AbstractSsoIdentity',
@@ -39,7 +37,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
      'title' => NULL,
      'width' => NULL,
      'height' => NULL,
-     'collapsible' => NULL,
+     'collapsible' => false,
      'collapsed' => NULL,
      'bodyStyle' => NULL,
      'datatype' => 'layout',
@@ -143,8 +141,8 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'phpdocType' => '\\Pimcore\\Model\\DataObject\\Objectbrick',
              'allowedTypes' => 
             array (
-              0 => 'OAuth2Token',
-              1 => 'OAuth1Token',
+              0 => 'OAuth1Token',
+              1 => 'OAuth2Token',
             ),
              'maxItems' => '',
              'name' => 'credentials',
@@ -168,7 +166,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'locked' => false,
       )),
     ),
-     'locked' => NULL,
+     'locked' => false,
   )),
    'icon' => '/pimcore/static6/img/flat-color-icons/lock.svg',
    'previewUrl' => '',

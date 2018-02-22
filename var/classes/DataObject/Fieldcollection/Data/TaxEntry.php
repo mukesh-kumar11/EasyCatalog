@@ -1,14 +1,13 @@
-<?php
+<?php 
 
-/**
-* Generated at: 2017-01-03T14:02:15+01:00
-* IP: 192.168.11.5
+/** 
+* Generated at: 2018-02-21T12:13:31+01:00
 
 
-Fields Summary:
+Fields Summary: 
  - localizedfields [localizedfields]
  - percent [numeric]
-*/
+*/ 
 
 namespace Pimcore\Model\DataObject\Fieldcollection\Data;
 
@@ -22,7 +21,7 @@ public $percent;
 
 
 /**
-* Get localizedfields -
+* Get localizedfields - 
 * @return \Pimcore\Model\DataObject\Localizedfield
 */
 public function getLocalizedfields () {
@@ -42,7 +41,7 @@ public function getName ($language = null) {
 }
 
 /**
-* Set localizedfields -
+* Set localizedfields - 
 * @param \Pimcore\Model\DataObject\Localizedfield $localizedfields
 * @return \Pimcore\Model\DataObject\TaxEntry
 */
@@ -54,7 +53,7 @@ public function setLocalizedfields ($localizedfields) {
 /**
 * Set name - Name
 * @param string $name
-* @return \Pimcore\Model\DataObject\TaxEntry
+* @return \Pimcore\Model\DataObject\FieldCollection\Data\TaxEntry
 */
 public function setName ($name, $language = null) {
 	$this->getLocalizedfields()->setLocalizedValue("name", $name, $language);

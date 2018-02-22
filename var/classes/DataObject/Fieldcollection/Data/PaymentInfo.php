@@ -1,11 +1,27 @@
-<?php
+<?php 
 
-/** Generated at 2016-04-13T12:12:05+02:00 */
+/** 
+* Generated at: 2018-02-21T12:13:31+01:00
 
-/**
-* IP:          192.168.11.5
-*/
 
+Fields Summary: 
+ - paymentStart [datetime]
+ - paymentFinish [datetime]
+ - paymentReference [input]
+ - paymentState [select]
+ - internalPaymentId [input]
+ - message [textarea]
+ - providerData [textarea]
+ - provider_qpay_amount [input]
+ - provider_qpay_paymentType [input]
+ - provider_qpay_paymentState [input]
+ - provider_datatrans_acqAuthorizationCode [input]
+ - provider_datatrans_amount [input]
+ - provider_datatrans_responseXML [textarea]
+ - provider_paypal_amount [input]
+ - provider_paypal_TransactionType [input]
+ - provider_paypal_PaymentType [input]
+*/ 
 
 namespace Pimcore\Model\DataObject\Fieldcollection\Data;
 
@@ -34,7 +50,7 @@ public $provider_paypal_PaymentType;
 
 /**
 * Get paymentStart - Payment Start
-* @return \Pimcore\Date
+* @return \Carbon\Carbon
 */
 public function getPaymentStart () {
 	$data = $this->paymentStart;
@@ -43,7 +59,7 @@ public function getPaymentStart () {
 
 /**
 * Set paymentStart - Payment Start
-* @param \Pimcore\Date $paymentStart
+* @param \Carbon\Carbon $paymentStart
 * @return \Pimcore\Model\DataObject\PaymentInfo
 */
 public function setPaymentStart ($paymentStart) {
@@ -53,7 +69,7 @@ public function setPaymentStart ($paymentStart) {
 
 /**
 * Get paymentFinish - Payment Finish
-* @return \Pimcore\Date
+* @return \Carbon\Carbon
 */
 public function getPaymentFinish () {
 	$data = $this->paymentFinish;
@@ -62,7 +78,7 @@ public function getPaymentFinish () {
 
 /**
 * Set paymentFinish - Payment Finish
-* @param \Pimcore\Date $paymentFinish
+* @param \Carbon\Carbon $paymentFinish
 * @return \Pimcore\Model\DataObject\PaymentInfo
 */
 public function setPaymentFinish ($paymentFinish) {

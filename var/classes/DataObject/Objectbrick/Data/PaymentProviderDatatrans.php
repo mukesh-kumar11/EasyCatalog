@@ -1,11 +1,10 @@
-<?php
+<?php 
 
-/**
-* Generated at: 2017-06-23T13:19:41+02:00
-* IP: 192.168.11.87
+/** 
+* Generated at: 2018-02-21T12:12:48+01:00
 
 
-Fields Summary:
+Fields Summary: 
  - auth_aliasCC [input]
  - auth_expm [input]
  - auth_expy [input]
@@ -14,7 +13,7 @@ Fields Summary:
  - auth_amount [input]
  - auth_currency [input]
  - auth_refno [input]
-*/
+*/ 
 
 namespace Pimcore\Model\DataObject\Objectbrick\Data;
 

@@ -43,7 +43,7 @@ class ExportController extends FrontendController
         try {
 
             // Creating System Folder
-            
+            /* create EasyCatalogExport folder name in website settings and pick from there */
             $parentFolderPath = "/EasyCatalogExport";
             $folderName = "EasyCatalogExport";
             $folderName = \Pimcore\File::getValidFilename($folderName);
@@ -167,6 +167,7 @@ class ExportController extends FrontendController
         return $this->json(["success" => $success, "message" => $message]);
     }
     
+
     /**
      * @Route("/export/get-export-detail")
      * @param Request $request
@@ -176,21 +177,14 @@ class ExportController extends FrontendController
         try {
             $id = $request->query->get('id');
             $exportObj = \Pimcore\Model\DataObject\EasyCatalogExport::getById($id);
-            /*$exportObj = \Pimcore\Model\DataObject::getById($id);
-
-            $mapping = $exportObj->getMapping();
-            $mappingId = '';
-            if ($mapping) {
-                $mappingId = $mapping->getId();
-            }*/
-
+            /* get the filters, column configurations, cached*/
             return $this->json([
                         "success" => true,
                         "selectedClass" => $exportObj->getExportClassId(),
-                       /* 'filter' => unserialize($exportObj->getFilterConditions()),
-                        'mapping' => (int) $mappingId,
-                        'id' => $id,
-                        'key' => $exportObj->getKey() */
+                        "savedFilter" => $exportObj->getFilters(),
+                        "columnConfigId" => $exportObj->getColumnConfig(),
+                        "xmlUrl" => $exportObj->getXmlUrl(),
+                        "caching" => $exportObj->getCaching(),
             ]);
         } catch (\Exception $excp) {
             return $this->json([
@@ -240,5 +234,47 @@ class ExportController extends FrontendController
             ]);
         }
     }
-     
+    
+    /**
+     * @Route("/export/save-export-object")
+     * @param Request $request
+     */
+    public function saveExportObjectAction(Request $request) {
+       
+        try {
+            $columnConfig = $request->request->get("columnConfig");
+            $classId = $request->request->get("class_id");
+            $filters = $request->request->get("filters");
+            $exportObjectId  = $request->request->get("exportObjectId");
+            $xmlUrl = $request->request->get("url");
+            $caching  = $request->request->get("cache");
+            //getting objects 
+            $myObject =  \Pimcore\Model\DataObject\EasyCatalogExport::getById($exportObjectId);
+            if($request->request->get("class_id")) {
+                $myObject->setExportClassId($classId);    
+                $myObject->setFilters($filters);    
+                $myObject->setColumnConfig($columnConfig);
+            } else {
+                $myObject->setXmlUrl($xmlUrl);  
+                if($caching) {
+                    $myObject->setCaching(true);    
+                }else {
+                    $myObject->setCaching(false);
+                }
+            }
+
+            $myObject->save();
+            return $this->json(['success' => true]);
+            return $this->json(array(
+                "filters" => json_decode($filters),
+                "columnConfig" => $columnConfig,
+                "classId" => $classId,
+            ));
+        } catch (\Exception $excp) {
+            return $this->json([
+                "success" => false,
+                'msg' => $excp->getMessage()
+            ]);
+        }
+    }  
 }

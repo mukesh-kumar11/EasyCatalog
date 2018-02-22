@@ -19,7 +19,7 @@ pimcore.object.helpers.gridTabAbstract = Class.create({
     filterUpdateFunction: function(grid, toolbarFilterInfo, clearFilterButton) {
         var filterStringConfig = [];
         var filterData = grid.getStore().getFilters().items;
-
+       
         // reset
         toolbarFilterInfo.setTooltip(" ");
 
@@ -524,7 +524,8 @@ pimcore.object.helpers.gridTabAbstract = Class.create({
                 }
                 Ext.Msg.alert(t("error"), t("error_jobs") + ": " + jobErrors.join(","));
             } else {
-                pimcore.helpers.download("/admin/object-helper/download-csv-file?fileHandle=" + fileHandle);
+//                pimcore.helpers.download("/admin/object-helper/download-csv-file?fileHandle=" + fileHandle);
+                pimcore.helpers.download("/admin/object-helper/download-xml-file?fileHandle=" + fileHandle);
             }
 
             return;

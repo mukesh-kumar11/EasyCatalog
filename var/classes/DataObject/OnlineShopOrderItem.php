@@ -1,11 +1,9 @@
 <?php 
 
 /** 
-* Generated at: 2017-10-19T11:20:03+02:00
+* Generated at: 2018-02-21T12:12:33+01:00
 * Inheritance: no
 * Variants: no
-* Changed by: admin (10)
-* IP: 192.168.11.5
 
 
 Fields Summary: 

@@ -12,7 +12,8 @@ class EasyCatalogExportBundle extends AbstractPimcoreBundle
             '/bundles/easycatalogexport/js/pimcore/startup.js',
             '/bundles/easycatalogexport/js/pimcore/export/exportbutton.js',
             '/bundles/easycatalogexport/js/pimcore/export/exportscreen.js',
-            '/bundles/easycatalogexport/js/pimcore/export/exportsearch.js'
+            '/bundles/easycatalogexport/js/pimcore/export/exportsearch.js',
+            '/bundles/easycatalogexport/js/pimcore/export/exportsetting.js'
         ];
     }
 }

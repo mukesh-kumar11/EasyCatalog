@@ -15,11 +15,10 @@ pimcore.registerNS("pimcore.plugin.exportsearch");
 pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstract, {
     systemColumns: ["id", "fullpath", "type", "subtype", "filename", "classname", "creationDate", "modificationDate"],
     fieldObject: {},
-
-    title: t('search_edit'),
+//    title: t('search_edit'),
+    title: t('Filter'),
     icon: "pimcore_icon_search",
     onlyDirectChildren: false,
-
     sortinfo: {},
     initialize: function (object, searchType) {
         this.object = object;
@@ -27,120 +26,173 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
         this.searchType = searchType;
         this.noBatchColumns = [];
     },
+    getLayout: function (selectedClass, exportFilter, gridColumnConfigId, search, currentExportId) {
+        
+        if (this.layout) {
+            this.layout.removeAll();
+        }
+//        if (this.layout == null) {
+        // check for classtypes inside of the folder if there is only one type don't display the selection
+        var toolbarConfig;
+        this.searchData = search;
+        this.currentExportId = currentExportId;
+        if (this.object.data.classes && typeof this.object.data.classes == "object") {
 
-    getLayout: function (selectedClass) {
-
-        if (this.layout == null) {
-
-            // check for classtypes inside of the folder if there is only one type don't display the selection
-            var toolbarConfig;
-
-            if (this.object.data.classes && typeof this.object.data.classes == "object") {
-
-                if (this.object.data.classes.length < 1) {
-                    return;
-                }
-
-                var data = [];
-                for (i = 0; i < this.object.data.classes.length; i++) {
-                    var klass = this.object.data.classes[i];
-                    data.push([klass.id, klass.name, ts(klass.name)]);
-
-                }
-
-                var classStore = new Ext.data.ArrayStore({
-                    data: data,
-                    sorters: 'translatedText',
-                    fields: [
-                        {name: 'id', type: 'number'},
-                        {name: 'name', type: 'string'},
-                        {name: 'translatedText', type: 'string'}
-                    ]
-                });
-                
-				if(selectedClass){
-					this.object.data["selectedClass"] = selectedClass;
-				}
-	
-                this.classSelector = new Ext.form.ComboBox({
-                    name: "selectClass",
-                    listWidth: 'auto',
-                    store: classStore,
-                    queryMode: "local",
-                    valueField: 'id',
-                    displayField: 'translatedText',
-                    triggerAction: 'all',
-                    editable: true,
-                    typeAhead: true,
-                    forceSelection: true,
-                    value: this.object.data["selectedClass"],
-                    listeners: {
-                        "select": this.changeClassSelect.bind(this)
-                    }
-                });
-
-                if (this.object.data.classes.length > 1) {
-                    toolbarConfig = [new Ext.Toolbar.TextItem({
-                        text: t("please_select_a_type")
-                    }), this.classSelector];
-                }
-                else {
-                    this.currentClass = this.object.data.classes[0].id;
-                }
-            }
-            else {
+            if (this.object.data.classes.length < 1) {
                 return;
             }
 
-            this.layout = new Ext.Panel({
-                title: this.title,
-                border: false,
-                layout: "fit",
-                iconCls: this.icon,
-                items: [],
-                tbar: toolbarConfig
+            var data = [];
+            for (i = 0; i < this.object.data.classes.length; i++) {
+                var klass = this.object.data.classes[i];
+                data.push([klass.id, klass.name, ts(klass.name)]);
+
+            }
+
+            var classStore = new Ext.data.ArrayStore({
+                data: data,
+                sorters: 'translatedText',
+                fields: [
+                    {name: 'id', type: 'number'},
+                    {name: 'name', type: 'string'},
+                    {name: 'translatedText', type: 'string'}
+                ]
             });
 
-            if (this.currentClass) {
-                this.layout.on("afterrender", this.setClass.bind(this, this.currentClass));
+            if (selectedClass) {
+                this.object.data["selectedClass"] = selectedClass;
             }
+
+            this.classSelector = new Ext.form.ComboBox({
+                name: "selectClass",
+                listWidth: 'auto',
+                store: classStore,
+                queryMode: "local",
+                valueField: 'id',
+                displayField: 'translatedText',
+                triggerAction: 'all',
+                editable: true,
+                typeAhead: true,
+                forceSelection: true,
+                value: this.object.data["selectedClass"],
+                listeners: {
+                    "select": this.changeClassSelect.bind(this)
+                }
+            });
+            this.button = new Ext.Button({
+                text: t('save'),
+                iconCls: "pimcore_icon_save_white",
+                cls: "pimcore_save_button",
+                scale: "medium",
+                handler: this.save.bind(this)
+            });
+
+            if (this.object.data.classes.length > 1) {
+                toolbarConfig = [new Ext.Toolbar.TextItem({
+                        text: t("please_select_a_type")
+                    }), this.classSelector, '->', this.button];
+            } else {
+                this.currentClass = this.object.data.classes[0].id;
+            }
+        } else {
+            return;
         }
+
+        this.layout = new Ext.Panel({
+            title: this.title,
+            border: false,
+            layout: "fit",
+            iconCls: this.icon,
+            items: [],
+            tbar: toolbarConfig
+        });
+        this.exportFilter = this.filter = exportFilter;
+        this.selectedClass = selectedClass;
+        this.gridColumnConfigId = gridColumnConfigId;
+        this.layout.on("afterrender", this.setClass.bind(this, selectedClass));
+//            if (this.currentClass) {
+//                this.layout.on("afterrender", this.setClass.bind(this, this.currentClass));
+//            }
+//        }
 
         return this.layout;
     },
-
     changeClassSelect: function (field, newValue, oldValue) {
         var selectedClass = newValue.data.id;
         this.setClass(selectedClass);
     },
-
     setClass: function (classId) {
         this.classId = classId;
         this.settings = {};
-        this.getTableDescription();
-    },
+        this.getTableDescription(this.exportFilter, this.gridColumnConfigId);
 
+    },
     getTableDescription: function () {
-        Ext.Ajax.request({
-            url: "/admin/object-helper/grid-get-column-config",
-            params: {
-                id: this.classId,
-                objectId:
-                this.object.id,
-                gridtype: "grid",
-                gridConfigId: this.settings ? this.settings.gridConfigId : null,
-                searchType: this.searchType
-            },
-            success: this.createGrid.bind(this, false)
-        });
+        if (typeof (this.settings.gridConfigId) == "undefined") {
+            this.settings.gridConfigId = this.gridColumnConfigId;
+        }
+        if (this.classId) {
+            Ext.Ajax.request({
+                url: "/admin/object-helper/grid-get-column-config",
+                params: {
+                    id: this.classId,
+                    objectId:
+                            this.object.id,
+                    gridtype: "grid",
+                    gridConfigId: this.settings ? this.settings.gridConfigId : null,
+                    searchType: this.searchType
+                },
+                success: this.createGrid.bind(this, false)
+            });
+        } else {
+            return false;
+        }
     },
+    save: function (task) {
 
+        var filterData = [];
+        for (var i = 0; i < this.searchData.store.filters.length; i++) {
+            filterData[i] = {
+                'operator': this.searchData.store.filters.items[i].config.operator,
+                'value': this.searchData.store.filters.items[i]._value,
+                'property': this.searchData.store.filters.items[i].config.property,
+                'type': this.searchData.store.filters.items[i].config.type,
+            };
+        }
 
+        var data = {
+            'columns': JSON.stringify(this.searchData.fieldObject),
+            'class_id': this.searchData.classId,
+            'filters': JSON.stringify(filterData),
+            'columnConfig': this.searchData.settings.gridConfigId,
+            'exportObjectId': this.currentExportId
+        };
 
+        Ext.Ajax.request({
+            url: '/admin/EasyCatalogExport/export/save-export-object',
+            method: "post",
+            dataType: "json",
+            params: data,
+            success: function (response) {
+                try {
+                    if (response.status == 200) {
+                        pimcore.helpers.showNotification(t("success"), t("your_object_has_been_saved"), "success");
+                        this.resetChanges();
+                    } else {
+                        pimcore.helpers.showNotification(t("error"), t("error_saving_object"),
+                                "error");
+                    }
+                } catch (e) {
+                    pimcore.helpers.showNotification(t("error"), t("error_saving_object"), "error");
+                }
+            }.bind(this)
+        });
 
+    },
     createGrid: function (fromConfig, response, settings, save) {
-        var itemsPerPage = pimcore.helpers.grid.getDefaultPageSize(-1);
 
+        this.fromClearFilter = false;
+        var itemsPerPage = pimcore.helpers.grid.getDefaultPageSize(-1);
         var fields = [];
         if (response.responseText) {
             response = Ext.decode(response.responseText);
@@ -172,21 +224,21 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
         }
 
         this.cellEditing = Ext.create('Ext.grid.plugin.CellEditing', {
-                clicksToEdit: 1,
-                listeners: {
-                    beforeedit: function (editor, context, eOpts) {
-                        //need to clear cached editors of cell-editing editor in order to
-                        //enable different editors per row
-                        var editors = editor.editors;
-                        editors.each(function (editor) {
-                            if (typeof editor.column.config.getEditor !== "undefined") {
-                                Ext.destroy(editor);
-                                editors.remove(editor);
-                            }
-                        });
-                    }
+            clicksToEdit: 1,
+            listeners: {
+                beforeedit: function (editor, context, eOpts) {
+                    //need to clear cached editors of cell-editing editor in order to
+                    //enable different editors per row
+                    var editors = editor.editors;
+                    editors.each(function (editor) {
+                        if (typeof editor.column.config.getEditor !== "undefined") {
+                            Ext.destroy(editor);
+                            editors.remove(editor);
+                        }
+                    });
                 }
             }
+        }
         );
 
         var plugins = [this.cellEditing, 'pimcore.gridfilters'];
@@ -195,39 +247,28 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
         var classStore = pimcore.globalmanager.get("object_types_store");
         var klass = classStore.getById(this.classId);
 
+        if(this.selectedClass != this.classId) {
+            this.exportFilter = '';
+        }else {
+            this.exportFilter = this.filter;
+        }
+   
         var gridHelper = new pimcore.object.helpers.grid(
-            klass.data.text,
-            fields,
-            "/admin/object/grid-proxy?classId=" + this.classId + "&folderId=" + this.object.id,
-            {
-                language: this.gridLanguage,
-                // limit: itemsPerPage
-            },
-            false
-        );
-
+                klass.data.text,
+                fields,
+                "/admin/object/grid-proxy?classId=" + this.classId + "&folderId=" + this.object.id,
+                {
+                    language: this.gridLanguage,
+                    filter: this.exportFilter, //Added default filter
+                    // limit: itemsPerPage
+                },
+                false
+                );
+   
+   
         gridHelper.showSubtype = false;
         gridHelper.enableEditor = true;
         gridHelper.limit = itemsPerPage;
-
-
-        var propertyVisibility = klass.get("propertyVisibility");
-
-        this.store = gridHelper.getStore(this.noBatchColumns);
-        if (this.sortinfo) {
-            this.store.sort(this.sortinfo.field, this.sortinfo.direction);
-        }
-        this.store.getProxy().setExtraParam("only_direct_children", this.onlyDirectChildren);
-        this.store.setPageSize(itemsPerPage);
-
-        var gridColumns = gridHelper.getGridColumns();
-
-        // add filters
-        this.gridfilters = gridHelper.getGridFilters();
-
-        this.languageInfo = new Ext.Toolbar.TextItem({
-            text: t("grid_current_language") + ": " + (this.gridLanguage == "default" ? t("default") : pimcore.available_languages[this.gridLanguage])
-        });
 
         this.toolbarFilterInfo = new Ext.Button({
             iconCls: "pimcore_icon_filter_condition",
@@ -245,11 +286,40 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
             text: t("clear_filters"),
             tooltip: t("clear_filters"),
             handler: function (button) {
+
                 this.grid.filters.clearFilters();
                 this.toolbarFilterInfo.hide();
                 this.clearFilterButton.hide();
+
+                this.fromClearFilter = true;
+                this.clearFilterButton.setHidden(true);
             }.bind(this)
         });
+
+        var hideSaveColumnConfig = !fromConfig;
+
+
+
+
+        var propertyVisibility = klass.get("propertyVisibility");
+
+        this.store = gridHelper.getStore(this.noBatchColumns);
+
+        if (this.sortinfo) {
+            this.store.sort(this.sortinfo.field, this.sortinfo.direction);
+        }
+        this.store.getProxy().setExtraParam("only_direct_children", this.onlyDirectChildren);
+        this.store.setPageSize(itemsPerPage);
+
+
+        this.languageInfo = new Ext.Toolbar.TextItem({
+            text: t("grid_current_language") + ": " + (this.gridLanguage == "default" ? t("default") : pimcore.available_languages[this.gridLanguage])
+        });
+
+        var gridColumns = gridHelper.getGridColumns();
+
+        // add filters
+        this.gridfilters = gridHelper.getGridFilters();
 
 
         this.createSqlEditor();
@@ -313,37 +383,36 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
             },
             cls: 'pimcore_object_grid_panel',
             tbar: [this.languageInfo, "-", this.toolbarFilterInfo, this.clearFilterButton, "->", this.checkboxOnlyDirectChildren, "-", this.sqlEditor, this.sqlButton, "-", {
-                text: t("search_and_move"),
-                iconCls: "pimcore_icon_search pimcore_icon_overlay_go",
-                handler: pimcore.helpers.searchAndMove.bind(this, this.object.id,
-                    function () {
-                        this.store.reload();
-                    }.bind(this), "object")
-            }, "-", {
-                text: t("export_csv"),
-                iconCls: "pimcore_icon_export",
-                handler: function () {
+                    text: t("search_and_move"),
+                    iconCls: "pimcore_icon_search pimcore_icon_overlay_go",
+                    handler: pimcore.helpers.searchAndMove.bind(this, this.object.id,
+                            function () {
+                                this.store.reload();
+                            }.bind(this), "object")
+                }, "-", {
+                    text: t("export_csv"),
+                    iconCls: "pimcore_icon_export",
+                    handler: function () {
 
-                    Ext.MessageBox.show({
-                        title: t('warning'),
-                        msg: t('csv_object_export_warning'),
-                        buttons: Ext.Msg.OKCANCEL,
-                        fn: function (btn) {
-                            if (btn == 'ok') {
-                                this.exportPrepare();
-                            }
-                        }.bind(this),
-                        icon: Ext.MessageBox.WARNING
-                    });
+                        Ext.MessageBox.show({
+                            title: t('warning'),
+                            msg: t('csv_object_export_warning'),
+                            buttons: Ext.Msg.OKCANCEL,
+                            fn: function (btn) {
+                                if (btn == 'ok') {
+                                    this.exportPrepare();
+                                }
+                            }.bind(this),
+                            icon: Ext.MessageBox.WARNING
+                        });
 
 
-                }.bind(this)
-            }, "-",
+                    }.bind(this)
+                }, "-",
                 this.columnConfigButton,
                 this.saveColumnConfigButton
             ]
         });
-
         this.grid.on("columnmove", function () {
             this.saveColumnConfigButton.show()
         }.bind(this));
@@ -355,6 +424,9 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
 
         this.grid.on("afterrender", function (grid) {
             this.updateGridHeaderContextMenu(grid);
+                if (this.exportFilter) {
+                this.filterUpdateFunction(this.grid, this.toolbarFilterInfo, this.clearFilterButton);
+            }
         }.bind(this));
 
         this.grid.on("sortchange", function (ct, column, direction, eOpts) {
@@ -364,25 +436,78 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
             };
         }.bind(this));
 
+        //Delete the current filter when user is about to apply new filter.
+        delete this.grid.getStore().getProxy().getInitialConfig().extraParams.filter;
         // check for filter updates
         this.grid.on("filterchange", function () {
             this.filterUpdateFunction(this.grid, this.toolbarFilterInfo, this.clearFilterButton);
         }.bind(this));
 
         gridHelper.applyGridEvents(this.grid);
-
         this.pagingtoolbar = pimcore.helpers.grid.buildDefaultPagingToolbar(this.store, {pageSize: itemsPerPage});
+        
+        // applying filters on grid -- open
+        if (this.exportFilter) {
+            
+            var appliedFilters = this.exportFilter;
+            var columnManager = this.grid.columnManager;
+          
+            if (appliedFilters) {
+                appliedFilters = JSON.parse(appliedFilters);
 
+                appliedFilters.forEach(function (appliedFilter) {
+                    var column = columnManager.getHeaderByDataIndex(appliedFilter.property);
+                    if (column.filter.type == 'numeric') {
+                        if (appliedFilter.operator == "lt") {
+                            column.filter.setValue({"lt": appliedFilter.value});
+                        }
+                        if (appliedFilter.operator == "gt") {
+                            column.filter.setValue({"gt": appliedFilter.value});
+                        }
+                        if (appliedFilter.operator == "eq") {
+                            column.filter.setValue({"eq": appliedFilter.value});
+                        }
+                    } else if (column.filter.type == 'boolean') {
+                        column.filter.setValue(appliedFilter.value);
+                        column.filter.defaultValue = appliedFilter.value;
+
+                    } else if (column.filter.type == 'list') {
+                        var valueArr = appliedFilter.value.split('|');
+                        column.filter.filter.setValue(valueArr);
+                        column.filter.setActive(true);
+
+                    } else if (column.filter.type == 'date') {
+                        var date = new Date(appliedFilter.value);
+                        if (appliedFilter.operator == "eq") {
+                            column.filter.setValue({"eq": date});
+                        }
+                        if (appliedFilter.operator == "lt") {
+                            column.filter.setValue({"lt": date});
+                        }
+                        if (appliedFilter.operator == "gt") {
+                            column.filter.setValue({"gt": date});
+                        }
+                    } else {
+                        column.filter.setValue(appliedFilter.value);
+                    }
+                });
+//                this.panel.updateLayout();
+            }
+        } else {
+            this.fromClearFilter = false;
+
+        }
+        
         this.editor = new Ext.Panel({
             layout: "border",
             items: [new Ext.Panel({
-                items: [this.grid],
-                region: "center",
-                layout: "fit",
-                bbar: this.pagingtoolbar
-            })]
+                    items: [this.grid],
+                    region: "center",
+                    layout: "fit",
+                    bbar: this.pagingtoolbar
+                })]
         });
-
+        
         this.layout.removeAll();
         this.layout.add(this.editor);
         this.layout.updateLayout();
@@ -394,14 +519,12 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
             this.saveConfig(false);
         }
     },
-    
     getGridConfig: function ($super) {
         var config = $super();
         config.onlyDirectChildren = this.onlyDirectChildren;
         config.pageSize = this.pagingtoolbar.pageSize;
         return config;
     },
-
     buildColumnConfigMenu: function () {
         var menu = this.columnConfigButton.getMenu();
         menu.removeAll();
@@ -456,9 +579,6 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
             this.addGridConfigMenuItems(menu, this.sharedConfigs);
         }
     },
-
-
-
     onRowContextmenu: function (grid, record, tr, rowIndex, e, eOpts) {
 
         var menu = new Ext.menu.Menu();

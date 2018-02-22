@@ -1,14 +1,12 @@
-<?php
+<?php 
 
-/**
-* Generated at: 2017-03-23T20:14:18+01:00
+/** 
+* Generated at: 2018-02-21T12:12:26+01:00
 * Inheritance: yes
 * Variants: no
-* Changed by: cfasching (6)
-* IP: 10.242.2.4
 
 
-Fields Summary:
+Fields Summary: 
 - pageLimit [numeric]
 - defaultOrderByInheritance [select]
 - defaultOrderBy [fieldcollections]
@@ -24,26 +22,28 @@ Fields Summary:
 - crossSellingCategory [href]
 - similarityFieldsInheritance [select]
 - similarityFields [fieldcollections]
-*/
+*/ 
 
 namespace Pimcore\Model\DataObject;
 
+
+
 /**
-* @method \Pimcore\Model\DataObject\FilterDefinition\Listing getByPageLimit ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\FilterDefinition\Listing getByDefaultOrderByInheritance ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\FilterDefinition\Listing getByDefaultOrderBy ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\FilterDefinition\Listing getByOrderByAsc ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\FilterDefinition\Listing getByOrderByDesc ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\FilterDefinition\Listing getByAjaxReload ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\FilterDefinition\Listing getByInfiniteScroll ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\FilterDefinition\Listing getByLimitOnFirstLoad ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\FilterDefinition\Listing getByConditionsInheritance ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\FilterDefinition\Listing getByConditions ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\FilterDefinition\Listing getByFiltersInheritance ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\FilterDefinition\Listing getByFilters ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\FilterDefinition\Listing getByCrossSellingCategory ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\FilterDefinition\Listing getBySimilarityFieldsInheritance ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\FilterDefinition\Listing getBySimilarityFields ($value, $limit = 0)
+* @method static \Pimcore\Model\DataObject\FilterDefinition\Listing getByPageLimit ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\FilterDefinition\Listing getByDefaultOrderByInheritance ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\FilterDefinition\Listing getByDefaultOrderBy ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\FilterDefinition\Listing getByOrderByAsc ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\FilterDefinition\Listing getByOrderByDesc ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\FilterDefinition\Listing getByAjaxReload ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\FilterDefinition\Listing getByInfiniteScroll ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\FilterDefinition\Listing getByLimitOnFirstLoad ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\FilterDefinition\Listing getByConditionsInheritance ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\FilterDefinition\Listing getByConditions ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\FilterDefinition\Listing getByFiltersInheritance ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\FilterDefinition\Listing getByFilters ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\FilterDefinition\Listing getByCrossSellingCategory ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\FilterDefinition\Listing getBySimilarityFieldsInheritance ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\FilterDefinition\Listing getBySimilarityFields ($value, $limit = 0) 
 */
 
 class FilterDefinition extends \Pimcore\Bundle\EcommerceFrameworkBundle\Model\AbstractFilterDefinition {
@@ -82,8 +82,8 @@ public static function create($values = array()) {
 * @return float
 */
 public function getPageLimit () {
-	$preValue = $this->preGetValue("pageLimit");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("pageLimit"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->pageLimit;
@@ -108,8 +108,8 @@ public function setPageLimit ($pageLimit) {
 * @return string
 */
 public function getDefaultOrderByInheritance () {
-	$preValue = $this->preGetValue("defaultOrderByInheritance");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("defaultOrderByInheritance"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->defaultOrderByInheritance;
@@ -133,7 +133,7 @@ public function setDefaultOrderByInheritance ($defaultOrderByInheritance) {
 * @return \Pimcore\Model\DataObject\Fieldcollection
 */
 public function getDefaultOrderBy () {
-	$preValue = $this->preGetValue("defaultOrderBy");
+	$preValue = $this->preGetValue("defaultOrderBy"); 
 	if($preValue !== null && !\Pimcore::inAdmin()) { return $preValue;}
 	$data = $this->getClass()->getFieldDefinition("defaultOrderBy")->preGetData($this);
 	 return $data;
@@ -154,8 +154,8 @@ public function setDefaultOrderBy ($defaultOrderBy) {
 * @return string
 */
 public function getOrderByAsc () {
-	$preValue = $this->preGetValue("orderByAsc");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("orderByAsc"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->orderByAsc;
@@ -180,8 +180,8 @@ public function setOrderByAsc ($orderByAsc) {
 * @return string
 */
 public function getOrderByDesc () {
-	$preValue = $this->preGetValue("orderByDesc");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("orderByDesc"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->orderByDesc;
@@ -206,8 +206,8 @@ public function setOrderByDesc ($orderByDesc) {
 * @return boolean
 */
 public function getAjaxReload () {
-	$preValue = $this->preGetValue("ajaxReload");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("ajaxReload"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->ajaxReload;
@@ -232,8 +232,8 @@ public function setAjaxReload ($ajaxReload) {
 * @return boolean
 */
 public function getInfiniteScroll () {
-	$preValue = $this->preGetValue("infiniteScroll");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("infiniteScroll"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->infiniteScroll;
@@ -258,8 +258,8 @@ public function setInfiniteScroll ($infiniteScroll) {
 * @return float
 */
 public function getLimitOnFirstLoad () {
-	$preValue = $this->preGetValue("limitOnFirstLoad");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("limitOnFirstLoad"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->limitOnFirstLoad;
@@ -284,8 +284,8 @@ public function setLimitOnFirstLoad ($limitOnFirstLoad) {
 * @return string
 */
 public function getConditionsInheritance () {
-	$preValue = $this->preGetValue("conditionsInheritance");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("conditionsInheritance"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->conditionsInheritance;
@@ -309,7 +309,7 @@ public function setConditionsInheritance ($conditionsInheritance) {
 * @return \Pimcore\Model\DataObject\Fieldcollection
 */
 public function getConditions () {
-	$preValue = $this->preGetValue("conditions");
+	$preValue = $this->preGetValue("conditions"); 
 	if($preValue !== null && !\Pimcore::inAdmin()) { return $preValue;}
 	$data = $this->getClass()->getFieldDefinition("conditions")->preGetData($this);
 	 return $data;
@@ -330,8 +330,8 @@ public function setConditions ($conditions) {
 * @return string
 */
 public function getFiltersInheritance () {
-	$preValue = $this->preGetValue("filtersInheritance");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("filtersInheritance"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->filtersInheritance;
@@ -355,7 +355,7 @@ public function setFiltersInheritance ($filtersInheritance) {
 * @return \Pimcore\Model\DataObject\Fieldcollection
 */
 public function getFilters () {
-	$preValue = $this->preGetValue("filters");
+	$preValue = $this->preGetValue("filters"); 
 	if($preValue !== null && !\Pimcore::inAdmin()) { return $preValue;}
 	$data = $this->getClass()->getFieldDefinition("filters")->preGetData($this);
 	 return $data;
@@ -376,8 +376,8 @@ public function setFilters ($filters) {
 * @return \Pimcore\Model\DataObject\ProductCategory
 */
 public function getCrossSellingCategory () {
-	$preValue = $this->preGetValue("crossSellingCategory");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("crossSellingCategory"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->getClass()->getFieldDefinition("crossSellingCategory")->preGetData($this);
@@ -402,8 +402,8 @@ public function setCrossSellingCategory ($crossSellingCategory) {
 * @return string
 */
 public function getSimilarityFieldsInheritance () {
-	$preValue = $this->preGetValue("similarityFieldsInheritance");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("similarityFieldsInheritance"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->similarityFieldsInheritance;
@@ -427,7 +427,7 @@ public function setSimilarityFieldsInheritance ($similarityFieldsInheritance) {
 * @return \Pimcore\Model\DataObject\Fieldcollection
 */
 public function getSimilarityFields () {
-	$preValue = $this->preGetValue("similarityFields");
+	$preValue = $this->preGetValue("similarityFields"); 
 	if($preValue !== null && !\Pimcore::inAdmin()) { return $preValue;}
 	$data = $this->getClass()->getFieldDefinition("similarityFields")->preGetData($this);
 	 return $data;
@@ -444,7 +444,7 @@ public function setSimilarityFields ($similarityFields) {
 }
 
 protected static $_relationFields = array (
-  'crossSellingCategory' =>
+  'crossSellingCategory' => 
   array (
     'type' => 'href',
   ),

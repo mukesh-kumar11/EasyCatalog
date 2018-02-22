@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2018-02-02T08:56:58+01:00
+* Generated at: 2018-02-07T08:01:25+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (16)
@@ -21,7 +21,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'EasyCatalogExport',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1517558218,
+   'modificationDate' => 1517986885,
    'userOwner' => 16,
    'userModification' => 16,
    'parentClass' => '',
@@ -78,7 +78,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'name' => 'ExportClassId',
              'title' => 'Export Class Id',
              'tooltip' => '',
-             'mandatory' => false,
+             'mandatory' => true,
              'noteditable' => false,
              'index' => false,
              'locked' => false,

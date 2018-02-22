@@ -1,11 +1,10 @@
-<?php
+<?php 
 
-/**
-* Generated at: 2017-06-23T13:19:42+02:00
-* IP: 192.168.11.87
+/** 
+* Generated at: 2018-02-21T12:13:12+01:00
 
 
-Fields Summary:
+Fields Summary: 
  - length [numeric]
  - width [numeric]
  - height [numeric]
@@ -15,7 +14,7 @@ Fields Summary:
  - isCFCfree [checkbox]
  - has3partWaveShape [checkbox]
  - structure [multiselect]
-*/
+*/ 
 
 namespace Pimcore\Model\DataObject\Objectbrick\Data;
 

@@ -1,13 +1,12 @@
-<?php
+<?php 
 
-/**
-* Generated at: 2017-06-23T13:19:43+02:00
-* IP: 192.168.11.87
+/** 
+* Generated at: 2018-02-21T12:13:29+01:00
 
 
-Fields Summary:
+Fields Summary: 
  - weight [numeric]
-*/
+*/ 
 
 namespace Pimcore\Model\DataObject\Objectbrick\Data;
 

@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace Pimcore\Model\DataObject\OnlineShopOrder;
 
@@ -14,8 +14,8 @@ public $PaymentProviderDatatrans = null;
 /**
 * @return \Pimcore\Model\DataObject\Objectbrick\Data\PaymentProviderDatatrans
 */
-public function getPaymentProviderDatatrans() {
-   return $this->PaymentProviderDatatrans;
+public function getPaymentProviderDatatrans() { 
+   return $this->PaymentProviderDatatrans; 
 }
 
 /**
@@ -32,8 +32,8 @@ public $PaymentProviderPayPal = null;
 /**
 * @return \Pimcore\Model\DataObject\Objectbrick\Data\PaymentProviderPayPal
 */
-public function getPaymentProviderPayPal() {
-   return $this->PaymentProviderPayPal;
+public function getPaymentProviderPayPal() { 
+   return $this->PaymentProviderPayPal; 
 }
 
 /**
@@ -50,8 +50,8 @@ public $PaymentProviderQpay = null;
 /**
 * @return \Pimcore\Model\DataObject\Objectbrick\Data\PaymentProviderQpay
 */
-public function getPaymentProviderQpay() {
-   return $this->PaymentProviderQpay;
+public function getPaymentProviderQpay() { 
+   return $this->PaymentProviderQpay; 
 }
 
 /**
@@ -68,8 +68,8 @@ public $PaymentProviderWirecardSeamless = null;
 /**
 * @return \Pimcore\Model\DataObject\Objectbrick\Data\PaymentProviderWirecardSeamless
 */
-public function getPaymentProviderWirecardSeamless() {
-   return $this->PaymentProviderWirecardSeamless;
+public function getPaymentProviderWirecardSeamless() { 
+   return $this->PaymentProviderWirecardSeamless; 
 }
 
 /**

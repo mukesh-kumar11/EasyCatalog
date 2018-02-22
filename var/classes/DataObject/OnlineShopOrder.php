@@ -1,14 +1,13 @@
-<?php
+<?php 
 
-/**
-* Generated at: 2017-07-17T12:04:39+02:00
+/** 
+* Generated at: 2018-02-21T12:12:55+01:00
 * Inheritance: no
 * Variants: no
-* Changed by: admin (8)
-* IP: 192.168.11.5
+* Changed by: admin (16)
 
 
-Fields Summary:
+Fields Summary: 
 - ordernumber [input]
 - orderState [select]
 - orderdate [datetime]
@@ -45,49 +44,49 @@ Fields Summary:
 - paymentInfo [fieldcollections]
 - paymentReference [input]
 - customized [objectbricks]
-*/
+*/ 
 
 namespace Pimcore\Model\DataObject;
 
 
 
 /**
-* @method \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByOrdernumber ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByOrderState ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByOrderdate ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByItems ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByComment ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByCustomerOrderData ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByVoucherTokens ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByGiftItems ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByPriceModifications ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\OnlineShopOrder\Listing getBySubTotalNetPrice ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\OnlineShopOrder\Listing getBySubTotalPrice ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByTotalNetPrice ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByTotalPrice ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByTaxInfo ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByCurrency ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByCartId ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByCustomer ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByCustomerFirstname ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByCustomerLastname ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByCustomerCompany ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByCustomerStreet ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByCustomerZip ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByCustomerCity ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByCustomerCountry ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByCustomerEmail ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByDeliveryFirstname ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByDeliveryLastname ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByDeliveryCompany ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByDeliveryStreet ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByDeliveryZip ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByDeliveryCity ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByDeliveryCountry ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByPaymentProvider ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByPaymentInfo ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByPaymentReference ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByCustomized ($value, $limit = 0)
+* @method static \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByOrdernumber ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByOrderState ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByOrderdate ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByItems ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByComment ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByCustomerOrderData ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByVoucherTokens ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByGiftItems ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByPriceModifications ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\OnlineShopOrder\Listing getBySubTotalNetPrice ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\OnlineShopOrder\Listing getBySubTotalPrice ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByTotalNetPrice ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByTotalPrice ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByTaxInfo ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByCurrency ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByCartId ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByCustomer ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByCustomerFirstname ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByCustomerLastname ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByCustomerCompany ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByCustomerStreet ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByCustomerZip ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByCustomerCity ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByCustomerCountry ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByCustomerEmail ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByDeliveryFirstname ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByDeliveryLastname ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByDeliveryCompany ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByDeliveryStreet ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByDeliveryZip ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByDeliveryCity ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByDeliveryCountry ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByPaymentProvider ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByPaymentInfo ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByPaymentReference ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\OnlineShopOrder\Listing getByCustomized ($value, $limit = 0) 
 */
 
 class OnlineShopOrder extends \Pimcore\Bundle\EcommerceFrameworkBundle\Model\AbstractOrder {
@@ -147,8 +146,8 @@ public static function create($values = array()) {
 * @return string
 */
 public function getOrdernumber () {
-	$preValue = $this->preGetValue("ordernumber");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("ordernumber"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->ordernumber;
@@ -170,8 +169,8 @@ public function setOrdernumber ($ordernumber) {
 * @return string
 */
 public function getOrderState () {
-	$preValue = $this->preGetValue("orderState");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("orderState"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->orderState;
@@ -193,8 +192,8 @@ public function setOrderState ($orderState) {
 * @return \Carbon\Carbon
 */
 public function getOrderdate () {
-	$preValue = $this->preGetValue("orderdate");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("orderdate"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->orderdate;
@@ -216,8 +215,8 @@ public function setOrderdate ($orderdate) {
 * @return \Pimcore\Model\DataObject\OnlineShopOrderItem[]
 */
 public function getItems () {
-	$preValue = $this->preGetValue("items");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("items"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->getClass()->getFieldDefinition("items")->preGetData($this);
@@ -239,8 +238,8 @@ public function setItems ($items) {
 * @return string
 */
 public function getComment () {
-	$preValue = $this->preGetValue("comment");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("comment"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->comment;
@@ -262,8 +261,8 @@ public function setComment ($comment) {
 * @return string
 */
 public function getCustomerOrderData () {
-	$preValue = $this->preGetValue("customerOrderData");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("customerOrderData"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->customerOrderData;
@@ -285,8 +284,8 @@ public function setCustomerOrderData ($customerOrderData) {
 * @return \Pimcore\Model\DataObject\OnlineShopVoucherToken[]
 */
 public function getVoucherTokens () {
-	$preValue = $this->preGetValue("voucherTokens");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("voucherTokens"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->getClass()->getFieldDefinition("voucherTokens")->preGetData($this);
@@ -308,8 +307,8 @@ public function setVoucherTokens ($voucherTokens) {
 * @return \Pimcore\Model\DataObject\OnlineShopOrderItem[]
 */
 public function getGiftItems () {
-	$preValue = $this->preGetValue("giftItems");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("giftItems"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->getClass()->getFieldDefinition("giftItems")->preGetData($this);
@@ -330,7 +329,7 @@ public function setGiftItems ($giftItems) {
 * @return \Pimcore\Model\DataObject\Fieldcollection
 */
 public function getPriceModifications () {
-	$preValue = $this->preGetValue("priceModifications");
+	$preValue = $this->preGetValue("priceModifications"); 
 	if($preValue !== null && !\Pimcore::inAdmin()) { return $preValue;}
 	$data = $this->getClass()->getFieldDefinition("priceModifications")->preGetData($this);
 	 return $data;
@@ -351,8 +350,8 @@ public function setPriceModifications ($priceModifications) {
 * @return string
 */
 public function getSubTotalNetPrice () {
-	$preValue = $this->preGetValue("subTotalNetPrice");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("subTotalNetPrice"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->subTotalNetPrice;
@@ -374,8 +373,8 @@ public function setSubTotalNetPrice ($subTotalNetPrice) {
 * @return string
 */
 public function getSubTotalPrice () {
-	$preValue = $this->preGetValue("subTotalPrice");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("subTotalPrice"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->subTotalPrice;
@@ -397,8 +396,8 @@ public function setSubTotalPrice ($subTotalPrice) {
 * @return string
 */
 public function getTotalNetPrice () {
-	$preValue = $this->preGetValue("totalNetPrice");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("totalNetPrice"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->totalNetPrice;
@@ -420,8 +419,8 @@ public function setTotalNetPrice ($totalNetPrice) {
 * @return string
 */
 public function getTotalPrice () {
-	$preValue = $this->preGetValue("totalPrice");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("totalPrice"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->totalPrice;
@@ -443,8 +442,8 @@ public function setTotalPrice ($totalPrice) {
 * @return array
 */
 public function getTaxInfo () {
-	$preValue = $this->preGetValue("taxInfo");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("taxInfo"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->taxInfo;
@@ -466,8 +465,8 @@ public function setTaxInfo ($taxInfo) {
 * @return string
 */
 public function getCurrency () {
-	$preValue = $this->preGetValue("currency");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("currency"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->currency;
@@ -489,8 +488,8 @@ public function setCurrency ($currency) {
 * @return string
 */
 public function getCartId () {
-	$preValue = $this->preGetValue("cartId");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("cartId"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->cartId;
@@ -512,8 +511,8 @@ public function setCartId ($cartId) {
 * @return \Pimcore\Model\DataObject\Customer
 */
 public function getCustomer () {
-	$preValue = $this->preGetValue("customer");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("customer"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->getClass()->getFieldDefinition("customer")->preGetData($this);
@@ -535,8 +534,8 @@ public function setCustomer ($customer) {
 * @return string
 */
 public function getCustomerFirstname () {
-	$preValue = $this->preGetValue("customerFirstname");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("customerFirstname"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->customerFirstname;
@@ -558,8 +557,8 @@ public function setCustomerFirstname ($customerFirstname) {
 * @return string
 */
 public function getCustomerLastname () {
-	$preValue = $this->preGetValue("customerLastname");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("customerLastname"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->customerLastname;
@@ -581,8 +580,8 @@ public function setCustomerLastname ($customerLastname) {
 * @return string
 */
 public function getCustomerCompany () {
-	$preValue = $this->preGetValue("customerCompany");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("customerCompany"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->customerCompany;
@@ -604,8 +603,8 @@ public function setCustomerCompany ($customerCompany) {
 * @return string
 */
 public function getCustomerStreet () {
-	$preValue = $this->preGetValue("customerStreet");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("customerStreet"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->customerStreet;
@@ -627,8 +626,8 @@ public function setCustomerStreet ($customerStreet) {
 * @return string
 */
 public function getCustomerZip () {
-	$preValue = $this->preGetValue("customerZip");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("customerZip"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->customerZip;
@@ -650,8 +649,8 @@ public function setCustomerZip ($customerZip) {
 * @return string
 */
 public function getCustomerCity () {
-	$preValue = $this->preGetValue("customerCity");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("customerCity"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->customerCity;
@@ -673,8 +672,8 @@ public function setCustomerCity ($customerCity) {
 * @return string
 */
 public function getCustomerCountry () {
-	$preValue = $this->preGetValue("customerCountry");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("customerCountry"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->customerCountry;
@@ -696,8 +695,8 @@ public function setCustomerCountry ($customerCountry) {
 * @return string
 */
 public function getCustomerEmail () {
-	$preValue = $this->preGetValue("customerEmail");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("customerEmail"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->customerEmail;
@@ -719,8 +718,8 @@ public function setCustomerEmail ($customerEmail) {
 * @return string
 */
 public function getDeliveryFirstname () {
-	$preValue = $this->preGetValue("deliveryFirstname");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("deliveryFirstname"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->deliveryFirstname;
@@ -742,8 +741,8 @@ public function setDeliveryFirstname ($deliveryFirstname) {
 * @return string
 */
 public function getDeliveryLastname () {
-	$preValue = $this->preGetValue("deliveryLastname");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("deliveryLastname"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->deliveryLastname;
@@ -765,8 +764,8 @@ public function setDeliveryLastname ($deliveryLastname) {
 * @return string
 */
 public function getDeliveryCompany () {
-	$preValue = $this->preGetValue("deliveryCompany");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("deliveryCompany"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->deliveryCompany;
@@ -788,8 +787,8 @@ public function setDeliveryCompany ($deliveryCompany) {
 * @return string
 */
 public function getDeliveryStreet () {
-	$preValue = $this->preGetValue("deliveryStreet");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("deliveryStreet"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->deliveryStreet;
@@ -811,8 +810,8 @@ public function setDeliveryStreet ($deliveryStreet) {
 * @return string
 */
 public function getDeliveryZip () {
-	$preValue = $this->preGetValue("deliveryZip");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("deliveryZip"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->deliveryZip;
@@ -834,8 +833,8 @@ public function setDeliveryZip ($deliveryZip) {
 * @return string
 */
 public function getDeliveryCity () {
-	$preValue = $this->preGetValue("deliveryCity");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("deliveryCity"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->deliveryCity;
@@ -857,8 +856,8 @@ public function setDeliveryCity ($deliveryCity) {
 * @return string
 */
 public function getDeliveryCountry () {
-	$preValue = $this->preGetValue("deliveryCountry");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("deliveryCountry"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->deliveryCountry;
@@ -880,15 +879,15 @@ public function setDeliveryCountry ($deliveryCountry) {
 */
 public function getPaymentProvider () {
 	$data = $this->paymentProvider;
-	if(!$data) {
-		if(\Pimcore\Tool::classExists("\\Pimcore\\Model\\DataObject\\OnlineShopOrder\\PaymentProvider")) {
+	if(!$data) { 
+		if(\Pimcore\Tool::classExists("\\Pimcore\\Model\\DataObject\\OnlineShopOrder\\PaymentProvider")) { 
 			$data = new \Pimcore\Model\DataObject\OnlineShopOrder\PaymentProvider($this, "paymentProvider");
 			$this->paymentProvider = $data;
 		} else {
 			return null;
 		}
 	}
-	$preValue = $this->preGetValue("paymentProvider");
+	$preValue = $this->preGetValue("paymentProvider"); 
 	if($preValue !== null && !\Pimcore::inAdmin()) { return $preValue;}
 	 return $data;
 }
@@ -907,7 +906,7 @@ public function setPaymentProvider ($paymentProvider) {
 * @return \Pimcore\Model\DataObject\Fieldcollection
 */
 public function getPaymentInfo () {
-	$preValue = $this->preGetValue("paymentInfo");
+	$preValue = $this->preGetValue("paymentInfo"); 
 	if($preValue !== null && !\Pimcore::inAdmin()) { return $preValue;}
 	$data = $this->getClass()->getFieldDefinition("paymentInfo")->preGetData($this);
 	 return $data;
@@ -928,8 +927,8 @@ public function setPaymentInfo ($paymentInfo) {
 * @return string
 */
 public function getPaymentReference () {
-	$preValue = $this->preGetValue("paymentReference");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("paymentReference"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->paymentReference;
@@ -951,15 +950,15 @@ public function setPaymentReference ($paymentReference) {
 */
 public function getCustomized () {
 	$data = $this->customized;
-	if(!$data) {
-		if(\Pimcore\Tool::classExists("\\Pimcore\\Model\\DataObject\\OnlineShopOrder\\Customized")) {
+	if(!$data) { 
+		if(\Pimcore\Tool::classExists("\\Pimcore\\Model\\DataObject\\OnlineShopOrder\\Customized")) { 
 			$data = new \Pimcore\Model\DataObject\OnlineShopOrder\Customized($this, "customized");
 			$this->customized = $data;
 		} else {
 			return null;
 		}
 	}
-	$preValue = $this->preGetValue("customized");
+	$preValue = $this->preGetValue("customized"); 
 	if($preValue !== null && !\Pimcore::inAdmin()) { return $preValue;}
 	 return $data;
 }
@@ -975,19 +974,19 @@ public function setCustomized ($customized) {
 }
 
 protected static $_relationFields = array (
-  'items' =>
+  'items' => 
   array (
     'type' => 'objects',
   ),
-  'voucherTokens' =>
+  'voucherTokens' => 
   array (
     'type' => 'objects',
   ),
-  'giftItems' =>
+  'giftItems' => 
   array (
     'type' => 'objects',
   ),
-  'customer' =>
+  'customer' => 
   array (
     'type' => 'href',
   ),

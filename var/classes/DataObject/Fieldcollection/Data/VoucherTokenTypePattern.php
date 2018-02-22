@@ -1,11 +1,19 @@
-<?php
+<?php 
 
-/** Generated at 2016-04-07T20:03:47+02:00 */
+/** 
+* Generated at: 2018-02-21T12:13:31+01:00
 
-/**
-* IP:          10.242.2.6
-*/
 
+Fields Summary: 
+ - count [numeric]
+ - prefix [input]
+ - length [numeric]
+ - characterType [select]
+ - separator [input]
+ - separatorCount [numeric]
+ - allowOncePerCart [checkbox]
+ - onlyTokenPerCart [checkbox]
+*/ 
 
 namespace Pimcore\Model\DataObject\Fieldcollection\Data;
 
@@ -120,8 +128,8 @@ public function setSeparator ($separator) {
 }
 
 /**
-* Get separatorCount - Every x character
-* @return float
+* Get separatorCount - Every x character 
+* @return string
 */
 public function getSeparatorCount () {
 	$data = $this->separatorCount;
@@ -129,8 +137,8 @@ public function getSeparatorCount () {
 }
 
 /**
-* Set separatorCount - Every x character
-* @param float $separatorCount
+* Set separatorCount - Every x character 
+* @param string $separatorCount
 * @return \Pimcore\Model\DataObject\VoucherTokenTypePattern
 */
 public function setSeparatorCount ($separatorCount) {

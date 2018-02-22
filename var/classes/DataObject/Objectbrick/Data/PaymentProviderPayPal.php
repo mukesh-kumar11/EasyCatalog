@@ -1,14 +1,13 @@
-<?php
+<?php 
 
-/**
-* Generated at: 2017-06-23T13:19:41+02:00
-* IP: 192.168.11.87
+/** 
+* Generated at: 2018-02-21T12:12:50+01:00
 
 
-Fields Summary:
+Fields Summary: 
  - auth_token [input]
  - auth_PayerID [input]
-*/
+*/ 
 
 namespace Pimcore\Model\DataObject\Objectbrick\Data;
 

@@ -1,14 +1,12 @@
-<?php
+<?php 
 
-/**
-* Generated at: 2017-07-14T09:03:17+02:00
+/** 
+* Generated at: 2018-02-21T12:12:31+01:00
 * Inheritance: no
 * Variants: no
-* Changed by: admin (8)
-* IP: 192.168.11.5
 
 
-Fields Summary:
+Fields Summary: 
 - product [href]
 - productNumber [input]
 - productName [input]
@@ -20,24 +18,24 @@ Fields Summary:
 - subItems [objects]
 - comment [textarea]
 - cartItemKey [input]
-*/
+*/ 
 
 namespace Pimcore\Model\DataObject;
 
 
 
 /**
-* @method \Pimcore\Model\DataObject\OfferToolOfferItem\Listing getByProduct ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\OfferToolOfferItem\Listing getByProductNumber ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\OfferToolOfferItem\Listing getByProductName ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\OfferToolOfferItem\Listing getByAmount ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\OfferToolOfferItem\Listing getByOriginalTotalPrice ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\OfferToolOfferItem\Listing getByDiscountType ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\OfferToolOfferItem\Listing getByDiscount ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\OfferToolOfferItem\Listing getByFinalTotalPrice ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\OfferToolOfferItem\Listing getBySubItems ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\OfferToolOfferItem\Listing getByComment ($value, $limit = 0)
-* @method \Pimcore\Model\DataObject\OfferToolOfferItem\Listing getByCartItemKey ($value, $limit = 0)
+* @method static \Pimcore\Model\DataObject\OfferToolOfferItem\Listing getByProduct ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\OfferToolOfferItem\Listing getByProductNumber ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\OfferToolOfferItem\Listing getByProductName ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\OfferToolOfferItem\Listing getByAmount ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\OfferToolOfferItem\Listing getByOriginalTotalPrice ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\OfferToolOfferItem\Listing getByDiscountType ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\OfferToolOfferItem\Listing getByDiscount ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\OfferToolOfferItem\Listing getByFinalTotalPrice ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\OfferToolOfferItem\Listing getBySubItems ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\OfferToolOfferItem\Listing getByComment ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\OfferToolOfferItem\Listing getByCartItemKey ($value, $limit = 0) 
 */
 
 class OfferToolOfferItem extends \Pimcore\Bundle\EcommerceFrameworkBundle\OfferTool\AbstractOfferItem {
@@ -72,8 +70,8 @@ public static function create($values = array()) {
 * @return \Pimcore\Model\DataObject\AbstractObject
 */
 public function getProduct () {
-	$preValue = $this->preGetValue("product");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("product"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->getClass()->getFieldDefinition("product")->preGetData($this);
@@ -95,8 +93,8 @@ public function setProduct ($product) {
 * @return string
 */
 public function getProductNumber () {
-	$preValue = $this->preGetValue("productNumber");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("productNumber"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->productNumber;
@@ -118,8 +116,8 @@ public function setProductNumber ($productNumber) {
 * @return string
 */
 public function getProductName () {
-	$preValue = $this->preGetValue("productName");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("productName"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->productName;
@@ -141,8 +139,8 @@ public function setProductName ($productName) {
 * @return float
 */
 public function getAmount () {
-	$preValue = $this->preGetValue("amount");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("amount"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->amount;
@@ -164,8 +162,8 @@ public function setAmount ($amount) {
 * @return string
 */
 public function getOriginalTotalPrice () {
-	$preValue = $this->preGetValue("originalTotalPrice");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("originalTotalPrice"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->originalTotalPrice;
@@ -187,8 +185,8 @@ public function setOriginalTotalPrice ($originalTotalPrice) {
 * @return string
 */
 public function getDiscountType () {
-	$preValue = $this->preGetValue("DiscountType");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("DiscountType"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->DiscountType;
@@ -210,8 +208,8 @@ public function setDiscountType ($DiscountType) {
 * @return string
 */
 public function getDiscount () {
-	$preValue = $this->preGetValue("discount");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("discount"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->discount;
@@ -233,8 +231,8 @@ public function setDiscount ($discount) {
 * @return string
 */
 public function getFinalTotalPrice () {
-	$preValue = $this->preGetValue("finalTotalPrice");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("finalTotalPrice"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->finalTotalPrice;
@@ -256,8 +254,8 @@ public function setFinalTotalPrice ($finalTotalPrice) {
 * @return \Pimcore\Model\DataObject\OnlineShopOrderItem[]
 */
 public function getSubItems () {
-	$preValue = $this->preGetValue("subItems");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("subItems"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->getClass()->getFieldDefinition("subItems")->preGetData($this);
@@ -279,8 +277,8 @@ public function setSubItems ($subItems) {
 * @return string
 */
 public function getComment () {
-	$preValue = $this->preGetValue("comment");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("comment"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->comment;
@@ -302,8 +300,8 @@ public function setComment ($comment) {
 * @return string
 */
 public function getCartItemKey () {
-	$preValue = $this->preGetValue("cartItemKey");
-	if($preValue !== null && !\Pimcore::inAdmin()) {
+	$preValue = $this->preGetValue("cartItemKey"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
 	$data = $this->cartItemKey;
@@ -321,11 +319,11 @@ public function setCartItemKey ($cartItemKey) {
 }
 
 protected static $_relationFields = array (
-  'product' =>
+  'product' => 
   array (
     'type' => 'href',
   ),
-  'subItems' =>
+  'subItems' => 
   array (
     'type' => 'objects',
   ),

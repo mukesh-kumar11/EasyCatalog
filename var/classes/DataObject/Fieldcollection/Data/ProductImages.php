@@ -1,11 +1,12 @@
-<?php
+<?php 
 
-/** Generated at 2016-05-03T20:40:33+02:00 */
+/** 
+* Generated at: 2018-02-21T12:13:32+01:00
 
-/**
-* IP:          10.242.2.6
-*/
 
+Fields Summary: 
+ - image [image]
+*/ 
 
 namespace Pimcore\Model\DataObject\Fieldcollection\Data;
 
