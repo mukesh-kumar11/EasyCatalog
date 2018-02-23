@@ -1,11 +1,11 @@
 <?php 
 
 /** 
-* Generated at: 2018-02-22T14:59:11+01:00
+* Generated at: 2018-02-23T08:10:04+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (16)
-* IP: 203.122.33.130
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -30,7 +30,7 @@ namespace Pimcore\Model\DataObject;
 
 class EasyCatalogExport extends Concrete {
 
-public $o_classId = 55;
+public $o_classId = 58;
 public $o_className = "EasyCatalogExport";
 public $ExportClassId;
 public $Filters;

@@ -1,15 +1,11 @@
 <?php 
 
 /** 
-<<<<<<< HEAD
-* Generated at: 2018-02-22T13:48:34+01:00
-=======
-* Generated at: 2018-02-22T14:29:19+01:00
->>>>>>> 92dff39736f5a5fe7f4e1199644325f6d750d355
+* Generated at: 2018-02-23T07:35:44+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (16)
-* IP: 203.122.33.130
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -39,18 +35,19 @@ Fields Summary:
 - atable [table]
 - astr_table [structuredTable]
 - afc [fieldcollections]
+- wreewr [input]
 */ 
 
 
 return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'sdada',
-   'description' => NULL,
+   'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1519306159,
+   'modificationDate' => 1519367733,
    'userOwner' => 16,
    'userModification' => 16,
-   'parentClass' => NULL,
-   'useTraits' => NULL,
+   'parentClass' => '',
+   'useTraits' => '',
    'allowInherit' => false,
    'allowVariants' => false,
    'showVariants' => false,
@@ -65,7 +62,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
      'title' => NULL,
      'width' => NULL,
      'height' => NULL,
-     'collapsible' => false,
+     'collapsible' => NULL,
      'collapsed' => NULL,
      'bodyStyle' => NULL,
      'datatype' => 'layout',
@@ -12998,17 +12995,42 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'visibleGridView' => false,
              'visibleSearch' => false,
           )),
+          26 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+             'fieldtype' => 'input',
+             'width' => NULL,
+             'queryColumnType' => 'varchar',
+             'columnType' => 'varchar',
+             'columnLength' => 190,
+             'phpdocType' => 'string',
+             'regex' => '',
+             'unique' => false,
+             'name' => 'wreewr',
+             'title' => 'wreewr',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => NULL,
+             'style' => '',
+             'permissions' => NULL,
+             'datatype' => 'data',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+          )),
         ),
          'locked' => false,
       )),
     ),
-     'locked' => false,
+     'locked' => NULL,
   )),
-   'icon' => NULL,
-   'previewUrl' => NULL,
+   'icon' => '',
+   'previewUrl' => '',
    'group' => '',
    'showAppLoggerTab' => false,
-   'linkGeneratorReference' => NULL,
+   'linkGeneratorReference' => '',
    'propertyVisibility' => 
   array (
     'grid' => 
