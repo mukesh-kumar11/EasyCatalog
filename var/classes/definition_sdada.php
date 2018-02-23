@@ -1,11 +1,15 @@
 <?php 
 
 /** 
+<<<<<<< HEAD
 * Generated at: 2018-02-22T13:48:34+01:00
+=======
+* Generated at: 2018-02-22T14:29:19+01:00
+>>>>>>> 92dff39736f5a5fe7f4e1199644325f6d750d355
 * Inheritance: no
 * Variants: no
 * Changed by: admin (16)
-* IP: 127.0.0.1
+* IP: 203.122.33.130
 
 
 Fields Summary: 
@@ -40,13 +44,13 @@ Fields Summary:
 
 return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'sdada',
-   'description' => '',
+   'description' => NULL,
    'creationDate' => 0,
-   'modificationDate' => 1519303711,
+   'modificationDate' => 1519306159,
    'userOwner' => 16,
    'userModification' => 16,
-   'parentClass' => '',
-   'useTraits' => '',
+   'parentClass' => NULL,
+   'useTraits' => NULL,
    'allowInherit' => false,
    'allowVariants' => false,
    'showVariants' => false,
@@ -61,7 +65,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
      'title' => NULL,
      'width' => NULL,
      'height' => NULL,
-     'collapsible' => NULL,
+     'collapsible' => false,
      'collapsed' => NULL,
      'bodyStyle' => NULL,
      'datatype' => 'layout',
@@ -12998,13 +13002,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'locked' => false,
       )),
     ),
-     'locked' => NULL,
+     'locked' => false,
   )),
-   'icon' => '',
-   'previewUrl' => '',
+   'icon' => NULL,
+   'previewUrl' => NULL,
    'group' => '',
    'showAppLoggerTab' => false,
-   'linkGeneratorReference' => '',
+   'linkGeneratorReference' => NULL,
    'propertyVisibility' => 
   array (
     'grid' => 

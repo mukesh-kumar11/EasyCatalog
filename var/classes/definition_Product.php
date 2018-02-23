@@ -1,10 +1,11 @@
 <?php 
 
 /** 
-* Generated at: 2018-02-21T12:13:30+01:00
+* Generated at: 2018-02-22T07:52:55+01:00
 * Inheritance: yes
 * Variants: yes
 * Changed by: admin (16)
+* IP: 203.122.33.130
 
 
 Fields Summary: 
@@ -46,7 +47,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Product',
    'description' => '',
    'creationDate' => 1366282442,
-   'modificationDate' => 1519211610,
+   'modificationDate' => 1519282375,
    'userOwner' => 1,
    'userModification' => 16,
    'parentClass' => '\\Pimcore\\Bundle\\EcommerceFrameworkBundle\\Model\\AbstractProduct',
@@ -1356,6 +1357,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                   15 => 'tentGroundsheet',
                   16 => 'tentSpecifications',
                   17 => 'weight',
+                  18 => 'TestData',
                 ),
                  'maxItems' => '',
                  'name' => 'specificAttributes',

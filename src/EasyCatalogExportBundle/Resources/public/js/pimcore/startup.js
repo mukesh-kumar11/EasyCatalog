@@ -10,8 +10,10 @@ pimcore.plugin.EasyCatalogExportBundle = Class.create(pimcore.plugin.admin, {
     },
 
     pimcoreReady: function (params, broker) {
-        var exportbutton = new pimcore.plugin.exportbutton();
-        exportbutton.leftNavigation();
+        if (pimcore.globalmanager.get("user").isAllowed("plugin_easycatalog_config")) {
+            var exportbutton = new pimcore.plugin.exportbutton();
+            exportbutton.leftNavigation();
+        }
     }
 });
 
