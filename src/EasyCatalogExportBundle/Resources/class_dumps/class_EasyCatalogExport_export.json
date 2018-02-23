@@ -49,7 +49,7 @@
                         "name": "ExportClassId",
                         "title": "Export Class Id",
                         "tooltip": "",
-                        "mandatory": true,
+                        "mandatory": false,
                         "noteditable": false,
                         "index": false,
                         "locked": false,
