@@ -1,11 +1,11 @@
 <?php 
 
 /** 
-* Generated at: 2018-02-22T14:59:11+01:00
+* Generated at: 2018-02-23T07:48:51+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (16)
-* IP: 203.122.33.130
+* IP: 192.168.10.60
 
 
 Fields Summary: 
@@ -19,13 +19,13 @@ Fields Summary:
 
 return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'EasyCatalogExport',
-   'description' => NULL,
+   'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1519307948,
-   'userOwner' => 0,
+   'modificationDate' => 1519368531,
+   'userOwner' => 16,
    'userModification' => 16,
-   'parentClass' => NULL,
-   'useTraits' => NULL,
+   'parentClass' => '',
+   'useTraits' => '',
    'allowInherit' => false,
    'allowVariants' => false,
    'showVariants' => false,
@@ -40,7 +40,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
      'title' => NULL,
      'width' => NULL,
      'height' => NULL,
-     'collapsible' => false,
+     'collapsible' => NULL,
      'collapsed' => NULL,
      'bodyStyle' => NULL,
      'datatype' => 'layout',
@@ -78,7 +78,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'name' => 'ExportClassId',
              'title' => 'Export Class Id',
              'tooltip' => '',
-             'mandatory' => true,
+             'mandatory' => false,
              'noteditable' => false,
              'index' => false,
              'locked' => false,
@@ -189,13 +189,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'locked' => false,
       )),
     ),
-     'locked' => false,
+     'locked' => NULL,
   )),
-   'icon' => NULL,
-   'previewUrl' => NULL,
-   'group' => NULL,
+   'icon' => '',
+   'previewUrl' => '',
+   'group' => '',
    'showAppLoggerTab' => false,
-   'linkGeneratorReference' => NULL,
+   'linkGeneratorReference' => '',
    'propertyVisibility' => 
   array (
     'grid' => 
