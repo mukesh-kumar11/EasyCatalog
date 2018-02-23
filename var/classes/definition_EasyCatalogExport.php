@@ -1,12 +1,11 @@
 <?php 
 
 /** 
-* Generated at: 2018-02-23T08:10:04+01:00
+* Generated at: 2018-02-23T08:39:28+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (16)
-* IP: 127.0.0.1
-
+* IP: 192.168.10.60
 
 Fields Summary: 
 - ExportClassId [input]
@@ -21,7 +20,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'EasyCatalogExport',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1519369804,
+   'modificationDate' => 1519371563,
    'userOwner' => 0,
    'userModification' => 16,
    'parentClass' => '',

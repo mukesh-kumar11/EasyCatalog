@@ -444,7 +444,7 @@ pimcore.plugin.exportscreen = Class.create(pimcore.object.abstract, {
         var comp = Ext.getCmp("pimcore_panel_tree_left");
         comp.collapse();
         // closing left tree panel -- ends
-
+        this.currentExportId = id;
         Ext.Ajax.request({
             url: "/admin/EasyCatalogExport/export/get-export-detail",
             params: {
