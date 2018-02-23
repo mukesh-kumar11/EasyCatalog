@@ -9,7 +9,7 @@ pimcore.registerNS("pimcore.plugin.exportscreen");
 pimcore.plugin.exportscreen = Class.create(pimcore.object.abstract, {
     type: "folder",
     initialize: function (id, options) {
-
+       
         this.options = options;
         this.id = intval(id);
         this.addLoadingPanel();
@@ -454,7 +454,7 @@ pimcore.plugin.exportscreen = Class.create(pimcore.object.abstract, {
                 var data = Ext.decode(response.responseText);
 
                 if (data.success) {
-                    var tab = Ext.getCmp("object_1");
+                    var tab = Ext.getCmp("object_easy_1");
                     tab.add(this.getTabPanel(data.selectedClass, data.savedFilter, data.columnConfigId));
 //                                    tab.add(this.getLayoutToolbar());
                     this.search.classSelector.lastValue = data.selectedClass;
@@ -478,8 +478,9 @@ pimcore.plugin.exportscreen = Class.create(pimcore.object.abstract, {
         }
 
         this.tabPanel = Ext.getCmp("pimcore_panel_tabs");
-        var tabId = "object_" + this.id;
-    
+        var tabId = "object_easy_" + this.id;
+        
+        console.log(tabId);
         this.tab = new Ext.Panel({
             id: tabId,
             title: tabTitle,

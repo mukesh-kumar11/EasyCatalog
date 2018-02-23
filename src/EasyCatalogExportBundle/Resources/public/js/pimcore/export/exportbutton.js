@@ -33,7 +33,15 @@ pimcore.plugin.exportbutton = Class.create({
         pimcore.helpers.initMenuTooltips();
         Ext.get("pimcore_menu_exportbutton").on("click", function (e, el) {
             var options = {};
-            var exportScreen = new pimcore.plugin.exportscreen(1,options);
+            
+            var easyCatalogTab = Ext.get("object_easy_1");
+            if(easyCatalogTab){
+                var tabPanel = Ext.getCmp("pimcore_panel_tabs");
+                tabPanel.setActiveItem("object_easy_1");
+            }else{
+                var exportScreen = new pimcore.plugin.exportscreen(1,options);
+            }
+            
         });
     },
 

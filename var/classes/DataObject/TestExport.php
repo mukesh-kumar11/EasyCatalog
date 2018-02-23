@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2018-02-22T12:21:16+01:00
+* Generated at: 2018-02-22T13:56:38+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (16)
@@ -29,13 +29,13 @@ Fields Summary:
 - ahref [href]
 - aobjects [objects]
 - amultihrefadv [multihrefMetadata]
-- aobjects_nonowner [nonownerobjects]
 - amul_href [multihref]
 - ablock [block]
 - aclassification_store [classificationstore]
 - atable [table]
 - astr_table [structuredTable]
 - afc [fieldcollections]
+- sssssss [nonownerobjects]
 */ 
 
 namespace Pimcore\Model\DataObject;
@@ -529,7 +529,7 @@ public function setAhref ($ahref) {
 
 /**
 * Get aobjects - objects
-* @return \Pimcore\Model\DataObject\[]
+* @return \Pimcore\Model\DataObject\AbstractObject[]
 */
 public function getAobjects () {
 	$preValue = $this->preGetValue("aobjects"); 
@@ -542,7 +542,7 @@ public function getAobjects () {
 
 /**
 * Set aobjects - objects
-* @param \Pimcore\Model\DataObject\[] $aobjects
+* @param \Pimcore\Model\DataObject\AbstractObject[] $aobjects
 * @return \Pimcore\Model\DataObject\TestExport
 */
 public function setAobjects ($aobjects) {
