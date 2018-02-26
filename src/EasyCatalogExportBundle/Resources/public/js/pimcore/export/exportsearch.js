@@ -175,9 +175,10 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
             params: data,
             success: function (response) {
                 try {
+                    console.log(response);
                     if (response.status == 200) {
                         pimcore.helpers.showNotification(t("success"), t("your_object_has_been_saved"), "success");
-                        this.resetChanges();
+//                        this.resetChanges();
                     } else {
                         pimcore.helpers.showNotification(t("error"), t("error_saving_object"),
                                 "error");

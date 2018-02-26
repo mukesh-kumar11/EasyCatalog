@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2018-02-22T13:56:38+01:00
+* Generated at: 2018-02-23T10:11:58+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (16)
@@ -43,7 +43,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'testExport',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1519304198,
+   'modificationDate' => 1519377117,
    'userOwner' => 16,
    'userModification' => 16,
    'parentClass' => '',
@@ -10044,7 +10044,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'fieldtype' => 'nonownerobjects',
              'width' => '',
              'height' => '',
-             'maxItems' => NULL,
+             'maxItems' => '',
              'queryColumnType' => 'text',
              'phpdocType' => 'array',
              'relationType' => true,
@@ -10056,7 +10056,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => NULL,
+             'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',

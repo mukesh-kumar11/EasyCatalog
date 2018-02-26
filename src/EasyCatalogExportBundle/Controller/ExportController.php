@@ -12,6 +12,7 @@ use Pimcore\Model\DataObject;
 use Pimcore\Tool\Admin as AdminTool;
 use phpseclib\Net\SFTP;
 use ZipArchive;
+use Pimcore\Bundle\AdminBundle\Controller\Admin;
 
 class ExportController extends FrontendController
 {
@@ -277,4 +278,22 @@ class ExportController extends FrontendController
             ]);
         }
     }  
+    
+     /**
+     * @Route("/export/get-xml-export")
+     * @param Request $request
+     */
+    public function getXmlExportAction(Request $request) 
+    {
+        $dataObjectHelperObj = new Admin\DataObjectHelperController();
+        $requestedLanguage = $dataObjectHelperObj->extractLanguage($request);
+        $id = 12568;
+        $exportData = \Pimcore\Model\DataObject\EasyCatalogExport::getById($id);
+        $exportClassId = $exportData->getExportClassId();
+       
+        
+        $exportClassObj = \Pimcore\Model\DataObject\ClassDefinition::getById($exportClassId);
+         print_r($exportClassObj);
+        die("gerere")   ;
+    }
 }
