@@ -1,11 +1,11 @@
 <?php 
 
 /** 
-* Generated at: 2018-02-23T08:39:28+01:00
+* Generated at: 2018-03-05T15:48:46+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (16)
-* IP: 192.168.10.60
+* IP: 203.122.33.130
 
 
 Fields Summary: 
@@ -14,18 +14,19 @@ Fields Summary:
 - ColumnConfig [input]
 - XmlUrl [input]
 - Caching [checkbox]
+- folderId [input]
 */ 
 
 
 return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'EasyCatalogExport',
-   'description' => NULL,
+   'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1519371563,
+   'modificationDate' => 1520261326,
    'userOwner' => 0,
    'userModification' => 16,
-   'parentClass' => NULL,
-   'useTraits' => NULL,
+   'parentClass' => '',
+   'useTraits' => '',
    'allowInherit' => false,
    'allowVariants' => false,
    'showVariants' => false,
@@ -40,7 +41,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
      'title' => NULL,
      'width' => NULL,
      'height' => NULL,
-     'collapsible' => false,
+     'collapsible' => NULL,
      'collapsed' => NULL,
      'bodyStyle' => NULL,
      'datatype' => 'layout',
@@ -185,17 +186,42 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'visibleGridView' => false,
              'visibleSearch' => false,
           )),
+          5 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+             'fieldtype' => 'input',
+             'width' => NULL,
+             'queryColumnType' => 'varchar',
+             'columnType' => 'varchar',
+             'columnLength' => 190,
+             'phpdocType' => 'string',
+             'regex' => '',
+             'unique' => false,
+             'name' => 'folderId',
+             'title' => 'Folder Id',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'datatype' => 'data',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+          )),
         ),
          'locked' => false,
       )),
     ),
-     'locked' => false,
+     'locked' => NULL,
   )),
-   'icon' => NULL,
-   'previewUrl' => NULL,
-   'group' => NULL,
+   'icon' => '',
+   'previewUrl' => '',
+   'group' => '',
    'showAppLoggerTab' => false,
-   'linkGeneratorReference' => NULL,
+   'linkGeneratorReference' => '',
    'propertyVisibility' => 
   array (
     'grid' => 
