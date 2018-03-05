@@ -1,11 +1,11 @@
 <?php 
 
 /** 
-* Generated at: 2018-02-23T08:39:28+01:00
+* Generated at: 2018-03-05T15:48:46+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (16)
-* IP: 192.168.10.60
+* IP: 203.122.33.130
 
 Fields Summary: 
 - ExportClassId [input]
@@ -13,6 +13,7 @@ Fields Summary:
 - ColumnConfig [input]
 - XmlUrl [input]
 - Caching [checkbox]
+- folderId [input]
 */ 
 
 namespace Pimcore\Model\DataObject;
@@ -25,6 +26,7 @@ namespace Pimcore\Model\DataObject;
 * @method static \Pimcore\Model\DataObject\EasyCatalogExport\Listing getByColumnConfig ($value, $limit = 0) 
 * @method static \Pimcore\Model\DataObject\EasyCatalogExport\Listing getByXmlUrl ($value, $limit = 0) 
 * @method static \Pimcore\Model\DataObject\EasyCatalogExport\Listing getByCaching ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\EasyCatalogExport\Listing getByFolderId ($value, $limit = 0) 
 */
 
 class EasyCatalogExport extends Concrete {
@@ -36,6 +38,7 @@ public $Filters;
 public $ColumnConfig;
 public $XmlUrl;
 public $Caching;
+public $folderId;
 
 
 /**
@@ -160,6 +163,29 @@ public function getCaching () {
 */
 public function setCaching ($Caching) {
 	$this->Caching = $Caching;
+	return $this;
+}
+
+/**
+* Get folderId - Folder Id
+* @return string
+*/
+public function getFolderId () {
+	$preValue = $this->preGetValue("folderId"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
+		return $preValue;
+	}
+	$data = $this->folderId;
+	return $data;
+}
+
+/**
+* Set folderId - Folder Id
+* @param string $folderId
+* @return \Pimcore\Model\DataObject\EasyCatalogExport
+*/
+public function setFolderId ($folderId) {
+	$this->folderId = $folderId;
 	return $this;
 }
 
