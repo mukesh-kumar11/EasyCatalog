@@ -292,9 +292,10 @@ class ExportController extends FrontendController {
      */
     public function getExportUrlAction(Request $request) {
         try {
-            $exportObjectId = $request->request->get("exportObjectId");
+            $exportObjectId = $request->query->get("id");
+            
             $systemSettings = Config::getSystemConfig();
-            if ($systemSettings['webservice']->get('enabled')) {
+            if (!$systemSettings['webservice']->get('enabled')) {
                 $accessUrl = 'Webservice is disabled';
             } else {
                 $userId = \Pimcore\Tool\Admin::getCurrentUser();
