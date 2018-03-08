@@ -13,6 +13,7 @@ use Pimcore\Tool\Admin as AdminTool;
 use phpseclib\Net\SFTP;
 use ZipArchive;
 use Pimcore\Config;
+use EasyCatalogExportBundle\Lib\EasyCatalogLogger;
 
 class ExportController extends FrontendController {
 
@@ -270,8 +271,9 @@ class ExportController extends FrontendController {
                     $myObject->setCaching(false);
                 }
             }
-
             $myObject->save();
+            $user = \Pimcore\Tool\Admin::getCurrentUser();
+            EasyCatalogLogger::log()->info('User '.$user->getName().' changed export config '.$myObject->getKey());
             return $this->json(['success' => true]);
             return $this->json(array(
                         "filters" => json_decode($filters),
@@ -293,7 +295,6 @@ class ExportController extends FrontendController {
     public function getExportUrlAction(Request $request) {
         try {
             $exportObjectId = $request->query->get("id");
-            
             $systemSettings = Config::getSystemConfig();
             if (!$systemSettings['webservice']->get('enabled')) {
                 $accessUrl = 'Webservice is disabled';
