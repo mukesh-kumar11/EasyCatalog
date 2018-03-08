@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2018-03-06T11:17:52+01:00
+* Generated at: 2018-03-08T14:19:26+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (16)
@@ -15,6 +15,7 @@ Fields Summary:
 - XmlUrl [input]
 - Caching [checkbox]
 - folderId [input]
+- xmlFilePath [input]
 */ 
 
 
@@ -22,7 +23,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'EasyCatalogExport',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1520331472,
+   'modificationDate' => 1520515166,
    'userOwner' => 0,
    'userModification' => 16,
    'parentClass' => '',
@@ -198,6 +199,31 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'unique' => false,
              'name' => 'folderId',
              'title' => 'Folder Id',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'datatype' => 'data',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+          )),
+          6 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+             'fieldtype' => 'input',
+             'width' => NULL,
+             'queryColumnType' => 'varchar',
+             'columnType' => 'varchar',
+             'columnLength' => 190,
+             'phpdocType' => 'string',
+             'regex' => '',
+             'unique' => false,
+             'name' => 'xmlFilePath',
+             'title' => 'Xml File Path',
              'tooltip' => '',
              'mandatory' => false,
              'noteditable' => false,

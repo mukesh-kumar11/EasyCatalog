@@ -303,7 +303,7 @@ class ExportController extends FrontendController {
                 if (!$user->apiKey) {
                     $accessUrl = 'Please genrate a API Key';
                 } else {
-                    $accessUrl = \Pimcore\Tool::getHostUrl() . '/easycatalog?id=' . $exportObjectId . '&apikey=' . $user->apiKey;
+                    $accessUrl = \Pimcore\Tool::getHostUrl() . '/admin/EasyCatalogExport/export/get-xml-export?id=' . $exportObjectId . '&apikey=' . $user->apiKey;
                 }
             }
             return $this->json([
@@ -325,30 +325,42 @@ class ExportController extends FrontendController {
     public function getXmlExportAction(Request $request) {
         $id = $request->query->get("id");
         if (!$id) {
-            return false;
+            $xml = new \SimpleXMLElement('<export/>');
+            $xml->addChild('responseCode', '404');
+            $xml->addChild('responseMessage', 'Id not found');
+            Header('Content-type: text/xml');
+            echo $xml->asXML();
+            die;
         }
         $exportObjData = DataObject\EasyCatalogExport::getById($id);
         if ($exportObjData) {
             if ($exportObjData->getCaching()) {
-//                echo PIMCORE_SYSTEM_TEMP_DIRECTORY; die;
-//                echo PIMCORE_SYSTEM_TEMP_DIRECTORY."/".$id.".xml"; die;
                 header('Content-type: application/xml');
                 $xmlFile = file_get_contents(PIMCORE_SYSTEM_TEMP_DIRECTORY . "/" . $id . ".xml");
-                echo $xmlFile;
-                die;
-                print_r($xmlFile);
-                die;
+                if($xmlFile) {
+                    echo $xmlFile; 
+                }else {
+                    $xml = new \SimpleXMLElement('<export/>');
+                    $xml->addChild('responseCode', '404');
+                    $xml->addChild('responseMessage', 'File not found');
+                    Header('Content-type: text/xml');
+                    echo $xml->asXML();
+                }
+                exit();
                 //Download xml file
             } else {
                 $exportObj = new \EasyCatalogExportBundle\Lib\Export();
-
-                $data = $exportObj->index($id);
-                print_r($data);
-                die;
+                $xmlFile = $exportObj->index($id);
+                print_r($xmlFile);
+                exit();
             }
         } else {
-            //Invalid id
-            return false;
+            $xml = new \SimpleXMLElement('<export/>');
+            $xml->addChild('responseCode', '404');
+            $xml->addChild('responseMessage', 'Invalid id');
+            Header('Content-type: text/xml');
+            echo $xml->asXML();
+            die;
         }
     }
 

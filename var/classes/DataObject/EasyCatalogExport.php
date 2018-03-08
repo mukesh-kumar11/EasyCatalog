@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2018-03-06T11:17:52+01:00
+* Generated at: 2018-03-08T14:19:26+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (16)
@@ -15,6 +15,7 @@ Fields Summary:
 - XmlUrl [input]
 - Caching [checkbox]
 - folderId [input]
+- xmlFilePath [input]
 */ 
 
 namespace Pimcore\Model\DataObject;
@@ -28,6 +29,7 @@ namespace Pimcore\Model\DataObject;
 * @method static \Pimcore\Model\DataObject\EasyCatalogExport\Listing getByXmlUrl ($value, $limit = 0) 
 * @method static \Pimcore\Model\DataObject\EasyCatalogExport\Listing getByCaching ($value, $limit = 0) 
 * @method static \Pimcore\Model\DataObject\EasyCatalogExport\Listing getByFolderId ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\EasyCatalogExport\Listing getByXmlFilePath ($value, $limit = 0) 
 */
 
 class EasyCatalogExport extends Concrete {
@@ -40,6 +42,7 @@ public $ColumnConfig;
 public $XmlUrl;
 public $Caching;
 public $folderId;
+public $xmlFilePath;
 
 
 /**
@@ -187,6 +190,29 @@ public function getFolderId () {
 */
 public function setFolderId ($folderId) {
 	$this->folderId = $folderId;
+	return $this;
+}
+
+/**
+* Get xmlFilePath - Xml File Path
+* @return string
+*/
+public function getXmlFilePath () {
+	$preValue = $this->preGetValue("xmlFilePath"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
+		return $preValue;
+	}
+	$data = $this->xmlFilePath;
+	return $data;
+}
+
+/**
+* Set xmlFilePath - Xml File Path
+* @param string $xmlFilePath
+* @return \Pimcore\Model\DataObject\EasyCatalogExport
+*/
+public function setXmlFilePath ($xmlFilePath) {
+	$this->xmlFilePath = $xmlFilePath;
 	return $this;
 }
 

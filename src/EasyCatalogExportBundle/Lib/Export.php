@@ -19,19 +19,20 @@ class Export extends DataObjectHelperController {
             $exportData[0] = EasyCatalogExport::getById($id);
         }else {
             // to get all export object
-            $exportData = EasyCatalogExport::getList(['condition' => 'Caching = 1'])->load();
+            $exportData = EasyCatalogExport::getList(['condition' => 'Caching = 1 AND xmlFilePath != ""'])->load();
         }
         
         //to get instance language
         if ($exportData) {
             $doc = \Pimcore\Model\Document::getById($exportData[0]->getExportClassId());
-            $language = $doc->getProperty("language");
+            if($doc){
+                $language = $doc->getProperty("language");
+            }
         }
-        
         if (count($exportData) > 0) {
             foreach ($exportData as $export) {
-                
                 $exportClassId = $export->getExportClassId();
+                
                 if ($exportClassId) {
                     $class = \Pimcore\Model\DataObject\ClassDefinition::getById($exportClassId);
                 }
@@ -43,12 +44,15 @@ class Export extends DataObjectHelperController {
                 }
                 $folderId = 1;
                 $objectId = $export->getId();
-
+//echo $objectId; die;
                 if ($objectId) {
                     $object = \Pimcore\Model\DataObject\AbstractObject::getById($objectId);
                     $context['object'] = $object;
                 }
 
+                $export->setXmlFilePath(PIMCORE_SYSTEM_TEMP_DIRECTORY.'/'.$objectId.'.xml');
+                $export->update(true);
+                
 
                 if (!$fields && $class) {
                     $fields = $class->getFieldDefinitions();
@@ -245,14 +249,13 @@ class Export extends DataObjectHelperController {
                 $language = $gridConfig['language'] ? $gridConfig['language'] : $language;
 
                 $filter = $export->getFilters();
+                
                 $settings['gridConfigId'] = (int) $gridConfigId;
                 $settings['gridConfigName'] = $gridConfigName;
                 $settings['language'] = $language;
                 $settings['gridConfigDescription'] = $gridConfigDescription;
                 $settings['isShared'] = (!$gridConfigId || $shared) ? true : false;
-                $gridData = $this->getGridData($class, $availableFields, $filter, $settings, $folderId, $objectId);
-//               die("kaskk");
-//                return $gridData;
+                $gridData = $this->getGridData($class, $availableFields, $filter, $settings, $folderId, $objectId,$id);
             }
         }
         return $gridData;
@@ -293,17 +296,14 @@ class Export extends DataObjectHelperController {
     //create content
 
 
-    public function getGridData($class, $headerMeta, $filter = null, $settings, $folderId, $objectId) {
-
+    public function getGridData($class, $headerMeta, $filter = null, $settings, $folderId, $objectId,$id=null) {
 
         $requestedLanguage = $settings['language'];
         $fields = [];
         $fieldsWithKeyLabel = [];
-//        print_r($headerMeta); die;
         $configOperator = [];
         foreach ($headerMeta as $key => $value) {
             if ($value['isOperator']) {
-//                print_r($value); die;
                 foreach ($value['attributes']['childs'] as $label) {
                     $configOperator[$value['key']]['attribute'] = $label['attribute'];
                     $string = preg_replace('/[^a-zA-Z0-9_.]/', '_', $value['attributes']['label']);
@@ -315,7 +315,6 @@ class Export extends DataObjectHelperController {
             }
             array_push($fields, $value['key']);
         }
-//         print_r($configOperator); die("jaja");
         // get list of objects
         $folder = \Pimcore\Model\DataObject::getById($folderId);
         $className = $class->getName();
@@ -385,7 +384,7 @@ class Export extends DataObjectHelperController {
         }
 
         $list->setCondition(implode(' AND ', $conditionFilters));
-        $list->setLimit(5);
+//        $list->setLimit(5);
         $list->setOffset($start);
         $list->setOrder($order);
 
@@ -397,8 +396,6 @@ class Export extends DataObjectHelperController {
         \Pimcore\Model\DataObject\Service::addGridFeatureJoins($list, $featureJoins, $class, $featureFilters, $requestedLanguage);
 
         $list->load();
-
-//         print_r($fields); die;
 
         foreach ($list->getObjects() as $object) {
             $o = $this->rowData($object, $fields, $requestedLanguage);
@@ -419,8 +416,10 @@ class Export extends DataObjectHelperController {
 //        print_r($xml); die;
 
         $xml = $this->getXmlData($list, $fields, $objects, $requestedLanguage, $configOperator, $fieldsWithKeyLabel);
-
-        file_put_contents($this->getXmlFile($objectId), $xml, LOCK_EX);
+        
+        if(!$id) {
+            file_put_contents($this->getXmlFile($objectId), $xml, LOCK_EX);
+        }
 
         return $xml;
     }
@@ -654,6 +653,8 @@ class Export extends DataObjectHelperController {
         $xml = '';
         if (!empty($objects)) {
             $xml = new \SimpleXMLElement('<export/>');
+            $xml->addChild('responseCode', '200');
+            $xml->addChild('responseMessage', 'Success');
             foreach ($objects as $object) {
                 $track = $xml->addChild('item');
                 foreach ($object as $key => $value) {
