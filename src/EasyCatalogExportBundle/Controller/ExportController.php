@@ -290,15 +290,31 @@ class ExportController extends FrontendController
      */
     public function getXmlExportAction(Request $request) 
     {
-        $dataObjectHelperObj = new Admin\DataObjectHelperController();
-        $requestedLanguage = $dataObjectHelperObj->extractLanguage($request);
-        $id = 12568;
-        $exportData = \Pimcore\Model\DataObject\EasyCatalogExport::getById($id);
-        $exportClassId = $exportData->getExportClassId();
-       print_r($exportClassId);
-        
-        $exportClassObj = \Pimcore\Model\DataObject\ClassDefinition::getById($exportClassId);
-         print_r($exportClassObj);
-        die("gerere")   ;
+        $id  = $request->query->get("id");  
+        if(!$id) {
+            return false;
+        }
+        $exportObjData = DataObject\EasyCatalogExport::getById($id);
+        if($exportObjData) {
+            if($exportObjData->getCaching()) {
+//                echo PIMCORE_SYSTEM_TEMP_DIRECTORY; die;
+//                echo PIMCORE_SYSTEM_TEMP_DIRECTORY."/".$id.".xml"; die;
+                header('Content-type: application/xml');
+                $xmlFile = file_get_contents(PIMCORE_SYSTEM_TEMP_DIRECTORY."/".$id.".xml");
+                echo $xmlFile; die;
+                print_r($xmlFile); die;
+                //Download xml file
+            }else {
+                $exportObj = new \EasyCatalogExportBundle\Lib\Export();
+                
+                $data = $exportObj->index($id);
+                print_r($data); die;  
+            }
+
+        }else {
+            //Invalid id
+            return false;
+        }
+     
     }
 }

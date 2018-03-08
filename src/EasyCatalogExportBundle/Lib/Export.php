@@ -13,11 +13,15 @@ class Export extends DataObjectHelperController {
      * Functional description : Intial point from where cron will start execution
      * @return boolean
      */
-    public function index() {
+    public function index($id = null) {
 
-        // to get all export object
-        $exportData = EasyCatalogExport::getList(['condition' => 'Caching = 1'])->load();
-//        print_r($exportData); die;
+        if($id) {
+            $exportData[0] = EasyCatalogExport::getById($id);
+        }else {
+            // to get all export object
+            $exportData = EasyCatalogExport::getList(['condition' => 'Caching = 1'])->load();
+        }
+        
         //to get instance language
         if ($exportData) {
             $doc = \Pimcore\Model\Document::getById($exportData[0]->getExportClassId());
@@ -247,9 +251,11 @@ class Export extends DataObjectHelperController {
                 $settings['gridConfigDescription'] = $gridConfigDescription;
                 $settings['isShared'] = (!$gridConfigId || $shared) ? true : false;
                 $gridData = $this->getGridData($class, $availableFields, $filter, $settings, $folderId, $objectId);
+//               die("kaskk");
+//                return $gridData;
             }
         }
-        return true;
+        return $gridData;
     }
 
     /**
@@ -416,7 +422,7 @@ class Export extends DataObjectHelperController {
 
         file_put_contents($this->getXmlFile($objectId), $xml, LOCK_EX);
 
-        return true;
+        return $xml;
     }
 
     /**
