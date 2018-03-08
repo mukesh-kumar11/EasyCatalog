@@ -13,6 +13,8 @@ use Pimcore\Tool\Admin as AdminTool;
 use phpseclib\Net\SFTP;
 use ZipArchive;
 use Pimcore\Config;
+use EasyCatalogExportBundle\Lib\EasyCatalogLogger;
+use Pimcore\Model\User;
 
 class ExportController extends FrontendController {
 
@@ -89,7 +91,6 @@ class ExportController extends FrontendController {
      * @Route("/export/get-export-folder-id")
      */
     public function getExportFolderIdAction() {
-
         $folderName = "EasyCatalogExport";
         $folderName = \Pimcore\File::getValidFilename($folderName);
         $folderPath = '/' . $folderName;
@@ -200,6 +201,7 @@ class ExportController extends FrontendController {
      */
     public function renameAction(Request $request) {
         $object = \Pimcore\Model\DataObject::getById($request->request->get("id"));
+        $oldKey = $object->getKey();
         if ($object instanceof \Pimcore\Model\DataObject\Concrete) {
             $object->setOmitMandatoryCheck(true);
         }
@@ -207,6 +209,8 @@ class ExportController extends FrontendController {
         if ($values["key"]) {
             $object->setKey($values["key"]);
             $object->save();
+            $user = \Pimcore\Tool\Admin::getCurrentUser();
+            EasyCatalogLogger::log()->info('User ' . $user->getName() . ' renamed export config ' . $oldKey . ' to ' . $object->getKey());
             return $this->json(["success" => true]);
         } elseif ($values["key"] != $object->getKey()) {
             \Pimcore\Logger::debug("prevented renaming object because of missing permissions ");
@@ -223,7 +227,10 @@ class ExportController extends FrontendController {
             $id = $request->query->get("name");
             $export = \Pimcore\Model\DataObject\EasyCatalogExport::getById($id);
             if ($export instanceof \Pimcore\Model\DataObject\EasyCatalogExport) {
+                $key = $export->getKey();
                 $export->delete();
+                $user = \Pimcore\Tool\Admin::getCurrentUser();
+                EasyCatalogLogger::log()->info('User ' . $user->getName() . ' deletes export config ' . $key);
             }
             return $this->json(['success' => true]);
         } catch (\Exception $excp) {
@@ -270,8 +277,9 @@ class ExportController extends FrontendController {
                     $myObject->setCaching(false);
                 }
             }
-
             $myObject->save();
+            $user = \Pimcore\Tool\Admin::getCurrentUser();
+            EasyCatalogLogger::log()->info('User ' . $user->getName() . ' changed export config ' . $myObject->getKey());
             return $this->json(['success' => true]);
             return $this->json(array(
                         "filters" => json_decode($filters),
@@ -293,15 +301,14 @@ class ExportController extends FrontendController {
     public function getExportUrlAction(Request $request) {
         try {
             $exportObjectId = $request->query->get("id");
-            
             $systemSettings = Config::getSystemConfig();
             if (!$systemSettings['webservice']->get('enabled')) {
-                $accessUrl = 'Webservice is disabled';
+                $accessUrl = 'Enable webservice';
             } else {
                 $userId = \Pimcore\Tool\Admin::getCurrentUser();
-                $user = \Pimcore\Model\User::getById($userId->getId());
+                $user = User::getById($userId->getId());
                 if (!$user->apiKey) {
-                    $accessUrl = 'Please genrate a API Key';
+                    $accessUrl = "Couldn't get API key for user.";
                 } else {
                     $accessUrl = \Pimcore\Tool::getHostUrl() . '/admin/EasyCatalogExport/export/get-xml-export?id=' . $exportObjectId . '&apikey=' . $user->apiKey;
                 }
@@ -319,21 +326,87 @@ class ExportController extends FrontendController {
     }
 
     /**
+     * @param string $apiKey
+     *
+     * @return User|null
+     *
+     * @throws \Exception
+     */
+    protected function loadUserForApiKey($apiKey) {
+        /** @var User\Listing|User\Listing\Dao $userList */
+        $userList = new User\Listing();
+        $userList->setCondition('apiKey = ? AND type = ? AND active = 1', [$apiKey, 'user']);
+
+        /** @var User[] $users */
+        $users = $userList->load();
+        if (is_array($users) && count($users) === 1) {
+            if (!$users[0]->getApiKey()) {
+                return false;
+            }
+            return $users[0];
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * @Route("/export/get-xml-export")
      * @param Request $request
      */
     public function getXmlExportAction(Request $request) {
         $id = $request->query->get("id");
+        $apiKey = $request->query->get("apikey");
+        $systemSettings = Config::getSystemConfig();
+        
+        $user = $this->loadUserForApiKey($apiKey);
+        if($user){
+            $userName = $user->getName();
+        }else{
+            $userName = 'Unknown (API-KEY: '.$apiKey.')';
+        }
         if (!$id) {
+            
+            EasyCatalogLogger::log()->error('User ' . $userName . ' tried to access export with no id');
             $xml = new \SimpleXMLElement('<export/>');
             $xml->addChild('responseCode', '404');
             $xml->addChild('responseMessage', 'Id not found');
             Header('Content-type: text/xml');
             echo $xml->asXML();
             die;
+            //return false;
+            die('User ' . $userName . ' tried to access export with no id');
+            throw new \Exception("id is not passed/empty.");
+        } elseif (!$apiKey) {
+            EasyCatalogLogger::log()->error('User ' . $userName . ' tried to access export with no API-KEY');
+            //return false;
+            die('User ' . $userName . ' tried to access export with no API-KEY');
+            throw new \Exception("Couldn't get API key for user.");
+        } elseif (!$systemSettings['webservice']->get('enabled')) {
+            EasyCatalogLogger::log()->error('User ' . $userName . ' tried to access export while Webservice was disabled.');
+            //return false;
+            die('User ' . $userName . ' tried to access export while Webservice was disabled.');
+            throw new \Exception('Webservice is disabled.');
         }
+        if ($user) {
+            $userPermissions = $user->getPermissions();
+            if(!in_array('plugin_easycatalog_export', $userPermissions)){
+                //USER WITH NOT PROPER PERMISSION
+                EasyCatalogLogger::log()->error('User ' . $userName . ' tried to access export without proper access rights.');
+                die('User ' . $userName . ' tried to access export without access rights.');
+                //return false;
+            }
+        } else {
+            //API KEY IS NOT VALID
+            EasyCatalogLogger::log()->error('User ' . $userName . ' tried to access export with invalid API-KEY.');
+            die('User ' . $userName . ' tried to access export with invalid API-KEY.');
+            //return false;
+        }
+        
+
         $exportObjData = DataObject\EasyCatalogExport::getById($id);
         if ($exportObjData) {
+            EasyCatalogLogger::log()->error('User ' . $userName . ' access export data for '. $exportObjData->getKey());
+//            die('User ' . $userName . ' access export data for '. $exportObjData->getKey());
             if ($exportObjData->getCaching()) {
                 header('Content-type: application/xml');
                 $xmlFile = file_get_contents(PIMCORE_SYSTEM_TEMP_DIRECTORY . "/" . $id . ".xml");
@@ -362,6 +435,7 @@ class ExportController extends FrontendController {
             echo $xml->asXML();
             die;
         }
+        die;
     }
 
 }
