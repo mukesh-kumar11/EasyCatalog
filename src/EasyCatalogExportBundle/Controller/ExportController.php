@@ -13,7 +13,6 @@ use Pimcore\Tool\Admin as AdminTool;
 use phpseclib\Net\SFTP;
 use ZipArchive;
 use Pimcore\Config;
-use Pimcore\Bundle\AdminBundle\Controller\Admin\UserController;
 
 class ExportController extends FrontendController {
 
@@ -249,6 +248,8 @@ class ExportController extends FrontendController {
             //$xmlUrl = $request->request->get("url");
             $caching = $request->request->get("cache");
             $folderId = $request->request->get("folderId");
+            $gridColumns = $request->request->get("gridColumns");
+
             //getting objects 
             $myObject = \Pimcore\Model\DataObject\EasyCatalogExport::getById($exportObjectId);
             if ($request->request->get("class_id")) {
@@ -258,6 +259,9 @@ class ExportController extends FrontendController {
                 if ($folderId) {
                     $myObject->setFolderId($folderId);
                 }
+//                $myObject->setgridColumns($gridColumns);
+//                print_r(serialize($request)); die;
+//                $myObject->setrequestObj("$request");
             } else {
                 //$myObject->setXmlUrl($xmlUrl);
                 if ($caching) {
@@ -310,6 +314,40 @@ class ExportController extends FrontendController {
                         "success" => false,
                         'msg' => $excp->getMessage()
             ]);
+        }
+    }
+
+    /**
+     * @Route("/export/get-xml-export")
+     * @param Request $request
+     */
+    public function getXmlExportAction(Request $request) {
+        $id = $request->query->get("id");
+        if (!$id) {
+            return false;
+        }
+        $exportObjData = DataObject\EasyCatalogExport::getById($id);
+        if ($exportObjData) {
+            if ($exportObjData->getCaching()) {
+//                echo PIMCORE_SYSTEM_TEMP_DIRECTORY; die;
+//                echo PIMCORE_SYSTEM_TEMP_DIRECTORY."/".$id.".xml"; die;
+                header('Content-type: application/xml');
+                $xmlFile = file_get_contents(PIMCORE_SYSTEM_TEMP_DIRECTORY . "/" . $id . ".xml");
+                echo $xmlFile;
+                die;
+                print_r($xmlFile);
+                die;
+                //Download xml file
+            } else {
+                $exportObj = new \EasyCatalogExportBundle\Lib\Export();
+
+                $data = $exportObj->index($id);
+                print_r($data);
+                die;
+            }
+        } else {
+            //Invalid id
+            return false;
         }
     }
 

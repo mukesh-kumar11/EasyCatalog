@@ -1299,17 +1299,6 @@ class DataObjectHelperController extends AdminController
     }
     
     /**
-     * @param $fileHandle
-     *
-     * @return string
-     */
-    protected function getXmlFile($fileHandle)
-    {
-        return PIMCORE_SYSTEM_TEMP_DIRECTORY . '/' . $fileHandle . '.xml';
-    }
-    
-
-    /**
      * @Route("/get-export-jobs")
      *
      * @param Request $request
@@ -1356,11 +1345,9 @@ class DataObjectHelperController extends AdminController
 
         list($fields, $bricks) = $this->extractFieldsAndBricks($request);
 
-//        $csv = $this->getCsvData($request, $list, $fields, $request->get('initial'));
-        $xml = $this->getXmlData($request, $list, $fields, $request->get('initial'));
+        $csv = $this->getCsvData($request, $list, $fields, $request->get('initial'));
         
-//        file_put_contents($this->getCsvFile($fileHandle), $csv, FILE_APPEND);
-        file_put_contents($this->getXmlFile($fileHandle), $xml, FILE_APPEND);
+        file_put_contents($this->getCsvFile($fileHandle), $csv, FILE_APPEND);
 
         return $this->json(['success' => true]);
     }
@@ -1385,28 +1372,6 @@ class DataObjectHelperController extends AdminController
             return $response;
         }
     }
-    
-    /**
-     * @Route("/download-xml-file")
-     *
-     * @param Request $request
-     *
-     * @return BinaryFileResponse
-     */
-    public function downloadXmlFileAction(Request $request)
-    {
-        $fileHandle = \Pimcore\File::getValidFilename($request->get('fileHandle'));
-        $xmlFile = $this->getXmlFile($fileHandle);
-        if (file_exists($xmlFile)) {
-            $response = new BinaryFileResponse($xmlFile);
-            $response->headers->set('Content-Type', 'application/xml');
-            $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, 'export.xml');
-            $response->deleteFileAfterSend(true);
-
-            return $response;
-        }
-    }
-    
 
     /**
      * @param $field
@@ -1526,75 +1491,6 @@ class DataObjectHelperController extends AdminController
         }
         
         return $csv;
-    }
-
-     /**
-     * @param Request $request
-     * @param $list
-     * @param $fields
-     * @param bool $addTitles
-     *
-     * @return string
-     */
-    protected function getXmlData(Request $request, $list, $fields, $addTitles = true)
-    {
-        $requestedLanguage = $this->extractLanguage($request);
-        $mappedFieldnames = [];
-
-        $objects = [];
-        Logger::debug('objects in list:' . count($list->getObjects()));
-        //add inherited values to objects
-        DataObject\AbstractObject::setGetInheritedValues(true);
-
-        $helperDefinitions = DataObject\Service::getHelperDefinitions();
-
-        $container = \Pimcore::getContainer();
-        $localeService = $container->get(Locale::class);
-
-
-        foreach ($list->getObjects() as $object) {
-            if ($fields) {
-                $objectData = [];
-                foreach ($fields as $field) {
-                    if (DataObject\Service::isHelperGridColumnConfig($field) && $validLanguages = DataObject\Service::expandGridColumnForExport($helperDefinitions, $field)) {
-                        $currentLocale = $localeService->getLocale();
-                        $mappedFieldnameBase = $this->mapFieldname($field, $helperDefinitions);
-
-                        foreach ($validLanguages as $validLanguage) {
-                            $localeService->setLocale($validLanguage);
-                            $fieldData = $this->getCsvFieldData($request, $field, $object, $validLanguage, $helperDefinitions);
-                            $localizedFieldKey = $field . '-' . $validLanguage;
-                            if (!isset($mappedFieldnames[$localizedFieldKey])) {
-                                $mappedFieldnames[$localizedFieldKey] = $mappedFieldnameBase . '-' . $validLanguage;
-                            }
-                            $objectData[$localizedFieldKey] = $fieldData;
-                        }
-
-                        $localeService->setLocale($currentLocale);
-                    } else {
-                        $fieldData = $this->getCsvFieldData($request, $field, $object, $requestedLanguage, $helperDefinitions);
-                        if (!isset($mappedFieldnames[$field])) {
-                            $mappedFieldnames[$field] = $this->mapFieldname($field, $helperDefinitions);
-                        }
-                        $objectData[$field] = $fieldData;
-                    }
-                }
-                $objects[] = $objectData;
-            }
-        }
-        //Create XML data
-        $xml = '';
-        if (!empty($objects)) {
-            $xml = new \SimpleXMLElement('<export/>');
-            foreach ($objects as $object) {
-                $track = $xml->addChild('item');
-                foreach ($object as $key => $value ) {
-                    $track->addChild( $key, $value);
-                }
-            }
-            Header('Content-type: text/xml');
-        }
-        return $xml->asXML();
     }
     
     /**

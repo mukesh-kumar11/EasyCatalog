@@ -1,11 +1,11 @@
 <?php 
 
 /** 
-* Generated at: 2018-02-22T14:29:19+01:00
+* Generated at: 2018-02-23T07:35:44+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (16)
-* IP: 203.122.33.130
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -35,6 +35,7 @@ Fields Summary:
 - atable [table]
 - astr_table [structuredTable]
 - afc [fieldcollections]
+- wreewr [input]
 */ 
 
 namespace Pimcore\Model\DataObject;
@@ -68,6 +69,7 @@ namespace Pimcore\Model\DataObject;
 * @method static \Pimcore\Model\DataObject\Sdada\Listing getByAtable ($value, $limit = 0) 
 * @method static \Pimcore\Model\DataObject\Sdada\Listing getByAstr_table ($value, $limit = 0) 
 * @method static \Pimcore\Model\DataObject\Sdada\Listing getByAfc ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\Sdada\Listing getByWreewr ($value, $limit = 0) 
 */
 
 class Sdada extends Concrete {
@@ -100,6 +102,7 @@ public $aclassification_store;
 public $atable;
 public $astr_table;
 public $afc;
+public $wreewr;
 
 
 /**
@@ -704,6 +707,29 @@ public function getAfc () {
 */
 public function setAfc ($afc) {
 	$this->afc = $this->getClass()->getFieldDefinition("afc")->preSetData($this, $afc);
+	return $this;
+}
+
+/**
+* Get wreewr - wreewr
+* @return string
+*/
+public function getWreewr () {
+	$preValue = $this->preGetValue("wreewr"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
+		return $preValue;
+	}
+	$data = $this->wreewr;
+	return $data;
+}
+
+/**
+* Set wreewr - wreewr
+* @param string $wreewr
+* @return \Pimcore\Model\DataObject\Sdada
+*/
+public function setWreewr ($wreewr) {
+	$this->wreewr = $wreewr;
 	return $this;
 }
 

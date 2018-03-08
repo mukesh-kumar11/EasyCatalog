@@ -184,6 +184,7 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
     },
     save: function (task) {
         var filterData = [];
+        var columnData = [];
         for (var i = 0; i < this.searchData.store.filters.length; i++) {
             filterData[i] = {
                 'operator': this.searchData.store.filters.items[i].config.operator,
@@ -191,6 +192,14 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
                 'property': this.searchData.store.filters.items[i].config.property,
                 'type': this.searchData.store.filters.items[i].config.type,
             };
+        }
+        
+        var c =0;
+        for (var key in this.searchData.fieldObject) {
+            if (this.searchData.fieldObject.hasOwnProperty(key)) {
+                columnData[c++] = key;
+                console.log(this.searchData.fieldObject[key]);
+            }
         }
 
         var data = {
@@ -200,6 +209,7 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
             'columnConfig': this.searchData.settings.gridConfigId,
             'exportObjectId': this.currentExportId,
             'folderId': pimcore.plugin.exportstatic.folderId,
+            'gridColumns' : JSON.stringify(columnData)
         };
         Ext.Ajax.request({
             url: '/admin/EasyCatalogExport/export/save-export-object',
@@ -210,7 +220,7 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
                 try {
                     if (response.status == 200) {
                         pimcore.helpers.showNotification(t("success"), t("your_object_has_been_saved"), "success");
-                        this.resetChanges();
+//                        this.resetChanges();
                     } else {
                         pimcore.helpers.showNotification(t("error"), t("error_saving_object"),
                                 "error");

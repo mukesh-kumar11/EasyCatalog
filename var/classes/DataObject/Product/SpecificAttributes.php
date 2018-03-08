@@ -6,8 +6,32 @@ class SpecificAttributes extends \Pimcore\Model\DataObject\Objectbrick {
 
 
 
-protected $brickGetters = array('apparel','approvals','featuresBenefitsBackpacks','featuresBenefitsMats','featuresBenefitsShoes','featuresBenefitsSleepingbags','featuresBenefitsTents','featuresHeadlamps','matsSpecs','outdoor','rucksackSpecs','shoe','shoeDetails','snowsport','specsSleepingbags','tentGroundsheet','tentSpecifications','weight');
+protected $brickGetters = array('TestData','apparel','approvals','featuresBenefitsBackpacks','featuresBenefitsMats','featuresBenefitsShoes','featuresBenefitsSleepingbags','featuresBenefitsTents','featuresHeadlamps','matsSpecs','outdoor','rucksackSpecs','shoe','shoeDetails','snowsport','specsSleepingbags','tentGroundsheet','tentSpecifications','weight');
 
+
+public $TestData = null;
+
+/**
+* @return \Pimcore\Model\DataObject\Objectbrick\Data\TestData
+*/
+public function getTestData() { 
+	if(!$this->TestData && \Pimcore\Model\DataObject\AbstractObject::doGetInheritedValues($this->getObject())) { 
+		$brick = $this->getObject()->getValueFromParent("specificAttributes");
+		if(!empty($brick)) {
+			return $this->getObject()->getValueFromParent("specificAttributes")->getTestData(); 
+		}
+	}
+   return $this->TestData; 
+}
+
+/**
+* @param \Pimcore\Model\DataObject\Objectbrick\Data\TestData $TestData
+* @return void
+*/
+public function setTestData ($TestData) {
+	$this->TestData = $TestData;
+	return $this;;
+}
 
 public $apparel = null;
 
