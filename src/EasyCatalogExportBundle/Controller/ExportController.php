@@ -249,12 +249,17 @@ class ExportController extends FrontendController
             $exportObjectId  = $request->request->get("exportObjectId");
             $xmlUrl = $request->request->get("url");
             $caching  = $request->request->get("cache");
+            $gridColumns  = $request->request->get("gridColumns");
+//            print_r($filters); die;
             //getting objects 
             $myObject =  \Pimcore\Model\DataObject\EasyCatalogExport::getById($exportObjectId);
             if($request->request->get("class_id")) {
                 $myObject->setExportClassId($classId);    
                 $myObject->setFilters($filters);    
                 $myObject->setColumnConfig($columnConfig);
+//                $myObject->setgridColumns($gridColumns);
+//                print_r(serialize($request)); die;
+//                $myObject->setrequestObj("$request");
             } else {
                 $myObject->setXmlUrl($xmlUrl);  
                 if($caching) {
@@ -290,7 +295,7 @@ class ExportController extends FrontendController
         $id = 12568;
         $exportData = \Pimcore\Model\DataObject\EasyCatalogExport::getById($id);
         $exportClassId = $exportData->getExportClassId();
-       
+       print_r($exportClassId);
         
         $exportClassObj = \Pimcore\Model\DataObject\ClassDefinition::getById($exportClassId);
          print_r($exportClassObj);

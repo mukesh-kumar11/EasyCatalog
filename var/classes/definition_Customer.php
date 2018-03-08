@@ -1,10 +1,10 @@
 <?php 
 
 /** 
-* Generated at: 2017-11-17T07:18:18+01:00
-* Inheritance: no
-* Variants: no
-* Changed by: admin (1)
+* Generated at: 2018-03-05T15:01:48+01:00
+* Inheritance: yes
+* Variants: yes
+* Changed by: admin (16)
 * IP: 127.0.0.1
 
 
@@ -31,13 +31,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Customer',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1510899498,
+   'modificationDate' => 1520258508,
    'userOwner' => 10,
-   'userModification' => 1,
+   'userModification' => 16,
    'parentClass' => '\\CustomerManagementFrameworkBundle\\Model\\AbstractCustomer\\DefaultAbstractUserawareCustomer',
    'useTraits' => '',
-   'allowInherit' => false,
-   'allowVariants' => false,
+   'allowInherit' => true,
+   'allowVariants' => true,
    'showVariants' => false,
    'layoutDefinitions' => 
   Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(

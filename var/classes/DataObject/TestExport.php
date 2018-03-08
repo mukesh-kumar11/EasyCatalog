@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2018-02-23T10:11:58+01:00
+* Generated at: 2018-02-27T10:11:24+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (16)
@@ -34,8 +34,9 @@ Fields Summary:
 - aclassification_store [classificationstore]
 - atable [table]
 - astr_table [structuredTable]
-- afc [fieldcollections]
 - sssssss [nonownerobjects]
+- objbiricks [objectbricks]
+- new_fc [fieldcollections]
 */ 
 
 namespace Pimcore\Model\DataObject;
@@ -68,7 +69,8 @@ namespace Pimcore\Model\DataObject;
 * @method static \Pimcore\Model\DataObject\TestExport\Listing getByAclassification_store ($value, $limit = 0) 
 * @method static \Pimcore\Model\DataObject\TestExport\Listing getByAtable ($value, $limit = 0) 
 * @method static \Pimcore\Model\DataObject\TestExport\Listing getByAstr_table ($value, $limit = 0) 
-* @method static \Pimcore\Model\DataObject\TestExport\Listing getByAfc ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\TestExport\Listing getByObjbiricks ($value, $limit = 0) 
+* @method static \Pimcore\Model\DataObject\TestExport\Listing getByNew_fc ($value, $limit = 0) 
 */
 
 class TestExport extends Concrete {
@@ -100,7 +102,8 @@ public $ablock;
 public $aclassification_store;
 public $atable;
 public $astr_table;
-public $afc;
+public $objbiricks;
+public $new_fc;
 
 
 /**
@@ -689,22 +692,50 @@ public function setAstr_table ($astr_table) {
 }
 
 /**
-* @return \Pimcore\Model\DataObject\Fieldcollection
+* @return \Pimcore\Model\DataObject\Objectbrick
 */
-public function getAfc () {
-	$preValue = $this->preGetValue("afc"); 
+public function getObjbiricks () {
+	$data = $this->objbiricks;
+	if(!$data) { 
+		if(\Pimcore\Tool::classExists("\\Pimcore\\Model\\DataObject\\TestExport\\Objbiricks")) { 
+			$data = new \Pimcore\Model\DataObject\TestExport\Objbiricks($this, "objbiricks");
+			$this->objbiricks = $data;
+		} else {
+			return null;
+		}
+	}
+	$preValue = $this->preGetValue("objbiricks"); 
 	if($preValue !== null && !\Pimcore::inAdmin()) { return $preValue;}
-	$data = $this->getClass()->getFieldDefinition("afc")->preGetData($this);
 	 return $data;
 }
 
 /**
-* Set afc - fc
-* @param \Pimcore\Model\DataObject\Fieldcollection $afc
+* Set objbiricks - objbiricks
+* @param \Pimcore\Model\DataObject\Objectbrick $objbiricks
 * @return \Pimcore\Model\DataObject\TestExport
 */
-public function setAfc ($afc) {
-	$this->afc = $this->getClass()->getFieldDefinition("afc")->preSetData($this, $afc);
+public function setObjbiricks ($objbiricks) {
+	$this->objbiricks = $this->getClass()->getFieldDefinition("objbiricks")->preSetData($this, $objbiricks);
+	return $this;
+}
+
+/**
+* @return \Pimcore\Model\DataObject\Fieldcollection
+*/
+public function getNew_fc () {
+	$preValue = $this->preGetValue("new_fc"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { return $preValue;}
+	$data = $this->getClass()->getFieldDefinition("new_fc")->preGetData($this);
+	 return $data;
+}
+
+/**
+* Set new_fc - new fc
+* @param \Pimcore\Model\DataObject\Fieldcollection $new_fc
+* @return \Pimcore\Model\DataObject\TestExport
+*/
+public function setNew_fc ($new_fc) {
+	$this->new_fc = $this->getClass()->getFieldDefinition("new_fc")->preSetData($this, $new_fc);
 	return $this;
 }
 
@@ -732,7 +763,7 @@ public $lazyLoadedFields = array (
   1 => 'aobjects',
   2 => 'amultihrefadv',
   3 => 'amul_href',
-  4 => 'afc',
+  4 => 'new_fc',
 );
 
 }

@@ -149,8 +149,9 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
         }
     },
     save: function (task) {
-
+        console.log(this.searchData.fieldObject);
         var filterData = [];
+        var columnData = [];
         for (var i = 0; i < this.searchData.store.filters.length; i++) {
             filterData[i] = {
                 'operator': this.searchData.store.filters.items[i].config.operator,
@@ -159,13 +160,22 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
                 'type': this.searchData.store.filters.items[i].config.type,
             };
         }
+        
+        var c =0;
+        for (var key in this.searchData.fieldObject) {
+            if (this.searchData.fieldObject.hasOwnProperty(key)) {
+                columnData[c++] = key;
+                console.log(this.searchData.fieldObject[key]);
+            }
+        }
 
         var data = {
             'columns': JSON.stringify(this.searchData.fieldObject),
             'class_id': this.searchData.classId,
             'filters': JSON.stringify(filterData),
             'columnConfig': this.searchData.settings.gridConfigId,
-            'exportObjectId': this.currentExportId
+            'exportObjectId': this.currentExportId,
+            'gridColumns' : JSON.stringify(columnData)
         };
 
         Ext.Ajax.request({
@@ -175,7 +185,6 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
             params: data,
             success: function (response) {
                 try {
-                    console.log(response);
                     if (response.status == 200) {
                         pimcore.helpers.showNotification(t("success"), t("your_object_has_been_saved"), "success");
 //                        this.resetChanges();
@@ -270,7 +279,7 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
         gridHelper.showSubtype = false;
         gridHelper.enableEditor = true;
         gridHelper.limit = itemsPerPage;
-
+        console.log(gridHelper); 
         this.toolbarFilterInfo = new Ext.Button({
             iconCls: "pimcore_icon_filter_condition",
             hidden: true,

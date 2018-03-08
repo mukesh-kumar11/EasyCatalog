@@ -1,9 +1,11 @@
 <?php 
 
 /** 
-* Generated at: 2018-02-21T12:12:18+01:00
-* Inheritance: no
-* Variants: no
+* Generated at: 2018-03-05T15:01:48+01:00
+* Inheritance: yes
+* Variants: yes
+* Changed by: admin (16)
+* IP: 127.0.0.1
 
 
 Fields Summary: 
@@ -87,6 +89,9 @@ public function getActive () {
 		return $preValue;
 	}
 	$data = $this->active;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues() && $this->getClass()->getFieldDefinition("active")->isEmpty($data)) {
+		return $this->getValueFromParent("active");
+	}
 	return $data;
 }
 
@@ -110,6 +115,9 @@ public function getGender () {
 		return $preValue;
 	}
 	$data = $this->gender;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues() && $this->getClass()->getFieldDefinition("gender")->isEmpty($data)) {
+		return $this->getValueFromParent("gender");
+	}
 	return $data;
 }
 
@@ -133,6 +141,9 @@ public function getFirstname () {
 		return $preValue;
 	}
 	$data = $this->firstname;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues() && $this->getClass()->getFieldDefinition("firstname")->isEmpty($data)) {
+		return $this->getValueFromParent("firstname");
+	}
 	return $data;
 }
 
@@ -156,6 +167,9 @@ public function getLastname () {
 		return $preValue;
 	}
 	$data = $this->lastname;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues() && $this->getClass()->getFieldDefinition("lastname")->isEmpty($data)) {
+		return $this->getValueFromParent("lastname");
+	}
 	return $data;
 }
 
@@ -179,6 +193,9 @@ public function getEmail () {
 		return $preValue;
 	}
 	$data = $this->email;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues() && $this->getClass()->getFieldDefinition("email")->isEmpty($data)) {
+		return $this->getValueFromParent("email");
+	}
 	return $data;
 }
 
@@ -202,6 +219,9 @@ public function getStreet () {
 		return $preValue;
 	}
 	$data = $this->street;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues() && $this->getClass()->getFieldDefinition("street")->isEmpty($data)) {
+		return $this->getValueFromParent("street");
+	}
 	return $data;
 }
 
@@ -225,6 +245,9 @@ public function getZip () {
 		return $preValue;
 	}
 	$data = $this->zip;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues() && $this->getClass()->getFieldDefinition("zip")->isEmpty($data)) {
+		return $this->getValueFromParent("zip");
+	}
 	return $data;
 }
 
@@ -248,6 +271,9 @@ public function getCity () {
 		return $preValue;
 	}
 	$data = $this->city;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues() && $this->getClass()->getFieldDefinition("city")->isEmpty($data)) {
+		return $this->getValueFromParent("city");
+	}
 	return $data;
 }
 
@@ -271,6 +297,9 @@ public function getCountryCode () {
 		return $preValue;
 	}
 	$data = $this->countryCode;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues() && $this->getClass()->getFieldDefinition("countryCode")->isEmpty($data)) {
+		return $this->getValueFromParent("countryCode");
+	}
 	return $data;
 }
 
@@ -294,6 +323,9 @@ public function getPhone () {
 		return $preValue;
 	}
 	$data = $this->phone;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues() && $this->getClass()->getFieldDefinition("phone")->isEmpty($data)) {
+		return $this->getValueFromParent("phone");
+	}
 	return $data;
 }
 
@@ -317,6 +349,9 @@ public function getIdEncoded () {
 		return $preValue;
 	}
 	$data = $this->idEncoded;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues() && $this->getClass()->getFieldDefinition("idEncoded")->isEmpty($data)) {
+		return $this->getValueFromParent("idEncoded");
+	}
 	return $data;
 }
 
@@ -340,6 +375,9 @@ public function getManualSegments () {
 		return $preValue;
 	}
 	$data = $this->getClass()->getFieldDefinition("manualSegments")->preGetData($this);
+	if(\Pimcore\Model\DataObject::doGetInheritedValues() && $this->getClass()->getFieldDefinition("manualSegments")->isEmpty($data)) {
+		return $this->getValueFromParent("manualSegments");
+	}
 	return $data;
 }
 
@@ -363,6 +401,9 @@ public function getCalculatedSegments () {
 		return $preValue;
 	}
 	$data = $this->getClass()->getFieldDefinition("calculatedSegments")->preGetData($this);
+	if(\Pimcore\Model\DataObject::doGetInheritedValues() && $this->getClass()->getFieldDefinition("calculatedSegments")->isEmpty($data)) {
+		return $this->getValueFromParent("calculatedSegments");
+	}
 	return $data;
 }
 
@@ -386,6 +427,9 @@ public function getPassword () {
 		return $preValue;
 	}
 	$data = $this->password;
+	if(\Pimcore\Model\DataObject::doGetInheritedValues() && $this->getClass()->getFieldDefinition("password")->isEmpty($data)) {
+		return $this->getValueFromParent("password");
+	}
 	return $data;
 }
 
@@ -409,6 +453,9 @@ public function getSsoIdentities () {
 		return $preValue;
 	}
 	$data = $this->getClass()->getFieldDefinition("ssoIdentities")->preGetData($this);
+	if(\Pimcore\Model\DataObject::doGetInheritedValues() && $this->getClass()->getFieldDefinition("ssoIdentities")->isEmpty($data)) {
+		return $this->getValueFromParent("ssoIdentities");
+	}
 	return $data;
 }
 

@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2018-02-23T10:11:58+01:00
+* Generated at: 2018-02-27T10:11:24+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (16)
@@ -34,8 +34,9 @@ Fields Summary:
 - aclassification_store [classificationstore]
 - atable [table]
 - astr_table [structuredTable]
-- afc [fieldcollections]
 - sssssss [nonownerobjects]
+- objbiricks [objectbricks]
+- new_fc [fieldcollections]
 */ 
 
 
@@ -43,7 +44,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'testExport',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1519377117,
+   'modificationDate' => 1519722683,
    'userOwner' => 16,
    'userModification' => 16,
    'parentClass' => '',
@@ -10006,36 +10007,6 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'visibleSearch' => false,
           )),
           25 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections::__set_state(array(
-             'fieldtype' => 'fieldcollections',
-             'phpdocType' => '\\Pimcore\\Model\\DataObject\\Fieldcollection',
-             'allowedTypes' => 
-            array (
-            ),
-             'lazyLoading' => true,
-             'maxItems' => '',
-             'disallowAddRemove' => false,
-             'disallowReorder' => false,
-             'collapsed' => false,
-             'collapsible' => false,
-             'name' => 'afc',
-             'title' => 'fc',
-             'tooltip' => '',
-             'mandatory' => false,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'datatype' => 'data',
-             'columnType' => NULL,
-             'queryColumnType' => NULL,
-             'relationType' => false,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => false,
-          )),
-          26 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Nonownerobjects::__set_state(array(
              'ownerClassName' => 'sdada',
              'ownerClassId' => NULL,
@@ -10061,6 +10032,62 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'permissions' => NULL,
              'datatype' => 'data',
              'columnType' => NULL,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+          )),
+          26 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Objectbricks::__set_state(array(
+             'fieldtype' => 'objectbricks',
+             'phpdocType' => '\\Pimcore\\Model\\DataObject\\Objectbrick',
+             'allowedTypes' => 
+            array (
+            ),
+             'maxItems' => 1,
+             'name' => 'objbiricks',
+             'title' => 'objbiricks',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'datatype' => 'data',
+             'columnType' => NULL,
+             'queryColumnType' => NULL,
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+          )),
+          27 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Fieldcollections::__set_state(array(
+             'fieldtype' => 'fieldcollections',
+             'phpdocType' => '\\Pimcore\\Model\\DataObject\\Fieldcollection',
+             'allowedTypes' => 
+            array (
+              0 => 'testfc',
+            ),
+             'lazyLoading' => true,
+             'maxItems' => '',
+             'disallowAddRemove' => false,
+             'disallowReorder' => false,
+             'collapsed' => false,
+             'collapsible' => false,
+             'name' => 'new_fc',
+             'title' => 'new fc',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => NULL,
+             'style' => '',
+             'permissions' => NULL,
+             'datatype' => 'data',
+             'columnType' => NULL,
+             'queryColumnType' => NULL,
+             'relationType' => false,
              'invisible' => false,
              'visibleGridView' => false,
              'visibleSearch' => false,
