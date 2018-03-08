@@ -15,22 +15,28 @@ pimcore.registerNS("pimcore.plugin.exportsearch");
 pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstract, {
     systemColumns: ["id", "fullpath", "type", "subtype", "filename", "classname", "creationDate", "modificationDate"],
     fieldObject: {},
-//    title: t('search_edit'),
+    //title: t('search_edit'),
     title: t('Filter'),
     icon: "pimcore_icon_search",
     onlyDirectChildren: false,
     sortinfo: {},
     initialize: function (object, searchType) {
+        console.log('exportsearch initialized');
+        //this.object.id should be avilable
         this.object = object;
+        //console.log(this.object);
         this.element = object;
         this.searchType = searchType;
         this.noBatchColumns = [];
+        pimcore.plugin.exportstatic.exportsearch.obj = this;
     },
-    getLayout: function (selectedClass, exportFilter, gridColumnConfigId, search, currentExportId) {
-        
+    getLayout: function (selectedClass, exportFilter, gridColumnConfigId, savedFolderId, search, currentExportId) {
+        console.log('exportsearch getLayout');
         if (this.layout) {
             this.layout.removeAll();
         }
+        this.savedFolderId = savedFolderId;
+        this.defaultClass = selectedClass;
 //        if (this.layout == null) {
         // check for classtypes inside of the folder if there is only one type don't display the selection
         var toolbarConfig;
@@ -46,9 +52,8 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
             for (i = 0; i < this.object.data.classes.length; i++) {
                 var klass = this.object.data.classes[i];
                 data.push([klass.id, klass.name, ts(klass.name)]);
-
             }
-
+            console.log(data);
             var classStore = new Ext.data.ArrayStore({
                 data: data,
                 sorters: 'translatedText',
@@ -58,11 +63,32 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
                     {name: 'translatedText', type: 'string'}
                 ]
             });
-
-            if (selectedClass) {
-                this.object.data["selectedClass"] = selectedClass;
+            //AUTO SELECT CLASS
+            var currentLocalClass = selectedClass;
+            if (pimcore.plugin.exportstatic.exportsearch.ifOpenedByFolder) {
+                if (pimcore.plugin.exportstatic.exportsearch.changeClassSelect.selectedClass != '') {
+                    this.object.data["selectedClass"] = pimcore.plugin.exportstatic.exportsearch.changeClassSelect.selectedClass;
+                    console.log('class was chnaged and folder click');
+                } else {
+                    if (selectedClass) {
+                        this.object.data["selectedClass"] = selectedClass;
+                    } else {
+                        this.object.data["selectedClass"] = '';
+                    }
+                    console.log('class was not chnaged and folder click');
+                }
+            } else {
+                console.log('Object click');
+                pimcore.plugin.exportstatic.folderId = '';
+                pimcore.plugin.exportstatic.exportsearch.changeClassSelect.selectedClass = '';
+                if (selectedClass) {
+                    this.object.data["selectedClass"] = selectedClass;
+                } else {
+                    this.object.data["selectedClass"] = '';
+                }
             }
-
+            currentLocalClass = this.object.data["selectedClass"];
+            pimcore.plugin.exportstatic.exportsearch.ifOpenedByFolder = false;
             this.classSelector = new Ext.form.ComboBox({
                 name: "selectClass",
                 listWidth: 'auto',
@@ -79,13 +105,13 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
                     "select": this.changeClassSelect.bind(this)
                 }
             });
-            this.button = new Ext.Button({
-                text: t('save'),
-                iconCls: "pimcore_icon_save_white",
-                cls: "pimcore_save_button",
-                scale: "medium",
-                handler: this.save.bind(this)
-            });
+//            this.button = new Ext.Button({
+//                text: t('save'),
+//                iconCls: "pimcore_icon_save_white",
+//                cls: "pimcore_save_button",
+//                scale: "medium",
+//                handler: this.save.bind(this)
+//            });
 
             if (this.object.data.classes.length > 1) {
                 toolbarConfig = [new Ext.Toolbar.TextItem({
@@ -109,15 +135,24 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
         this.exportFilter = this.filter = exportFilter;
         this.selectedClass = selectedClass;
         this.gridColumnConfigId = gridColumnConfigId;
-        this.layout.on("afterrender", this.setClass.bind(this, selectedClass));
+        this.savedGridColumnConfigId = gridColumnConfigId;
+        //this.gridColumnConfigId = gridColumnConfigId;
+        this.layout.on("afterrender", this.setClass.bind(this, currentLocalClass));
 //            if (this.currentClass) {
 //                this.layout.on("afterrender", this.setClass.bind(this, this.currentClass));
 //            }
 //        }
-
+        //console.log(this.object.tree.getRootNode().lastChild.raw.text);
+        //$('#object_easy_1 span.x-tree-node-text:last').click();
         return this.layout;
     },
     changeClassSelect: function (field, newValue, oldValue) {
+        if (this.defaultClass == newValue.data.id) {
+            this.gridColumnConfigId = this.savedGridColumnConfigId;
+        } else {
+            this.gridColumnConfigId = null;
+        }
+        pimcore.plugin.exportstatic.exportsearch.changeClassSelect.selectedClass = newValue.data.id;
         var selectedClass = newValue.data.id;
         this.setClass(selectedClass);
     },
@@ -125,9 +160,9 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
         this.classId = classId;
         this.settings = {};
         this.getTableDescription(this.exportFilter, this.gridColumnConfigId);
-
     },
     getTableDescription: function () {
+
         if (typeof (this.settings.gridConfigId) == "undefined") {
             this.settings.gridConfigId = this.gridColumnConfigId;
         }
@@ -136,8 +171,7 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
                 url: "/admin/object-helper/grid-get-column-config",
                 params: {
                     id: this.classId,
-                    objectId:
-                            this.object.id,
+                    objectId: this.object.id,
                     gridtype: "grid",
                     gridConfigId: this.settings ? this.settings.gridConfigId : null,
                     searchType: this.searchType
@@ -149,7 +183,6 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
         }
     },
     save: function (task) {
-
         var filterData = [];
         for (var i = 0; i < this.searchData.store.filters.length; i++) {
             filterData[i] = {
@@ -165,9 +198,9 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
             'class_id': this.searchData.classId,
             'filters': JSON.stringify(filterData),
             'columnConfig': this.searchData.settings.gridConfigId,
-            'exportObjectId': this.currentExportId
+            'exportObjectId': this.currentExportId,
+            'folderId': pimcore.plugin.exportstatic.folderId,
         };
-
         Ext.Ajax.request({
             url: '/admin/EasyCatalogExport/export/save-export-object',
             method: "post",
@@ -187,7 +220,6 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
                 }
             }.bind(this)
         });
-
     },
     createGrid: function (fromConfig, response, settings, save) {
 
@@ -196,7 +228,6 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
         var fields = [];
         if (response.responseText) {
             response = Ext.decode(response.responseText);
-
             if (response.pageSize) {
                 itemsPerPage = response.pageSize;
             }
@@ -204,11 +235,9 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
             fields = response.availableFields;
             this.gridLanguage = response.language;
             this.sortinfo = response.sortinfo;
-
             this.settings = response.settings || {};
             this.availableConfigs = response.availableConfigs;
             this.sharedConfigs = response.sharedConfigs;
-
             if (response.onlyDirectChildren) {
                 this.onlyDirectChildren = response.onlyDirectChildren;
             }
@@ -240,23 +269,35 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
             }
         }
         );
-
         var plugins = [this.cellEditing, 'pimcore.gridfilters'];
-
         // get current class
         var classStore = pimcore.globalmanager.get("object_types_store");
         var klass = classStore.getById(this.classId);
-
-        if(this.selectedClass != this.classId) {
+        //console.log('this.classId' + this.classId);
+        //console.log('this.selectedClass' + this.selectedClass);
+        if (this.selectedClass != this.classId) {
             this.exportFilter = '';
-        }else {
+        } else {
             this.exportFilter = this.filter;
         }
-   
+
+        //BHUPI
+        console.log('savedFolderId:' + this.savedFolderId);
+        var staticInstance = new pimcore.plugin.exportstatic();
+        if (staticInstance.self.folderId != '') {
+            folderId = staticInstance.self.folderId;
+        } else if (this.savedFolderId) {
+            folderId = this.savedFolderId;
+        } else {
+            folderId = 1;
+        }
+
+        //console.log('wwwww---'+staticInstance.self.folderId);
         var gridHelper = new pimcore.object.helpers.grid(
                 klass.data.text,
                 fields,
-                "/admin/object/grid-proxy?classId=" + this.classId + "&folderId=" + this.object.id,
+                //"/admin/object/grid-proxy?classId=" + this.classId + "&folderId=" + this.object.id,
+                "/admin/object/grid-proxy?classId=" + this.classId + "&folderId=" + folderId,
                 {
                     language: this.gridLanguage,
                     filter: this.exportFilter, //Added default filter
@@ -264,12 +305,9 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
                 },
                 false
                 );
-   
-   
         gridHelper.showSubtype = false;
         gridHelper.enableEditor = true;
         gridHelper.limit = itemsPerPage;
-
         this.toolbarFilterInfo = new Ext.Button({
             iconCls: "pimcore_icon_filter_condition",
             hidden: true,
@@ -279,7 +317,6 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
                 Ext.MessageBox.alert(t("filter_condition"), button.pimcore_filter_condition);
             }.bind(this)
         });
-
         this.clearFilterButton = new Ext.Button({
             iconCls: "pimcore_icon_clear_filters",
             hidden: true,
@@ -290,40 +327,25 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
                 this.grid.filters.clearFilters();
                 this.toolbarFilterInfo.hide();
                 this.clearFilterButton.hide();
-
                 this.fromClearFilter = true;
                 this.clearFilterButton.setHidden(true);
             }.bind(this)
         });
-
         var hideSaveColumnConfig = !fromConfig;
-
-
-
-
         var propertyVisibility = klass.get("propertyVisibility");
-
         this.store = gridHelper.getStore(this.noBatchColumns);
-
         if (this.sortinfo) {
             this.store.sort(this.sortinfo.field, this.sortinfo.direction);
         }
         this.store.getProxy().setExtraParam("only_direct_children", this.onlyDirectChildren);
         this.store.setPageSize(itemsPerPage);
-
-
         this.languageInfo = new Ext.Toolbar.TextItem({
             text: t("grid_current_language") + ": " + (this.gridLanguage == "default" ? t("default") : pimcore.available_languages[this.gridLanguage])
         });
-
         var gridColumns = gridHelper.getGridColumns();
-
         // add filters
         this.gridfilters = gridHelper.getGridFilters();
-
-
         this.createSqlEditor();
-
         this.checkboxOnlyDirectChildren = new Ext.form.Checkbox({
             name: "onlyDirectChildren",
             style: "margin-bottom: 5px; margin-left: 5px",
@@ -332,17 +354,13 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
             listeners: {
                 "change": function (field, checked) {
                     this.grid.filters.clearFilters();
-
                     this.store.getProxy().setExtraParam("only_direct_children", checked);
-
                     this.onlyDirectChildren = checked;
                     this.pagingtoolbar.moveFirst();
                 }.bind(this)
             }
         });
-
         var hideSaveColumnConfig = !fromConfig || save;
-
         this.saveColumnConfigButton = new Ext.Button({
             tooltip: t('save_column_configuration'),
             iconCls: "pimcore_icon_publish",
@@ -352,7 +370,6 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
                 this.saveConfig(asCopy)
             }.bind(this)
         });
-
         this.columnConfigButton = new Ext.SplitButton({
             text: t('grid_column_config'),
             iconCls: "pimcore_icon_table_col pimcore_icon_overlay_edit",
@@ -361,9 +378,7 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
             }.bind(this),
             menu: []
         });
-
         this.buildColumnConfigMenu();
-
         // grid
         this.grid = Ext.create('Ext.grid.Panel', {
             frame: false,
@@ -405,8 +420,6 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
                             }.bind(this),
                             icon: Ext.MessageBox.WARNING
                         });
-
-
                     }.bind(this)
                 }, "-",
                 this.columnConfigButton,
@@ -419,43 +432,36 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
         this.grid.on("columnresize", function () {
             this.saveColumnConfigButton.show()
         }.bind(this));
-
         this.grid.on("rowcontextmenu", this.onRowContextmenu);
-
         this.grid.on("afterrender", function (grid) {
             this.updateGridHeaderContextMenu(grid);
-                if (this.exportFilter) {
+            if (this.exportFilter) {
                 this.filterUpdateFunction(this.grid, this.toolbarFilterInfo, this.clearFilterButton);
             }
         }.bind(this));
-
         this.grid.on("sortchange", function (ct, column, direction, eOpts) {
             this.sortinfo = {
                 field: column.dataIndex,
                 direction: direction
             };
         }.bind(this));
-
         //Delete the current filter when user is about to apply new filter.
         delete this.grid.getStore().getProxy().getInitialConfig().extraParams.filter;
         // check for filter updates
         this.grid.on("filterchange", function () {
             this.filterUpdateFunction(this.grid, this.toolbarFilterInfo, this.clearFilterButton);
         }.bind(this));
-
         gridHelper.applyGridEvents(this.grid);
         this.pagingtoolbar = pimcore.helpers.grid.buildDefaultPagingToolbar(this.store, {pageSize: itemsPerPage});
-        
         // applying filters on grid -- open
         if (this.exportFilter) {
-            
+
             var appliedFilters = this.exportFilter;
             var columnManager = this.grid.columnManager;
-          
             if (appliedFilters) {
                 appliedFilters = JSON.parse(appliedFilters);
-
                 appliedFilters.forEach(function (appliedFilter) {
+                    console.log(appliedFilter);
                     var column = columnManager.getHeaderByDataIndex(appliedFilter.property);
                     if (column.filter.type == 'numeric') {
                         if (appliedFilter.operator == "lt") {
@@ -470,12 +476,11 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
                     } else if (column.filter.type == 'boolean') {
                         column.filter.setValue(appliedFilter.value);
                         column.filter.defaultValue = appliedFilter.value;
-
                     } else if (column.filter.type == 'list') {
-                        var valueArr = appliedFilter.value.split('|');
+                        //var valueArr = appliedFilter.value.split('|');
+                        var valueArr = appliedFilter.value;
                         column.filter.filter.setValue(valueArr);
                         column.filter.setActive(true);
-
                     } else if (column.filter.type == 'date') {
                         var date = new Date(appliedFilter.value);
                         if (appliedFilter.operator == "eq") {
@@ -495,9 +500,8 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
             }
         } else {
             this.fromClearFilter = false;
-
         }
-        
+
         this.editor = new Ext.Panel({
             layout: "border",
             items: [new Ext.Panel({
@@ -505,13 +509,24 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
                     region: "center",
                     layout: "fit",
                     bbar: this.pagingtoolbar
-                })]
+                })
+            ],
+            buttons: [
+                {
+                    text: 'Save',
+                    iconCls: "pimcore_icon_apply",
+                    region: "north",
+                    cls: "pimcore_save_button",
+                    scale: "small",
+                    border: false,
+                    style: '{margin-right:10px;}',
+                    handler: pimcore.plugin.exportstatic.exportsetting.obj.saveSetting.bind(pimcore.plugin.exportstatic.exportsetting.obj)
+                }
+            ],
         });
-        
         this.layout.removeAll();
         this.layout.add(this.editor);
         this.layout.updateLayout();
-
         if (save) {
             if (this.settings.isShared) {
                 this.settings.gridConfigId = null;
@@ -528,13 +543,11 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
     buildColumnConfigMenu: function () {
         var menu = this.columnConfigButton.getMenu();
         menu.removeAll();
-
         menu.add({
             text: t('save_as'),
             iconCls: "pimcore_icon_save",
             handler: this.saveConfig.bind(this, true)
         });
-
         // menu.add({
         //     text: t('set_as_favourite'),
         //     iconCls: "pimcore_icon_favourite",
@@ -549,15 +562,12 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
             disabled: !this.importConfigId,
             handler: this.deleteGridConfig.bind(this)
         });
-
         menu.add('-');
-
         var disabled = false;
         var text = t('predefined');
         if (!this.settings.gridConfigId) {
             text = "<b>" + text + "</b>";
             disabled = true;
-
         }
 
         menu.add({
@@ -569,7 +579,6 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
             },
             handler: this.switchToGridConfig.bind(this)
         });
-
         if (this.availableConfigs && this.availableConfigs.length > 0) {
             this.addGridConfigMenuItems(menu, this.availableConfigs);
         }
@@ -584,7 +593,6 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
         var menu = new Ext.menu.Menu();
         var data = grid.getStore().getAt(rowIndex);
         var selectedRows = grid.getSelectionModel().getSelection();
-
         if (selectedRows.length <= 1) {
 
             menu.add(new Ext.menu.Item({
@@ -594,7 +602,6 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
                     pimcore.helpers.openObject(data.data.id, "object");
                 }.bind(this, data)
             }));
-
             if (pimcore.elementservice.showLocateInTreeButton("object")) {
                 menu.add(new Ext.menu.Item({
                     text: t('show_in_tree'),
@@ -638,7 +645,6 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
                     }
                 }.bind(this, data)
             }));
-
             menu.add(new Ext.menu.Item({
                 text: t('delete_selected'),
                 iconCls: "pimcore_icon_delete",
@@ -649,7 +655,6 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
                         ids.push(selectedRows[i].data.id);
                     }
                     ids = ids.join(',');
-
                     var options = {
                         "elementType": "object",
                         "id": ids,
@@ -664,14 +669,11 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
                 }.bind(grid, data)
             }));
         }
-
         pimcore.plugin.broker.fireEvent("prepareOnRowContextmenu", menu, this, selectedRows);
-
         e.stopEvent();
         menu.showAt(e.pageX, e.pageY);
     }
 
 
 });
-
 pimcore.plugin.exportsearch.addMethods(pimcore.object.helpers.gridcolumnconfig);

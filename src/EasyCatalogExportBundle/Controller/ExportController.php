@@ -12,9 +12,11 @@ use Pimcore\Model\DataObject;
 use Pimcore\Tool\Admin as AdminTool;
 use phpseclib\Net\SFTP;
 use ZipArchive;
+use Pimcore\Config;
+use Pimcore\Bundle\AdminBundle\Controller\Admin\UserController;
 
-class ExportController extends FrontendController
-{
+class ExportController extends FrontendController {
+
     /**
      * @Route("/export/tree")
      */
@@ -34,7 +36,7 @@ class ExportController extends FrontendController
             return $this->json(["success" => false, 'msg' => $excp->getMessage()]);
         }
     }
-    
+
     /**
      * @Route("/export/add")
      * @param Request $request
@@ -78,12 +80,12 @@ class ExportController extends FrontendController
             );
         } catch (\Exception $excp) {
             return $this->json([
-					"success" => false,
-					'msg' => $excp->getMessage()
+                        "success" => false,
+                        'msg' => $excp->getMessage()
             ]);
         }
     }
-    
+
     /**
      * @Route("/export/get-export-folder-id")
      */
@@ -100,7 +102,7 @@ class ExportController extends FrontendController
             return $this->json(["success" => false, "msg" => "EasyCatalogExport folder not found in objects."]);
         }
     }
-    
+
     /**
      * @Route("/export/copy-info")
      * @param Request $request
@@ -131,7 +133,7 @@ class ExportController extends FrontendController
                     "pastejobs" => $pasteJobs
         ]);
     }
-    
+
     /**
      * @Route("/export/copy")
      * @param Request $request
@@ -166,7 +168,6 @@ class ExportController extends FrontendController
 
         return $this->json(["success" => $success, "message" => $message]);
     }
-    
 
     /**
      * @Route("/export/get-export-detail")
@@ -177,7 +178,7 @@ class ExportController extends FrontendController
         try {
             $id = $request->query->get('id');
             $exportObj = \Pimcore\Model\DataObject\EasyCatalogExport::getById($id);
-            /* get the filters, column configurations, cached*/
+            /* get the filters, column configurations, cached */
             return $this->json([
                         "success" => true,
                         "selectedClass" => $exportObj->getExportClassId(),
@@ -185,6 +186,7 @@ class ExportController extends FrontendController
                         "columnConfigId" => $exportObj->getColumnConfig(),
                         "xmlUrl" => $exportObj->getXmlUrl(),
                         "caching" => $exportObj->getCaching(),
+                        "folderId" => $exportObj->getFolderId(),
             ]);
         } catch (\Exception $excp) {
             return $this->json([
@@ -193,7 +195,7 @@ class ExportController extends FrontendController
             ]);
         }
     }
-    
+
     /**
      * @Route("/export/rename")
      */
@@ -212,9 +214,7 @@ class ExportController extends FrontendController
         }
         return $this->json(["success" => false, 'message' => 'Please add a valid key']);
     }
-    
-    
-    
+
     /**
      * @Route("/export/delete")
      * @param Request $request
@@ -234,31 +234,35 @@ class ExportController extends FrontendController
             ]);
         }
     }
-    
+
     /**
      * @Route("/export/save-export-object")
      * @param Request $request
      */
     public function saveExportObjectAction(Request $request) {
-       
+
         try {
             $columnConfig = $request->request->get("columnConfig");
             $classId = $request->request->get("class_id");
             $filters = $request->request->get("filters");
-            $exportObjectId  = $request->request->get("exportObjectId");
-            $xmlUrl = $request->request->get("url");
-            $caching  = $request->request->get("cache");
+            $exportObjectId = $request->request->get("exportObjectId");
+            //$xmlUrl = $request->request->get("url");
+            $caching = $request->request->get("cache");
+            $folderId = $request->request->get("folderId");
             //getting objects 
-            $myObject =  \Pimcore\Model\DataObject\EasyCatalogExport::getById($exportObjectId);
-            if($request->request->get("class_id")) {
-                $myObject->setExportClassId($classId);    
-                $myObject->setFilters($filters);    
+            $myObject = \Pimcore\Model\DataObject\EasyCatalogExport::getById($exportObjectId);
+            if ($request->request->get("class_id")) {
+                $myObject->setExportClassId($classId);
+                $myObject->setFilters($filters);
                 $myObject->setColumnConfig($columnConfig);
+                if ($folderId) {
+                    $myObject->setFolderId($folderId);
+                }
             } else {
-                $myObject->setXmlUrl($xmlUrl);  
-                if($caching) {
-                    $myObject->setCaching(true);    
-                }else {
+                //$myObject->setXmlUrl($xmlUrl);
+                if ($caching) {
+                    $myObject->setCaching(true);
+                } else {
                     $myObject->setCaching(false);
                 }
             }
@@ -266,15 +270,47 @@ class ExportController extends FrontendController
             $myObject->save();
             return $this->json(['success' => true]);
             return $this->json(array(
-                "filters" => json_decode($filters),
-                "columnConfig" => $columnConfig,
-                "classId" => $classId,
+                        "filters" => json_decode($filters),
+                        "columnConfig" => $columnConfig,
+                        "classId" => $classId,
             ));
         } catch (\Exception $excp) {
             return $this->json([
-                "success" => false,
-                'msg' => $excp->getMessage()
+                        "success" => false,
+                        'msg' => $excp->getMessage()
             ]);
         }
-    }  
+    }
+
+    /**
+     * @Route("/export/get-export-url")
+     * @param Request $request
+     */
+    public function getExportUrlAction(Request $request) {
+        try {
+            $exportObjectId = $request->request->get("exportObjectId");
+            $systemSettings = Config::getSystemConfig();
+            if ($systemSettings['webservice']->get('enabled')) {
+                $accessUrl = 'Webservice is disabled';
+            } else {
+                $userId = \Pimcore\Tool\Admin::getCurrentUser();
+                $user = \Pimcore\Model\User::getById($userId->getId());
+                if (!$user->apiKey) {
+                    $accessUrl = 'Please genrate a API Key';
+                } else {
+                    $accessUrl = \Pimcore\Tool::getHostUrl() . '/easycatalog?id=' . $exportObjectId . '&apikey=' . $user->apiKey;
+                }
+            }
+            return $this->json([
+                        "success" => true,
+                        'accessUrl' => $accessUrl
+            ]);
+        } catch (\Exception $excp) {
+            return $this->json([
+                        "success" => false,
+                        'msg' => $excp->getMessage()
+            ]);
+        }
+    }
+
 }

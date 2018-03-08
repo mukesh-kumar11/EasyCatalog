@@ -26,8 +26,9 @@ pimcore.plugin.exportbutton = Class.create({
         var li = document.createElement("li");
         
         li.setAttribute("id", "pimcore_menu_exportbutton");
-        li.setAttribute("class", "x-btn-icon-el-default-small pimcore_icon_class pimcore_icon_overlay initialized");
         li.setAttribute("data-menu-tooltip", "Easy Catalog Export");
+        li.setAttribute("class", "pimcore_menu_item x-btn-icon-el-default-small pimcore_icon_class pimcore_icon_overlay");
+        
         ulElement.appendChild(li);
 
         pimcore.helpers.initMenuTooltips();
