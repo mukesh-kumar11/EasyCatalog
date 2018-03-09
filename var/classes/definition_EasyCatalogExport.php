@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2018-03-08T14:19:26+01:00
+* Generated at: 2018-03-09T13:14:16+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (16)
@@ -23,7 +23,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'EasyCatalogExport',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1520515166,
+   'modificationDate' => 1520597655,
    'userOwner' => 0,
    'userModification' => 16,
    'parentClass' => '',

@@ -364,49 +364,50 @@ class ExportController extends FrontendController {
         }else{
             $userName = 'Unknown (API-KEY: '.$apiKey.')';
         }
+        $xml = new \SimpleXMLElement('<export/>');
+        Header('Content-type: text/xml');
         if (!$id) {
-            
             EasyCatalogLogger::log()->error('User ' . $userName . ' tried to access export with no id');
-            $xml = new \SimpleXMLElement('<export/>');
             $xml->addChild('responseCode', '404');
-            $xml->addChild('responseMessage', 'Id not found');
-            Header('Content-type: text/xml');
+            $xml->addChild('responseMessage', 'Export id not found');
             echo $xml->asXML();
             die;
-            //return false;
-            die('User ' . $userName . ' tried to access export with no id');
-            throw new \Exception("id is not passed/empty.");
         } elseif (!$apiKey) {
             EasyCatalogLogger::log()->error('User ' . $userName . ' tried to access export with no API-KEY');
-            //return false;
-            die('User ' . $userName . ' tried to access export with no API-KEY');
-            throw new \Exception("Couldn't get API key for user.");
+            $xml->addChild('responseCode', '403');
+            $xml->addChild('responseMessage', 'API-KEY not found');
+            echo $xml->asXML();
+            die;
         } elseif (!$systemSettings['webservice']->get('enabled')) {
             EasyCatalogLogger::log()->error('User ' . $userName . ' tried to access export while Webservice was disabled.');
-            //return false;
-            die('User ' . $userName . ' tried to access export while Webservice was disabled.');
-            throw new \Exception('Webservice is disabled.');
+            $xml->addChild('responseCode', '403');
+            $xml->addChild('responseMessage', 'Webservice disabled');
+            echo $xml->asXML();
+            die;
         }
         if ($user) {
             $userPermissions = $user->getPermissions();
             if(!in_array('plugin_easycatalog_export', $userPermissions)){
                 //USER WITH NOT PROPER PERMISSION
                 EasyCatalogLogger::log()->error('User ' . $userName . ' tried to access export without proper access rights.');
-                die('User ' . $userName . ' tried to access export without access rights.');
-                //return false;
+                $xml->addChild('responseCode', '403');
+                $xml->addChild('responseMessage', 'Permission denied');
+                echo $xml->asXML();
+                die;
             }
         } else {
             //API KEY IS NOT VALID
             EasyCatalogLogger::log()->error('User ' . $userName . ' tried to access export with invalid API-KEY.');
-            die('User ' . $userName . ' tried to access export with invalid API-KEY.');
-            //return false;
+            $xml->addChild('responseCode', '403');
+            $xml->addChild('responseMessage', 'Invalid API-KEY');
+            echo $xml->asXML();
+            die;
         }
-        
 
         $exportObjData = DataObject\EasyCatalogExport::getById($id);
         if ($exportObjData) {
             EasyCatalogLogger::log()->error('User ' . $userName . ' access export data for '. $exportObjData->getKey());
-//            die('User ' . $userName . ' access export data for '. $exportObjData->getKey());
+
             if ($exportObjData->getCaching()) {
                 header('Content-type: application/xml');
                 $xmlFile = file_get_contents(PIMCORE_SYSTEM_TEMP_DIRECTORY . "/" . $id . ".xml");
