@@ -40,7 +40,7 @@ use Pimcore\Model\DataObject;
 use Pimcore\Model\Element;
 
 /**
- * @Route("/object")
+ * @Route("/admin/EasyCatalogExport/object")
  */
 class DataObjectController extends \Pimcore\Bundle\AdminBundle\Controller\Admin\ElementControllerBase {
 
@@ -52,7 +52,6 @@ class DataObjectController extends \Pimcore\Bundle\AdminBundle\Controller\Admin\
      * @return JsonResponse
      */
     public function getFolderAction(Request $request) {
-       // die('ALL GOOD');
 //        // check for lock
 //        if (Element\Editlock::isLocked($request->get('id'), 'object')) {
 //            return $this->json([
@@ -103,15 +102,13 @@ class DataObjectController extends \Pimcore\Bundle\AdminBundle\Controller\Admin\
             return $this->json(['success' => false, 'message' => 'missing_permission']);
         }
     }
-    
-    
+
     /**
      * @param $classes
      *
      * @return array
      */
-    protected function prepareChildClasses($classes)
-    {
+    protected function prepareChildClasses($classes) {
         $reduced = [];
         foreach ($classes as $class) {
             $reduced[] = [

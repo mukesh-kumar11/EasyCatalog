@@ -19,7 +19,7 @@ use Pimcore\Model\User;
 class ExportController extends FrontendController {
 
     /**
-     * @Route("/export/tree")
+     * @Route("/admin/EasyCatalogExport/export/tree")
      */
     public function treeAction() {
         try {
@@ -40,7 +40,7 @@ class ExportController extends FrontendController {
     }
 
     /**
-     * @Route("/export/add")
+     * @Route("/admin/EasyCatalogExport/export/add")
      * @param Request $request
      */
     public function addAction(Request $request) {
@@ -89,7 +89,7 @@ class ExportController extends FrontendController {
     }
 
     /**
-     * @Route("/export/get-export-folder-id")
+     * @Route("/admin/EasyCatalogExport/export/get-export-folder-id")
      */
     public function getExportFolderIdAction() {
         $folderName = "EasyCatalogExport";
@@ -105,7 +105,7 @@ class ExportController extends FrontendController {
     }
 
     /**
-     * @Route("/export/copy-info")
+     * @Route("/admin/EasyCatalogExport/export/copy-info")
      * @param Request $request
      */
     public function copyInfoAction(Request $request) {
@@ -136,7 +136,7 @@ class ExportController extends FrontendController {
     }
 
     /**
-     * @Route("/export/copy")
+     * @Route("/admin/EasyCatalogExport/export/copy")
      * @param Request $request
      */
     public function copyAction(Request $request) {
@@ -171,7 +171,7 @@ class ExportController extends FrontendController {
     }
 
     /**
-     * @Route("/export/get-export-detail")
+     * @Route("/admin/EasyCatalogExport/export/get-export-detail")
      * @param Request $request
      * @return type
      */
@@ -198,7 +198,7 @@ class ExportController extends FrontendController {
     }
 
     /**
-     * @Route("/export/rename")
+     * @Route("/admin/EasyCatalogExport/export/rename")
      */
     public function renameAction(Request $request) {
         $object = \Pimcore\Model\DataObject::getById($request->request->get("id"));
@@ -220,7 +220,7 @@ class ExportController extends FrontendController {
     }
 
     /**
-     * @Route("/export/delete")
+     * @Route("/admin/EasyCatalogExport/export/delete")
      * @param Request $request
      */
     public function deleteAction(Request $request) {
@@ -243,7 +243,7 @@ class ExportController extends FrontendController {
     }
 
     /**
-     * @Route("/export/save-export-object")
+     * @Route("/admin/EasyCatalogExport/export/save-export-object")
      * @param Request $request
      */
     public function saveExportObjectAction(Request $request) {
@@ -297,7 +297,7 @@ class ExportController extends FrontendController {
     }
 
     /**
-     * @Route("/export/get-export-url")
+     * @Route("/admin/EasyCatalogExport/export/get-export-url")
      * @param Request $request
      */
     public function getExportUrlAction(Request $request) {
@@ -305,14 +305,14 @@ class ExportController extends FrontendController {
             $exportObjectId = $request->query->get("id");
             $systemSettings = Config::getSystemConfig();
             if (!$systemSettings['webservice']->get('enabled')) {
-                $accessUrl = 'Enable webservice';
+                $accessUrl = 'Webservice is disabled.';
             } else {
                 $userId = \Pimcore\Tool\Admin::getCurrentUser();
                 $user = User::getById($userId->getId());
                 if (!$user->apiKey) {
                     $accessUrl = "Couldn't get API key for user.";
                 } else {
-                    $accessUrl = \Pimcore\Tool::getHostUrl() . '/admin/EasyCatalogExport/export/get-xml-export?id=' . $exportObjectId . '&apikey=' . $user->apiKey;
+                    $accessUrl = \Pimcore\Tool::getHostUrl() . '/easy-catalog-export?id=' . $exportObjectId . '&apikey=' . $user->apiKey;
                 }
             }
             return $this->json([
@@ -352,7 +352,7 @@ class ExportController extends FrontendController {
     }
 
     /**
-     * @Route("/export/get-xml-export")
+     * @Route("/easy-catalog-export")
      * @param Request $request
      */
     public function getXmlExportAction(Request $request) {
