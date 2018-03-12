@@ -34,7 +34,6 @@ pimcore.plugin.exportbutton = Class.create({
         pimcore.helpers.initMenuTooltips();
         Ext.get("pimcore_menu_exportbutton").on("click", function (e, el) {
             var options = {};
-            
             var easyCatalogTab = Ext.get("object_easy_1");
             if(easyCatalogTab){
                 var tabPanel = Ext.getCmp("pimcore_panel_tabs");

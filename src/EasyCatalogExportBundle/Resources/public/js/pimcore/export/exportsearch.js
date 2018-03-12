@@ -21,20 +21,17 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
     onlyDirectChildren: false,
     sortinfo: {},
     initialize: function (object, searchType) {
-        console.log('exportsearch initialized');
-        //this.object.id should be avilable
         this.object = object;
-        //console.log(this.object);
         this.element = object;
         this.searchType = searchType;
         this.noBatchColumns = [];
         pimcore.plugin.exportstatic.exportsearch.obj = this;
     },
     getLayout: function (selectedClass, exportFilter, gridColumnConfigId, savedFolderId, search, currentExportId) {
-        console.log('exportsearch getLayout');
-        if (this.layout) {
-            this.layout.removeAll();
-        }
+//        if (this.layout) {
+//            //this.layout.destroy();
+//            //this.layout.removeAll();
+//        }
         this.savedFolderId = savedFolderId;
         this.defaultClass = selectedClass;
 //        if (this.layout == null) {
@@ -53,7 +50,6 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
                 var klass = this.object.data.classes[i];
                 data.push([klass.id, klass.name, ts(klass.name)]);
             }
-            console.log(data);
             var classStore = new Ext.data.ArrayStore({
                 data: data,
                 sorters: 'translatedText',
@@ -68,17 +64,17 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
             if (pimcore.plugin.exportstatic.exportsearch.ifOpenedByFolder) {
                 if (pimcore.plugin.exportstatic.exportsearch.changeClassSelect.selectedClass != '') {
                     this.object.data["selectedClass"] = pimcore.plugin.exportstatic.exportsearch.changeClassSelect.selectedClass;
-                    console.log('class was chnaged and folder click');
+                    
                 } else {
                     if (selectedClass) {
                         this.object.data["selectedClass"] = selectedClass;
                     } else {
                         this.object.data["selectedClass"] = '';
                     }
-                    console.log('class was not chnaged and folder click');
+                    
                 }
             } else {
-                console.log('Object click');
+                
                 pimcore.plugin.exportstatic.folderId = '';
                 pimcore.plugin.exportstatic.exportsearch.changeClassSelect.selectedClass = '';
                 if (selectedClass) {
@@ -105,13 +101,6 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
                     "select": this.changeClassSelect.bind(this)
                 }
             });
-//            this.button = new Ext.Button({
-//                text: t('save'),
-//                iconCls: "pimcore_icon_save_white",
-//                cls: "pimcore_save_button",
-//                scale: "medium",
-//                handler: this.save.bind(this)
-//            });
 
             if (this.object.data.classes.length > 1) {
                 toolbarConfig = [new Ext.Toolbar.TextItem({
@@ -138,12 +127,6 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
         this.savedGridColumnConfigId = gridColumnConfigId;
         //this.gridColumnConfigId = gridColumnConfigId;
         this.layout.on("afterrender", this.setClass.bind(this, currentLocalClass));
-//            if (this.currentClass) {
-//                this.layout.on("afterrender", this.setClass.bind(this, this.currentClass));
-//            }
-//        }
-        //console.log(this.object.tree.getRootNode().lastChild.raw.text);
-        //$('#object_easy_1 span.x-tree-node-text:last').click();
         return this.layout;
     },
     changeClassSelect: function (field, newValue, oldValue) {
@@ -182,6 +165,7 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
             return false;
         }
     },
+    
     save: function (task) {
         var filterData = [];
         var columnData = [];
@@ -198,7 +182,6 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
         for (var key in this.searchData.fieldObject) {
             if (this.searchData.fieldObject.hasOwnProperty(key)) {
                 columnData[c++] = key;
-                console.log(this.searchData.fieldObject[key]);
             }
         }
 
@@ -231,8 +214,8 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
             }.bind(this)
         });
     },
+    
     createGrid: function (fromConfig, response, settings, save) {
-
         this.fromClearFilter = false;
         var itemsPerPage = pimcore.helpers.grid.getDefaultPageSize(-1);
         var fields = [];
@@ -283,16 +266,12 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
         // get current class
         var classStore = pimcore.globalmanager.get("object_types_store");
         var klass = classStore.getById(this.classId);
-        //console.log('this.classId' + this.classId);
-        //console.log('this.selectedClass' + this.selectedClass);
         if (this.selectedClass != this.classId) {
             this.exportFilter = '';
         } else {
             this.exportFilter = this.filter;
         }
 
-        //BHUPI
-        console.log('savedFolderId:' + this.savedFolderId);
         var staticInstance = new pimcore.plugin.exportstatic();
         if (staticInstance.self.folderId != '') {
             folderId = staticInstance.self.folderId;
@@ -302,11 +281,9 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
             folderId = 1;
         }
 
-        //console.log('wwwww---'+staticInstance.self.folderId);
         var gridHelper = new pimcore.object.helpers.grid(
                 klass.data.text,
                 fields,
-                //"/admin/object/grid-proxy?classId=" + this.classId + "&folderId=" + this.object.id,
                 "/admin/object/grid-proxy?classId=" + this.classId + "&folderId=" + folderId,
                 {
                     language: this.gridLanguage,
@@ -407,34 +384,38 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
                 xtype: 'patchedgridview'
             },
             cls: 'pimcore_object_grid_panel',
-            tbar: [this.languageInfo, "-", this.toolbarFilterInfo, this.clearFilterButton, "->", this.checkboxOnlyDirectChildren, "-", this.sqlEditor, this.sqlButton, "-", {
-                    text: t("search_and_move"),
-                    iconCls: "pimcore_icon_search pimcore_icon_overlay_go",
-                    handler: pimcore.helpers.searchAndMove.bind(this, this.object.id,
-                            function () {
-                                this.store.reload();
-                            }.bind(this), "object")
-                }, "-", {
-                    text: t("export_csv"),
-                    iconCls: "pimcore_icon_export",
-                    handler: function () {
-
-                        Ext.MessageBox.show({
-                            title: t('warning'),
-                            msg: t('csv_object_export_warning'),
-                            buttons: Ext.Msg.OKCANCEL,
-                            fn: function (btn) {
-                                if (btn == 'ok') {
-                                    this.exportPrepare();
-                                }
-                            }.bind(this),
-                            icon: Ext.MessageBox.WARNING
-                        });
-                    }.bind(this)
-                }, "-",
+            tbar: [this.languageInfo, "-", this.toolbarFilterInfo, this.clearFilterButton, "->",
                 this.columnConfigButton,
                 this.saveColumnConfigButton
             ]
+//            tbar: [this.languageInfo, "-", this.toolbarFilterInfo, this.clearFilterButton, "->", this.checkboxOnlyDirectChildren, "-", this.sqlEditor, this.sqlButton, "-", {
+//                    text: t("search_and_move"),
+//                    iconCls: "pimcore_icon_search pimcore_icon_overlay_go",
+//                    handler: pimcore.helpers.searchAndMove.bind(this, this.object.id,
+//                            function () {
+//                                this.store.reload();
+//                            }.bind(this), "object")
+//                }, "-", {
+//                    text: t("export_csv"),
+//                    iconCls: "pimcore_icon_export",
+//                    handler: function () {
+//
+//                        Ext.MessageBox.show({
+//                            title: t('warning'),
+//                            msg: t('csv_object_export_warning'),
+//                            buttons: Ext.Msg.OKCANCEL,
+//                            fn: function (btn) {
+//                                if (btn == 'ok') {
+//                                    this.exportPrepare();
+//                                }
+//                            }.bind(this),
+//                            icon: Ext.MessageBox.WARNING
+//                        });
+//                    }.bind(this)
+//                }, "-",
+//                this.columnConfigButton,
+//                this.saveColumnConfigButton
+//            ]
         });
         this.grid.on("columnmove", function () {
             this.saveColumnConfigButton.show()
@@ -471,7 +452,6 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
             if (appliedFilters) {
                 appliedFilters = JSON.parse(appliedFilters);
                 appliedFilters.forEach(function (appliedFilter) {
-                    console.log(appliedFilter);
                     var column = columnManager.getHeaderByDataIndex(appliedFilter.property);
                     if (column.filter.type == 'numeric') {
                         if (appliedFilter.operator == "lt") {
@@ -544,6 +524,7 @@ pimcore.plugin.exportsearch = Class.create(pimcore.object.helpers.gridTabAbstrac
             this.saveConfig(false);
         }
     },
+    
     getGridConfig: function ($super) {
         var config = $super();
         config.onlyDirectChildren = this.onlyDirectChildren;

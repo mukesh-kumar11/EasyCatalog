@@ -9,45 +9,32 @@ pimcore.registerNS("pimcore.plugin.exportscreen");
 pimcore.plugin.exportscreen = Class.create(pimcore.object.abstract, {
     type: "folder",
     initialize: function (id, options) {
-
         this.options = options;
         this.id = intval(id);
         this.addLoadingPanel();
         pimcore.plugin.broker.fireEvent("preOpenObject", this, "folder");
         this.getData();
-        console.log('ssss');
         pimcore.plugin.exportstatic.exportscreen.obj = this;
-        //staticInstance.self.exportscreen.obj = this;
-        //console.log(staticInstance.self.exportscreen.obj);
-        //console.log(this);
     },
+
     init: function () {
-        console.log('exportscreen initialized');
         var user = pimcore.globalmanager.get("user");
         this.search = new pimcore.plugin.exportsearch(this, "folder");
         this.setting = new pimcore.plugin.exportsetting(this, "folder");
         if (this.isAllowed("properties")) {
             this.properties = new pimcore.element.properties(this, "object");
         }
-
         if (user.isAllowed("notes_events")) {
             this.notes = new pimcore.element.notes(this, "object");
         }
-
         this.dependencies = new pimcore.element.dependencies(this, "object");
         this.tagAssignment = new pimcore.element.tag.assignment(this, "object");
     },
+
     getData: function () {
         var options = this.options || {};
-        //   var staticInstance = new pimcore.plugin.exportstatic();
-//        if (staticInstance.self.folderId != '') {
-//            var folderId = staticInstance.self.folderId;
-//        } else {
-//            var folderId = this.id;
-//        }
-//        console.log(folderId+'---');
         Ext.Ajax.request({
-            url: "/admin/object/get-folder",
+            url: "/admin/EasyCatalogExport/object/get-folder",
             params: {id: this.id},
             ignoreErrors: options.ignoreNotFoundError,
             success: this.getDataComplete.bind(this),
@@ -62,7 +49,6 @@ pimcore.plugin.exportscreen = Class.create(pimcore.object.abstract, {
     },
     getDataComplete: function (response) {
         try {
-            console.log(response);
             this.data = Ext.decode(response.responseText);
             if (typeof this.data.editlock == "object") {
                 pimcore.helpers.lockManager(this.id, "object", "folder", this.data);
@@ -125,7 +111,6 @@ pimcore.plugin.exportscreen = Class.create(pimcore.object.abstract, {
         return this.tree;
     },
     addField: function () {
-        console.log('ExportScreen: addField');
         Ext.MessageBox.prompt(
                 'EasyCatalogExport',
                 'Please insert the name of new Easy Catalog Export',
@@ -189,8 +174,9 @@ pimcore.plugin.exportscreen = Class.create(pimcore.object.abstract, {
     },
     // Opens Export Object 
     onTreeNodeClick: function (tree, record, item, index, e, eOpts) {
+        var extpanelPanel = Ext.getCmp("object_easy_1");
+        extpanelPanel.remove(this.tabbar, 'destroy');
         pimcore.plugin.exportstatic.IsLastCreated = false;
-        console.log('ExportScreen: onTreeNodeClick');
         var tree = Ext.getCmp("pimcore_panel_tree_objects");
         this.currentExportId = record.data.id;
         var staticInstance = new pimcore.plugin.exportstatic();
@@ -198,7 +184,6 @@ pimcore.plugin.exportscreen = Class.create(pimcore.object.abstract, {
         staticInstance.self.exportscreen.onTreeNodeClick.tree = tree;
         staticInstance.self.exportscreen.onTreeNodeClick.record = record;
         staticInstance.self.exportscreen.onTreeNodeClick.item = item;
-        console.log(item.id);
         staticInstance.self.exportscreen.onTreeNodeClick.index = index;
         staticInstance.self.exportscreen.onTreeNodeClick.e = e;
         staticInstance.self.exportscreen.onTreeNodeClick.eOpts = eOpts;
@@ -214,11 +199,11 @@ pimcore.plugin.exportscreen = Class.create(pimcore.object.abstract, {
             iconCls: "pimcore_icon_delete",
             handler: this.deleteField.bind(this, tree, record)
         }));
-        menu.add(new Ext.menu.Item({
-            text: "Duplicate",
-            iconCls: "pimcore_icon_clone",
-            handler: this.pasteInfo.bind(this, tree, record, "child")
-        }));
+//        menu.add(new Ext.menu.Item({
+//            text: "Duplicate",
+//            iconCls: "pimcore_icon_clone",
+//            handler: this.pasteInfo.bind(this, tree, record, "child")
+//        }));
         menu.add(new Ext.menu.Item({
             text: t('rename'),
             iconCls: "pimcore_icon_key pimcore_icon_overlay_go",
@@ -265,7 +250,6 @@ pimcore.plugin.exportscreen = Class.create(pimcore.object.abstract, {
             url: "/admin/EasyCatalogExport/export/get-export-folder-id",
             success: function (response) {
                 var response = Ext.decode(response.responseText);
-                console.log(response);
                 if (response.success) {
                     targetFolderId = response.exportFolderId;
                     pimcore.helpers.addTreeNodeLoadingIndicator("object", record.data.id);
@@ -378,7 +362,6 @@ pimcore.plugin.exportscreen = Class.create(pimcore.object.abstract, {
     },
     editObjectKeyComplete: function (options, button, value, object) {
         if (button == "ok") {
-
             var record;
             var id = options.id;
             var elementType = options.elementType;
@@ -452,16 +435,8 @@ pimcore.plugin.exportscreen = Class.create(pimcore.object.abstract, {
             success: callback
         });
     },
-    //id easy catalog object id
     // Opens Export configuration
     openConfig: function (id) {
-        //console.log(Ext.getCmp('12611'));
-
-        //this.tree.getRootNode().cascade(function () {
-//        this.tree.getRootNode().childNodes.each(function (child) {
-//            console.log(child);
-//            child.click();
-//        });
         //id is easy catalog object id
         var existingPanel = Ext.getCmp("export_" + id);
 
@@ -473,11 +448,10 @@ pimcore.plugin.exportscreen = Class.create(pimcore.object.abstract, {
         }
 
         // closing left tree panel -- open
-        var comp = Ext.getCmp("pimcore_panel_tree_left");
-        comp.collapse();
+//        var comp = Ext.getCmp("pimcore_panel_tree_left");
+//        comp.collapse();
         // closing left tree panel -- ends
         this.currentExportId = id;
-        console.log('SCREEN => openConfig');
         Ext.Ajax.request({
             url: "/admin/EasyCatalogExport/export/get-export-detail",
             params: {
@@ -485,10 +459,8 @@ pimcore.plugin.exportscreen = Class.create(pimcore.object.abstract, {
             },
             success: function (response) {
                 var data = Ext.decode(response.responseText);
-                console.log(data);
                 if (data.success) {
                     var tab = Ext.getCmp("object_easy_1");
-                    console.log(data.folderId);
                     tab.add(this.getTabPanel(data.selectedClass, data.savedFilter, data.columnConfigId, data.folderId));
                     //tab.add(this.getLayoutToolbar());
                     this.search.classSelector.lastValue = data.selectedClass;
@@ -505,7 +477,6 @@ pimcore.plugin.exportscreen = Class.create(pimcore.object.abstract, {
         });
     },
     addTab: function () {
-
         var tabTitle = this.data.general.o_key;
         if (this.id == 1) {
             tabTitle = "Easy Catalog Export";
@@ -514,7 +485,6 @@ pimcore.plugin.exportscreen = Class.create(pimcore.object.abstract, {
         this.tabPanel = Ext.getCmp("pimcore_panel_tabs");
         //var tabId = "object_easy_" + this.id;
         var tabId = "object_easy_" + this.id;
-        console.log(tabId);
         this.tab = new Ext.Panel({
             id: tabId,
             title: tabTitle,
@@ -574,13 +544,9 @@ pimcore.plugin.exportscreen = Class.create(pimcore.object.abstract, {
 
         // recalculate the layout
         pimcore.layout.refresh();
-        
-//        console.log(this.tree.getRootNode().lastChild.raw.text);
-//        console.log(this.tree.getRootNode());
     },
     activate: function () {
         var tabId = "object_" + this.id;
-        console.log(tabId);
         var tabPanel = Ext.getCmp("pimcore_panel_tabs");
         tabPanel.setActiveItem(tabId);
     },
@@ -618,7 +584,6 @@ pimcore.plugin.exportscreen = Class.create(pimcore.object.abstract, {
         return this.toolbar;
     },
     getTabPanel: function (selectedClass, exportFilter, gridColumnConfigId, folderId) {
-        console.log('savedFolderId:' + folderId);
         var items = [];
         var user = pimcore.globalmanager.get("user");
 
@@ -639,7 +604,7 @@ pimcore.plugin.exportscreen = Class.create(pimcore.object.abstract, {
             items: items,
             activeTab: 0
         });
-
+        
         return this.tabbar;
     },
     getSaveData: function () {
