@@ -369,18 +369,21 @@ class ExportController extends FrontendController {
         $xml = new \SimpleXMLElement('<export/>');
         Header('Content-type: text/xml');
         if (!$id) {
+            http_response_code(404);
             EasyCatalogLogger::log()->error('User ' . $userName . ' tried to access export with no id');
             $xml->addChild('responseCode', '404');
             $xml->addChild('responseMessage', 'Export id not found');
             echo $xml->asXML();
             die;
         } elseif (!$apiKey) {
+            http_response_code(403);
             EasyCatalogLogger::log()->error('User ' . $userName . ' tried to access export with no API-KEY');
             $xml->addChild('responseCode', '403');
             $xml->addChild('responseMessage', 'API-KEY not found');
             echo $xml->asXML();
             die;
         } elseif (!$systemSettings['webservice']->get('enabled')) {
+            http_response_code(403);
             EasyCatalogLogger::log()->error('User ' . $userName . ' tried to access export while Webservice was disabled.');
             $xml->addChild('responseCode', '403');
             $xml->addChild('responseMessage', 'Webservice disabled');
@@ -391,6 +394,7 @@ class ExportController extends FrontendController {
             $userPermissions = $user->getPermissions();
             if(!in_array('plugin_easycatalog_export', $userPermissions)){
                 //USER WITH NOT PROPER PERMISSION
+                http_response_code(403);
                 EasyCatalogLogger::log()->error('User ' . $userName . ' tried to access export without proper access rights.');
                 $xml->addChild('responseCode', '403');
                 $xml->addChild('responseMessage', 'Permission denied');
@@ -399,6 +403,7 @@ class ExportController extends FrontendController {
             }
         } else {
             //API KEY IS NOT VALID
+            http_response_code(403);
             EasyCatalogLogger::log()->error('User ' . $userName . ' tried to access export with invalid API-KEY.');
             $xml->addChild('responseCode', '403');
             $xml->addChild('responseMessage', 'Invalid API-KEY');
@@ -416,6 +421,7 @@ class ExportController extends FrontendController {
                 if($xmlFile) {
                     echo $xmlFile; 
                 }else {
+                    http_response_code(404);
                     $xml = new \SimpleXMLElement('<export/>');
                     $xml->addChild('responseCode', '404');
                     $xml->addChild('responseMessage', 'File not found');
@@ -432,6 +438,7 @@ class ExportController extends FrontendController {
             }
         } else {
             $xml = new \SimpleXMLElement('<export/>');
+            http_response_code(404);
             $xml->addChild('responseCode', '404');
             $xml->addChild('responseMessage', 'Invalid id');
             Header('Content-type: text/xml');
