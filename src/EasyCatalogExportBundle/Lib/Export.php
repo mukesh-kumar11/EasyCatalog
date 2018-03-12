@@ -634,6 +634,7 @@ class Export extends DataObjectHelperController {
                     $objects[] = $objectData;
                 }
             }
+            
             //Create XML data
             $xml = '';
             if (!empty($objects)) {
@@ -645,13 +646,13 @@ class Export extends DataObjectHelperController {
                     foreach ($object as $key => $value) {
                         if (in_array($key, array_keys($configOperator))) {
                             if (is_array($value)) {
-                                $temp = $track->addChild($configOperator[$key]['label']);
+//                                $temp = $track->addChild($configOperator[$key]['label']);
                                 foreach ($value as $val) {
-                                    $temp->addChild($configOperator[$key]['attribute'], $val);
+                                    $track->addChild($configOperator[$key]['label'], $val);
                                 }
                             } else {
-                                $temp = $track->addChild($configOperator[$key]['label']);
-                                $temp->addChild($configOperator[$key]['attribute'], $value);
+//                                $temp = $track->addChild($configOperator[$key]['label']);
+                                $track->addChild($configOperator[$key]['label'], $value);
                             }
                         } else {
                             $track->addChild($fieldsWithKeyLabel[$key], $value);
