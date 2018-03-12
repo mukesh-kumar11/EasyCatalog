@@ -35,7 +35,6 @@ pimcore.plugin.EasyCatalogExportBundle = Class.create(pimcore.plugin.admin, {
                             var staticInstance = new pimcore.plugin.exportstatic();
                             staticInstance.self.folderId = record.data.id;
                             if (staticInstance.self.exportscreen.obj != '') {
-                                console.log(staticInstance.self.exportscreen);
                                 staticInstance.exportscreenOnTreeNodeClick();
                             }
                         }

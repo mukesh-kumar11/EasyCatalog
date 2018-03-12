@@ -25,6 +25,7 @@ class ExportController extends FrontendController {
         try {
             $treeData = [];
             $exportObj = new \Pimcore\Model\DataObject\EasyCatalogExport\Listing();
+            $exportObj->setOrderKey("o_key");
             $exportObj->load();
             $key = 0;
             foreach ($exportObj as $export) {
@@ -146,7 +147,7 @@ class ExportController extends FrontendController {
         $targetId = intval($request->query->get("targetId"));
         $target = \Pimcore\Model\DataObject::getById($targetId);
         $source = \Pimcore\Model\DataObject::getById($sourceId);
-        $user = \Model\User::getById(2);
+        $user = \Pimcore\Model\User::getById(2);
         $objectService = new \Pimcore\Model\DataObject\Service($user);
         if ($source != null) {
             try {
@@ -266,6 +267,7 @@ class ExportController extends FrontendController {
                 if ($folderId) {
                     $myObject->setFolderId($folderId);
                 }
+                $myObject->setXmlFilePath('');
 //                $myObject->setgridColumns($gridColumns);
 //                print_r(serialize($request)); die;
 //                $myObject->setrequestObj("$request");

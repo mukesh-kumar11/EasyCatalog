@@ -16,7 +16,6 @@ pimcore.plugin.exportsetting = Class.create(pimcore.plugin.admin, {
     title: t('Settings'),
     onlyDirectChildren: false,
     initialize: function () {
-        console.log('exportsetting initialized');
         pimcore.plugin.broker.registerPlugin(this);
         pimcore.plugin.exportstatic.exportsetting.obj = this;
     },
@@ -24,10 +23,10 @@ pimcore.plugin.exportsetting = Class.create(pimcore.plugin.admin, {
 
     },
     getLayout: function (currentExportId) {
-        console.log('exportsetting getLayout');
-        if (this.layout) {
-            this.layout.removeAll();
-        }
+//        if (this.layout) {
+//            //this.layout.destroy();
+//            //this.layout.removeAll();
+//        }
 
         //get current exportObjectId
         this.currentExportId = currentExportId;
@@ -36,9 +35,7 @@ pimcore.plugin.exportsetting = Class.create(pimcore.plugin.admin, {
         accessUrl = this.getAccessUrl();
         //if (this.layout == null) {
         var staticInstance = new pimcore.plugin.exportstatic();
-//        console.log('+++++++++');
-//        console.log(staticInstance.self.exportscreen.obj);
-//        console.log('+++++++++');
+
         this.settingForm = new Ext.form.FormPanel({
             items: [
                 {
@@ -46,10 +43,11 @@ pimcore.plugin.exportsetting = Class.create(pimcore.plugin.admin, {
                     name: 'url',
                     fieldLabel: 'URL to access export data:',
                     id: 'UrlId',
+                    width: 800,
                     labelWidth: 200,
                     value: accessUrl,
                     queryMode: 'local',
-                    //readOnly: true,
+                    readOnly: true,
                 },
                 {
                     xtype: 'checkbox',
@@ -57,7 +55,12 @@ pimcore.plugin.exportsetting = Class.create(pimcore.plugin.admin, {
                     id: 'cacheId',
                     labelWidth: 210,
                     value: settingData.caching,
-                    fieldLabel: 'Caching: ',
+                    fieldLabel: 'Caching ',
+                },
+                {
+                    xtype: 'panel',
+                    html: "<br/><b style='font-weight:bold'>Disabled:</b> Create export data on the fly. Server up-to-date data, but can be slow for large exports.<br/><b style='font-weight:bold'>Enabled:</b> Server export data from a pre- generated file. Fast, but does not necessarily contain the most recent data.<br/><br/>If this option is enabled, you have to set up a cronjob to create the export file. See manual for details."
+
                 },
             ],
             buttons: [
