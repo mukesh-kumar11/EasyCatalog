@@ -638,8 +638,8 @@ class Export extends DataObjectHelperController {
             $xml = '';
             if (!empty($objects)) {
                 $xml = new \SimpleXMLElement('<export/>');
-                $xml->addChild('responseCode', '200');
-                $xml->addChild('responseMessage', 'Success');
+//                $xml->addChild('responseCode', '200');
+//                $xml->addChild('responseMessage', 'Success');
                 foreach ($objects as $object) {
                     $track = $xml->addChild('item');
                     foreach ($object as $key => $value) {
