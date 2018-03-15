@@ -311,19 +311,26 @@ class Export extends DataObjectHelperController {
             $fields = [];
             $fieldsWithKeyLabel = [];
             $configOperator = [];
+            //echo '<pre>'; print_r($headerMeta); die;
             foreach ($headerMeta as $key => $value) {
+
                 if ($value['isOperator']) {
-                    foreach ($value['attributes']['childs'] as $label) {
-                        $configOperator[$value['key']]['attribute'] = $label['attribute'];
-                        $string = preg_replace('/[^a-zA-Z0-9_.]/', '_', $value['attributes']['label']);
-                        $configOperator[$value['key']]['label'] = trim(str_replace('__', '_', $string), '_');
-                    }
+                    //print_r($value); die;
+                    $string = preg_replace('/[^a-zA-Z0-9_.]/', '_', $value['attributes']['label']);
+                    $configOperator[$value['key']]['label'] = trim(str_replace('__', '_', $string), '_');
+//                    foreach ($value['attributes']['childs'] as $label) {
+//                        echo '<pre>'; print_r($value['key']); die;
+//                        $configOperator[$value['key']]['attribute'] = $label['attribute'];
+//                        $string = preg_replace('/[^a-zA-Z0-9_.]/', '_', $value['attributes']['label']);
+//                        $configOperator[$value['key']]['label'] = trim(str_replace('__', '_', $string), '_');
+//                    }
                 } else {
                     $string = preg_replace('/[^a-zA-Z0-9_.]/', '_', $value['label']);
                     $fieldsWithKeyLabel[$value['key']] = trim(str_replace('__', '_', $string), '_');
                 }
                 array_push($fields, $value['key']);
             }
+            //echo '<pre>'; print_r($configOperator); die;
             // get list of objects
             $folder = \Pimcore\Model\DataObject::getById($folderId);
             $className = $class->getName();
@@ -404,6 +411,7 @@ class Export extends DataObjectHelperController {
              * @var $list \Pimcore\Model\DataObject\Listing
              */
             $list = new $listClass();
+            $list->setUnpublished(true);
             $list->setObjectTypes(['object', 'folder', 'variant']);
 
             if (!empty($ids)) {
@@ -419,8 +427,12 @@ class Export extends DataObjectHelperController {
             $xml = $this->getXmlData($list, $fields, $objects, $requestedLanguage, $configOperator, $fieldsWithKeyLabel);
 
             if (!$id) {
+                if (!file_exists(PIMCORE_PRIVATE_VAR . '/EasyCatalogExport')) {
+                    mkdir(PIMCORE_PRIVATE_VAR . '/EasyCatalogExport', 0777, true);
+                }
                 file_put_contents($this->getXmlFile($objectId), $xml, LOCK_EX);
-                $export->setXmlFilePath(PIMCORE_SYSTEM_TEMP_DIRECTORY . '/' . $objectId . '.xml');
+                $export->setXmlFilePath(PIMCORE_PRIVATE_VAR . '/EasyCatalogExport/' . $objectId . '.xml');
+                //PIMCORE_PRIVATE_VAR
                 //$export->update(true);
                 $export->save();
             }
@@ -437,7 +449,7 @@ class Export extends DataObjectHelperController {
      * @return string
      */
     private function getXmlFile($objectId) {
-        return PIMCORE_SYSTEM_TEMP_DIRECTORY . '/' . $objectId . '.xml';
+        return PIMCORE_PRIVATE_VAR . '/EasyCatalogExport/' . $objectId . '.xml';
     }
 
     /**
@@ -614,7 +626,7 @@ class Export extends DataObjectHelperController {
      */
     protected function getXmlData($list, $fields, $objects, $requestedLanguage, $configOperator, $fieldsWithKeyLabel) {
         try {
-            $list->setUnpublished(true);
+
             $mappedFieldnames = [];
             $objects = [];
 //        Logger::debug('objects in list:' . count($list->getObjects()));
