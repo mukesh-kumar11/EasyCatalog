@@ -20,7 +20,7 @@ class Export extends DataObjectHelperController {
             } else {
                 // to get all export object
                 $exportData = EasyCatalogExport::getList([
-                            'condition' => 'Caching = 1 AND xmlFilePath = ""'])->load();
+                            'condition' => 'Caching = 1 AND xmlFilePath = ""', 'limit' => 3])->load();
             }
 
             //to get instance language
@@ -34,7 +34,7 @@ class Export extends DataObjectHelperController {
             if (count($exportData) > 0) {
                 foreach ($exportData as $export) {
                     $exportClassId = $export->getExportClassId();
-
+                    $class = '';
                     if ($exportClassId) {
                         $class = \Pimcore\Model\DataObject\ClassDefinition::getById($exportClassId);
                     }
@@ -43,14 +43,22 @@ class Export extends DataObjectHelperController {
                     $context = ['purpose' => 'gridconfig'];
                     if ($class) {
                         $context['class'] = $class;
+                    } else {
+                        $xml = new \SimpleXMLElement('<export/>');
+                        Header('Content-type: text/xml');
+                        echo $xml->asXML();
+                        die;
                     }
-                    $folderId = 1;
+                    $folderId = $export->getFolderId();
+                    if (!$folderId) {
+                        $folderId = 1;
+                    }
                     $objectId = $export->getId();
                     if ($objectId) {
                         $object = \Pimcore\Model\DataObject\AbstractObject::getById($objectId);
                         $context['object'] = $object;
                     }
-  
+
                     if (!$fields && $class) {
                         $fields = $class->getFieldDefinitions();
                     }
@@ -354,6 +362,7 @@ class Export extends DataObjectHelperController {
              * @var $list DataObject\Listing\Concrete
              */
             $list = new $listClass();
+            $list->setUnpublished(true);
             $featureJoins = [];
             $featureFilters = false;
             if ($featureFilters) {
@@ -372,7 +381,7 @@ class Export extends DataObjectHelperController {
                 }
             }
             $list->setCondition(implode(' AND ', $conditionFilters));
-//        $list->setLimit(5);
+//          $list->setLimit(5);
             $list->setOffset($start);
             $list->setOrder($order);
 
@@ -383,7 +392,6 @@ class Export extends DataObjectHelperController {
             \Pimcore\Model\DataObject\Service::addGridFeatureJoins($list, $featureJoins, $class, $featureFilters, $requestedLanguage);
 
             $list->load();
-
             foreach ($list->getObjects() as $object) {
                 $o = $this->rowData($object, $fields, $requestedLanguage);
                 $objects[] = $o;
@@ -397,14 +405,24 @@ class Export extends DataObjectHelperController {
              */
             $list = new $listClass();
             $list->setObjectTypes(['object', 'folder', 'variant']);
-            $list->setCondition('o_id IN (' . implode(',', $ids) . ')');
-            $list->setOrderKey(' FIELD(o_id, ' . implode(',', $ids) . ')', false);
+
+            if (!empty($ids)) {
+                $list->setCondition('o_id IN (' . implode(',', $ids) . ')');
+                $list->setOrderKey(' FIELD(o_id, ' . implode(',', $ids) . ')', false);
+            } else {
+                $xml = new \SimpleXMLElement('<export/>');
+                Header('Content-type: text/xml');
+                echo $xml->asXML();
+                die;
+            }
+
             $xml = $this->getXmlData($list, $fields, $objects, $requestedLanguage, $configOperator, $fieldsWithKeyLabel);
 
             if (!$id) {
                 file_put_contents($this->getXmlFile($objectId), $xml, LOCK_EX);
                 $export->setXmlFilePath(PIMCORE_SYSTEM_TEMP_DIRECTORY . '/' . $objectId . '.xml');
-                $export->update(true);
+                //$export->update(true);
+                $export->save();
             }
             return $xml;
         } catch (Exception $ex) {
@@ -596,6 +614,7 @@ class Export extends DataObjectHelperController {
      */
     protected function getXmlData($list, $fields, $objects, $requestedLanguage, $configOperator, $fieldsWithKeyLabel) {
         try {
+            $list->setUnpublished(true);
             $mappedFieldnames = [];
             $objects = [];
 //        Logger::debug('objects in list:' . count($list->getObjects()));
@@ -634,7 +653,7 @@ class Export extends DataObjectHelperController {
                     $objects[] = $objectData;
                 }
             }
-            
+
             //Create XML data
             $xml = '';
             if (!empty($objects)) {

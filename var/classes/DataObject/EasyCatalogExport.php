@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2018-03-08T15:44:21+01:00
+* Generated at: 2018-03-13T12:26:33+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (16)
@@ -12,7 +12,6 @@ Fields Summary:
 - ExportClassId [input]
 - Filters [textarea]
 - ColumnConfig [input]
-- XmlUrl [input]
 - Caching [checkbox]
 - folderId [input]
 - xmlFilePath [input]
@@ -26,7 +25,6 @@ namespace Pimcore\Model\DataObject;
 * @method static \Pimcore\Model\DataObject\EasyCatalogExport\Listing getByExportClassId ($value, $limit = 0) 
 * @method static \Pimcore\Model\DataObject\EasyCatalogExport\Listing getByFilters ($value, $limit = 0) 
 * @method static \Pimcore\Model\DataObject\EasyCatalogExport\Listing getByColumnConfig ($value, $limit = 0) 
-* @method static \Pimcore\Model\DataObject\EasyCatalogExport\Listing getByXmlUrl ($value, $limit = 0) 
 * @method static \Pimcore\Model\DataObject\EasyCatalogExport\Listing getByCaching ($value, $limit = 0) 
 * @method static \Pimcore\Model\DataObject\EasyCatalogExport\Listing getByFolderId ($value, $limit = 0) 
 * @method static \Pimcore\Model\DataObject\EasyCatalogExport\Listing getByXmlFilePath ($value, $limit = 0) 
@@ -39,7 +37,6 @@ public $o_className = "EasyCatalogExport";
 public $ExportClassId;
 public $Filters;
 public $ColumnConfig;
-public $XmlUrl;
 public $Caching;
 public $folderId;
 public $xmlFilePath;
@@ -121,29 +118,6 @@ public function getColumnConfig () {
 */
 public function setColumnConfig ($ColumnConfig) {
 	$this->ColumnConfig = $ColumnConfig;
-	return $this;
-}
-
-/**
-* Get XmlUrl - Xml Url
-* @return string
-*/
-public function getXmlUrl () {
-	$preValue = $this->preGetValue("XmlUrl"); 
-	if($preValue !== null && !\Pimcore::inAdmin()) { 
-		return $preValue;
-	}
-	$data = $this->XmlUrl;
-	return $data;
-}
-
-/**
-* Set XmlUrl - Xml Url
-* @param string $XmlUrl
-* @return \Pimcore\Model\DataObject\EasyCatalogExport
-*/
-public function setXmlUrl ($XmlUrl) {
-	$this->XmlUrl = $XmlUrl;
 	return $this;
 }
 

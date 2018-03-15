@@ -185,7 +185,7 @@ class ExportController extends FrontendController {
                         "selectedClass" => $exportObj->getExportClassId(),
                         "savedFilter" => $exportObj->getFilters(),
                         "columnConfigId" => $exportObj->getColumnConfig(),
-                        "xmlUrl" => $exportObj->getXmlUrl(),
+                        //"xmlUrl" => $exportObj->getXmlUrl(),
                         "caching" => $exportObj->getCaching(),
                         "folderId" => $exportObj->getFolderId(),
             ]);
@@ -359,12 +359,12 @@ class ExportController extends FrontendController {
         $id = $request->query->get("id");
         $apiKey = $request->query->get("apikey");
         $systemSettings = Config::getSystemConfig();
-        
+
         $user = $this->loadUserForApiKey($apiKey);
-        if($user){
+        if ($user) {
             $userName = $user->getName();
-        }else{
-            $userName = 'Unknown (API-KEY: '.$apiKey.')';
+        } else {
+            $userName = 'Unknown (API-KEY: ' . $apiKey . ')';
         }
         $xml = new \SimpleXMLElement('<export/>');
         Header('Content-type: text/xml');
@@ -392,7 +392,7 @@ class ExportController extends FrontendController {
         }
         if ($user) {
             $userPermissions = $user->getPermissions();
-            if(!in_array('plugin_easycatalog_export', $userPermissions)){
+            if (!in_array('plugin_easycatalog_export', $userPermissions)) {
                 //USER WITH NOT PROPER PERMISSION
                 http_response_code(403);
                 EasyCatalogLogger::log()->error('User ' . $userName . ' tried to access export without proper access rights.');
@@ -410,17 +410,24 @@ class ExportController extends FrontendController {
             echo $xml->asXML();
             die;
         }
-
         $exportObjData = DataObject\EasyCatalogExport::getById($id);
         if ($exportObjData) {
-            EasyCatalogLogger::log()->error('User ' . $userName . ' access export data for '. $exportObjData->getKey());
-
+            EasyCatalogLogger::log()->error('User ' . $userName . ' access export data for ' . $exportObjData->getKey());
             if ($exportObjData->getCaching()) {
                 header('Content-type: application/xml');
-                $xmlFile = file_get_contents(PIMCORE_SYSTEM_TEMP_DIRECTORY . "/" . $id . ".xml");
-                if($xmlFile) {
-                    echo $xmlFile; 
-                }else {
+                if ($exportObjData->getXmlFilePath()) {
+                    $xmlFile = @file_get_contents(PIMCORE_SYSTEM_TEMP_DIRECTORY . "/" . $id . ".xml");
+                    if ($xmlFile) {
+                        echo $xmlFile;
+                    } else {
+                        http_response_code(404);
+                        $xml = new \SimpleXMLElement('<export/>');
+                        $xml->addChild('responseCode', '404');
+                        $xml->addChild('responseMessage', 'File not found');
+                        Header('Content-type: text/xml');
+                        echo $xml->asXML();
+                    }
+                } else {
                     http_response_code(404);
                     $xml = new \SimpleXMLElement('<export/>');
                     $xml->addChild('responseCode', '404');

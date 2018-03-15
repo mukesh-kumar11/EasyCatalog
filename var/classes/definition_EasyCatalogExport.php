@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2018-03-08T15:44:21+01:00
+* Generated at: 2018-03-13T12:26:33+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (16)
@@ -12,7 +12,6 @@ Fields Summary:
 - ExportClassId [input]
 - Filters [textarea]
 - ColumnConfig [input]
-- XmlUrl [input]
 - Caching [checkbox]
 - folderId [input]
 - xmlFilePath [input]
@@ -23,7 +22,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'EasyCatalogExport',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1520520261,
+   'modificationDate' => 1520940393,
    'userOwner' => 0,
    'userModification' => 16,
    'parentClass' => '',
@@ -81,7 +80,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'title' => 'Export Class Id',
              'tooltip' => '',
              'mandatory' => false,
-             'noteditable' => false,
+             'noteditable' => true,
              'index' => false,
              'locked' => false,
              'style' => '',
@@ -104,7 +103,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'title' => 'Filters',
              'tooltip' => '',
              'mandatory' => false,
-             'noteditable' => false,
+             'noteditable' => true,
              'index' => false,
              'locked' => false,
              'style' => '',
@@ -129,7 +128,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'title' => 'Column Configuration',
              'tooltip' => '',
              'mandatory' => false,
-             'noteditable' => false,
+             'noteditable' => true,
              'index' => false,
              'locked' => false,
              'style' => '',
@@ -141,20 +140,17 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'visibleSearch' => false,
           )),
           3 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-             'fieldtype' => 'input',
-             'width' => NULL,
-             'queryColumnType' => 'varchar',
-             'columnType' => 'varchar',
-             'columnLength' => 190,
-             'phpdocType' => 'string',
-             'regex' => '',
-             'unique' => false,
-             'name' => 'XmlUrl',
-             'title' => 'Xml Url',
+          Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+             'fieldtype' => 'checkbox',
+             'defaultValue' => 0,
+             'queryColumnType' => 'tinyint(1)',
+             'columnType' => 'tinyint(1)',
+             'phpdocType' => 'boolean',
+             'name' => 'Caching',
+             'title' => 'Caching',
              'tooltip' => '',
              'mandatory' => false,
-             'noteditable' => false,
+             'noteditable' => true,
              'index' => false,
              'locked' => false,
              'style' => '',
@@ -166,17 +162,20 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'visibleSearch' => false,
           )),
           4 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
-             'fieldtype' => 'checkbox',
-             'defaultValue' => 0,
-             'queryColumnType' => 'tinyint(1)',
-             'columnType' => 'tinyint(1)',
-             'phpdocType' => 'boolean',
-             'name' => 'Caching',
-             'title' => 'Caching',
+          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+             'fieldtype' => 'input',
+             'width' => NULL,
+             'queryColumnType' => 'varchar',
+             'columnType' => 'varchar',
+             'columnLength' => 190,
+             'phpdocType' => 'string',
+             'regex' => '',
+             'unique' => false,
+             'name' => 'folderId',
+             'title' => 'Folder Id',
              'tooltip' => '',
              'mandatory' => false,
-             'noteditable' => false,
+             'noteditable' => true,
              'index' => false,
              'locked' => false,
              'style' => '',
@@ -197,36 +196,11 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'phpdocType' => 'string',
              'regex' => '',
              'unique' => false,
-             'name' => 'folderId',
-             'title' => 'Folder Id',
-             'tooltip' => '',
-             'mandatory' => false,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'datatype' => 'data',
-             'relationType' => false,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => false,
-          )),
-          6 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-             'fieldtype' => 'input',
-             'width' => NULL,
-             'queryColumnType' => 'varchar',
-             'columnType' => 'varchar',
-             'columnLength' => 190,
-             'phpdocType' => 'string',
-             'regex' => '',
-             'unique' => false,
              'name' => 'xmlFilePath',
              'title' => 'Xml File Path',
              'tooltip' => '',
              'mandatory' => false,
-             'noteditable' => false,
+             'noteditable' => true,
              'index' => false,
              'locked' => false,
              'style' => '',
