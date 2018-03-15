@@ -145,6 +145,8 @@ pimcore.plugin.exportscreen = Class.create(pimcore.object.abstract, {
                     } else if (data.conn == false) {
                         Ext.Msg.alert('Error', "EasyCatalogExport already Exists");
                     } else {
+                        var extpanelPanel = Ext.getCmp("object_easy_1");
+                        extpanelPanel.remove(this.tabbar, 'destroy');
                         pimcore.plugin.exportstatic.exportscreen.obj = this;
                         pimcore.plugin.exportstatic.IsLastCreated = true;
                         this.openConfig(data.id);
@@ -604,7 +606,7 @@ pimcore.plugin.exportscreen = Class.create(pimcore.object.abstract, {
             items: items,
             activeTab: 0
         });
-        
+
         return this.tabbar;
     },
     getSaveData: function () {

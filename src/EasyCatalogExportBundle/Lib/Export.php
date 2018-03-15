@@ -74,7 +74,8 @@ class Export extends DataObjectHelperController {
                         $gridConfigName = $savedGridConfig->getName();
                         $gridConfigDescription = $savedGridConfig->getDescription();
                     }
-                    $systemColumns = ['id', 'fullpath', 'published', 'creationDate', 'modificationDate', 'filename', 'classname'];
+                    $systemColumns = ['id', 'fullpath', 'key', 'published', 'creationDate', 'modificationDate', 'filename', 'classname'];
+//                    ['id', 'fullpath', 'key', 'published', 'creationDate', 'modificationDate', 'filename', 'classname'];
 
                     $localizedFields = [];
                     $objectbrickFields = [];
@@ -311,11 +312,9 @@ class Export extends DataObjectHelperController {
             $fields = [];
             $fieldsWithKeyLabel = [];
             $configOperator = [];
-            //echo '<pre>'; print_r($headerMeta); die;
             foreach ($headerMeta as $key => $value) {
 
                 if ($value['isOperator']) {
-                    //print_r($value); die;
                     $string = preg_replace('/[^a-zA-Z0-9_.]/', '_', $value['attributes']['label']);
                     $configOperator[$value['key']]['label'] = trim(str_replace('__', '_', $string), '_');
 //                    foreach ($value['attributes']['childs'] as $label) {
@@ -330,7 +329,6 @@ class Export extends DataObjectHelperController {
                 }
                 array_push($fields, $value['key']);
             }
-            //echo '<pre>'; print_r($configOperator); die;
             // get list of objects
             $folder = \Pimcore\Model\DataObject::getById($folderId);
             $className = $class->getName();
@@ -626,7 +624,6 @@ class Export extends DataObjectHelperController {
      */
     protected function getXmlData($list, $fields, $objects, $requestedLanguage, $configOperator, $fieldsWithKeyLabel) {
         try {
-
             $mappedFieldnames = [];
             $objects = [];
 //        Logger::debug('objects in list:' . count($list->getObjects()));
@@ -665,7 +662,6 @@ class Export extends DataObjectHelperController {
                     $objects[] = $objectData;
                 }
             }
-
             //Create XML data
             $xml = '';
             if (!empty($objects)) {
@@ -673,6 +669,7 @@ class Export extends DataObjectHelperController {
 //                $xml->addChild('responseCode', '200');
 //                $xml->addChild('responseMessage', 'Success');
                 foreach ($objects as $object) {
+
                     $track = $xml->addChild('item');
                     foreach ($object as $key => $value) {
                         if (in_array($key, array_keys($configOperator))) {
@@ -713,6 +710,7 @@ class Export extends DataObjectHelperController {
             $systemFieldMap = [
                 'id' => 'getId',
                 'fullpath' => 'getRealFullPath',
+                'key' => 'getKey',
                 'published' => 'getPublished',
                 'creationDate' => 'getCreationDate',
                 'modificationDate' => 'getModificationDate',
@@ -720,6 +718,9 @@ class Export extends DataObjectHelperController {
                 'classname' => 'getClassname'
             ];
             if (in_array($field, array_keys($systemFieldMap))) {
+                if ($field == 'modificationDate' || $field == 'creationDate') {
+                    return date('Y-m-d H:i:s', $object->{$systemFieldMap[$field]}());
+                }
                 return $object->{$systemFieldMap[$field]}();
             } else {
                 //check if field is standard object field

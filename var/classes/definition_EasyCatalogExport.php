@@ -1,7 +1,7 @@
 <?php 
 
 /** 
-* Generated at: 2018-03-13T12:26:33+01:00
+* Generated at: 2018-03-15T09:04:21+01:00
 * Inheritance: no
 * Variants: no
 * Changed by: admin (16)
@@ -20,13 +20,13 @@ Fields Summary:
 
 return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'EasyCatalogExport',
-   'description' => '',
+   'description' => NULL,
    'creationDate' => 0,
-   'modificationDate' => 1520940393,
+   'modificationDate' => 1521101057,
    'userOwner' => 0,
    'userModification' => 16,
-   'parentClass' => '',
-   'useTraits' => '',
+   'parentClass' => NULL,
+   'useTraits' => NULL,
    'allowInherit' => false,
    'allowVariants' => false,
    'showVariants' => false,
@@ -41,7 +41,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
      'title' => NULL,
      'width' => NULL,
      'height' => NULL,
-     'collapsible' => NULL,
+     'collapsible' => false,
      'collapsed' => NULL,
      'bodyStyle' => NULL,
      'datatype' => 'layout',
@@ -215,13 +215,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'locked' => false,
       )),
     ),
-     'locked' => NULL,
+     'locked' => false,
   )),
-   'icon' => '',
-   'previewUrl' => '',
-   'group' => '',
+   'icon' => NULL,
+   'previewUrl' => NULL,
+   'group' => NULL,
    'showAppLoggerTab' => false,
-   'linkGeneratorReference' => '',
+   'linkGeneratorReference' => NULL,
    'propertyVisibility' => 
   array (
     'grid' => 

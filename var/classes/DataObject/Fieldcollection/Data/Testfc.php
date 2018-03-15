@@ -1,12 +1,13 @@
 <?php 
 
 /** 
-* Generated at: 2018-02-27T10:08:54+01:00
-* IP: 127.0.0.1
+* Generated at: 2018-03-15T08:22:52+01:00
+* IP: 192.168.10.60
 
 
 Fields Summary: 
  - name1 [input]
+ - aaaaaaaaaaa [input]
 */ 
 
 namespace Pimcore\Model\DataObject\Fieldcollection\Data;
@@ -17,6 +18,7 @@ class Testfc extends DataObject\Fieldcollection\Data\AbstractData  {
 
 public $type = "testfc";
 public $name1;
+public $aaaaaaaaaaa;
 
 
 /**
@@ -35,6 +37,25 @@ public function getName1 () {
 */
 public function setName1 ($name1) {
 	$this->name1 = $name1;
+	return $this;
+}
+
+/**
+* Get aaaaaaaaaaa - aaaaaaaaaaa
+* @return string
+*/
+public function getAaaaaaaaaaa () {
+	$data = $this->aaaaaaaaaaa;
+	 return $data;
+}
+
+/**
+* Set aaaaaaaaaaa - aaaaaaaaaaa
+* @param string $aaaaaaaaaaa
+* @return \Pimcore\Model\DataObject\Testfc
+*/
+public function setAaaaaaaaaaa ($aaaaaaaaaaa) {
+	$this->aaaaaaaaaaa = $aaaaaaaaaaa;
 	return $this;
 }
 
