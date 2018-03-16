@@ -268,20 +268,18 @@ class ExportController extends FrontendController {
                     $myObject->setFolderId($folderId);
                 }
                 $myObject->setXmlFilePath('');
-//                $myObject->setgridColumns($gridColumns);
-//                print_r(serialize($request)); die;
-//                $myObject->setrequestObj("$request");
+                $myObject->save();
+                $user = \Pimcore\Tool\Admin::getCurrentUser();
+                EasyCatalogLogger::log()->info('User ' . $user->getName() . ' changed export config ' . $myObject->getKey());
             } else {
-                //$myObject->setXmlUrl($xmlUrl);
                 if ($caching) {
                     $myObject->setCaching(true);
                 } else {
                     $myObject->setCaching(false);
                 }
+                $myObject->save();
             }
-            $myObject->save();
-            $user = \Pimcore\Tool\Admin::getCurrentUser();
-            EasyCatalogLogger::log()->info('User ' . $user->getName() . ' changed export config ' . $myObject->getKey());
+
             return $this->json(['success' => true]);
             return $this->json(array(
                         "filters" => json_decode($filters),
@@ -412,11 +410,11 @@ class ExportController extends FrontendController {
         }
         $exportObjData = DataObject\EasyCatalogExport::getById($id);
         if ($exportObjData) {
-            EasyCatalogLogger::log()->error('User ' . $userName . ' access export data for ' . $exportObjData->getKey());
+            EasyCatalogLogger::log()->info('User ' . $userName . ' access export data for ' . $exportObjData->getKey());
             if ($exportObjData->getCaching()) {
                 header('Content-type: application/xml');
                 if ($exportObjData->getXmlFilePath()) {
-                    $xmlFile = @file_get_contents(PIMCORE_SYSTEM_TEMP_DIRECTORY . "/" . $id . ".xml");
+                    $xmlFile = @file_get_contents(PIMCORE_PRIVATE_VAR . '/EasyCatalogExport/' . $id . ".xml");
                     if ($xmlFile) {
                         echo $xmlFile;
                     } else {
@@ -444,6 +442,7 @@ class ExportController extends FrontendController {
                 exit();
             }
         } else {
+            EasyCatalogLogger::log()->error('User ' . $userName . ' tried to access export with invalid export id.');
             $xml = new \SimpleXMLElement('<export/>');
             http_response_code(404);
             $xml->addChild('responseCode', '404');

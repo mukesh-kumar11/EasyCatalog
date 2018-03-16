@@ -111,10 +111,12 @@ class DataObjectController extends \Pimcore\Bundle\AdminBundle\Controller\Admin\
     protected function prepareChildClasses($classes) {
         $reduced = [];
         foreach ($classes as $class) {
-            $reduced[] = [
-                'id' => $class->getId(),
-                'name' => $class->getName()
-            ];
+            if ($class) {
+                $reduced[] = [
+                    'id' => $class->getId(),
+                    'name' => $class->getName()
+                ];
+            }
         }
 
         return $reduced;

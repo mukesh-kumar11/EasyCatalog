@@ -67,7 +67,6 @@ class Export extends DataObjectHelperController {
                         $savedGridConfig = \Pimcore\Model\GridConfig::getById($configId);
                     }
                     if ($savedGridConfig) {
-
                         $gridConfigId = $savedGridConfig->getId();
                         $gridConfig = $savedGridConfig->getConfig();
                         $gridConfig = json_decode($gridConfig, true);
